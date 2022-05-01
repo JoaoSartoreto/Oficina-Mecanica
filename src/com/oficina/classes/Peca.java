@@ -3,10 +3,10 @@ package com.oficina.classes;
 public class Peca {
     private int codPeca;
     private String descricao;
-    private int preco;
+    private float preco;
     private int qtdeEstoque;
         
-    public Peca (int codPeca, String descricao, int preco, int qtdeEstoque) {
+    public Peca (int codPeca, String descricao, float preco, int qtdeEstoque) {
         this.codPeca = codPeca;
         this.descricao = descricao;
         this.preco = preco;
@@ -21,7 +21,7 @@ public class Peca {
         return descricao;
     }
 
-    public int getPreco() {
+    public float getPreco() {
         return preco;
     }
 
@@ -45,5 +45,41 @@ public class Peca {
         this.qtdeEstoque = qtdeEstoque;
     }
     
+    public void addPeca (int qtdeEstoque, int n) {
+        this.qtdeEstoque = qtdeEstoque + n;
+    }
+    
+    public boolean addPeca (int n) {
+        if (n > 0) {
+            this.qtdeEstoque = this.qtdeEstoque + n;
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+    
+    public boolean subPeca (int n) {
+        if (n <= 0) {
+            return false;
+        }
+        else if (n > this.qtdeEstoque) {
+            return false;
+        }
+        else {
+            this.qtdeEstoque = this.qtdeEstoque - n;
+            return true;
+        }
+    }
+    
+    public String toString() {
+        String saida = "";
+        saida += "Codigo: " + this.codPeca + "\n";
+        saida += "Descricao: " + this.descricao + "\n";
+        saida += "Preco: " + this.preco + "\n";
+        saida += "Estoque: " + this.qtdeEstoque + "\n";
+        return saida;
+    }
     
 }
