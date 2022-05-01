@@ -1,4 +1,4 @@
-package peca;
+package com.oficina.classes;
 
 public class Peca {
     private int codPeca;

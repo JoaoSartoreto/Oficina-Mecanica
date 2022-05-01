@@ -1,4 +1,4 @@
-package cliente;
+package com.oficina.classes;
 
 public class Cliente {
     private String nome;
