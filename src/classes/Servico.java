@@ -7,19 +7,19 @@ import java.util.Locale;
 public class Servico {
     private int codServico;
     private String descricao;
-    private float preco;
+    private double preco;
     private Duration tempoExecucao;
     
-    public Servico(int codServico, String descricao, float preco, long diasExecucao, long horasExecucao, long minutosExecucao, long segundosExecucao){
+    public Servico(int codServico, String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
         this.codServico = codServico;
         this.descricao = descricao;
         this.preco = preco;
         
         // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
         this.tempoExecucao = Duration.ofDays(diasExecucao);
-        this.tempoExecucao.plusHours(horasExecucao);
-        this.tempoExecucao.plusMinutes(minutosExecucao);
-        this.tempoExecucao.plusSeconds(segundosExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
     }
     
     // GETTERS E SETTERS
@@ -40,11 +40,11 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -56,7 +56,7 @@ public class Servico {
         String saida = "";
         saida += tempoExecucao.toDaysPart() + ":";
         saida += tempoExecucao.toHoursPart() + ":";
-        saida += tempoExecucao.toMinutesPart();
+        saida += tempoExecucao.toMinutesPart() + ":";
         saida += tempoExecucao.toSecondsPart();
         return saida;
     }
