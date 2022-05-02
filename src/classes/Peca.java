@@ -1,4 +1,4 @@
-package com.oficina.classes;
+package classes;
 
 public class Peca {
     private int codPeca;
@@ -12,7 +12,9 @@ public class Peca {
         this.preco = preco;
         this.qtdeEstoque = qtdeEstoque;
     }
-
+    
+    // GETTERS E SETTERS
+    
     public int getCodPeca() {
         return codPeca;
     }
@@ -49,6 +51,12 @@ public class Peca {
         this.qtdeEstoque = qtdeEstoque + n;
     }
     
+    // OUTROS MÉTODOS
+    
+    /* 
+    Adiciona uma quantidade de peças somente se for válido.
+    O método devolve um boolean de acordo com o sucesso ou falha da operação.
+    */
     public boolean addPeca (int n) {
         if (n > 0) {
             this.qtdeEstoque = this.qtdeEstoque + n;
@@ -59,7 +67,11 @@ public class Peca {
             return false;
         }
     }
-    
+       
+    /* 
+    Subtrai uma quantidade de peças somente se for válido.
+    O método devolve um boolean de acordo com o sucesso ou falha da operação.
+    */
     public boolean subPeca (int n) {
         if (n <= 0) {
             return false;
@@ -73,6 +85,7 @@ public class Peca {
         }
     }
     
+    @Override
     public String toString() {
         String saida = "";
         saida += "Codigo: " + this.codPeca + "\n";

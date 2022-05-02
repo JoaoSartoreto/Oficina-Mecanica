@@ -1,4 +1,4 @@
-package com.oficina.classes;
+package classes;
 
 public class Cliente {
     private String nome;
@@ -44,7 +44,5 @@ public class Cliente {
     public void setFone(String fone) {
         this.fone = fone;
     }
-    
-    
     
 }
