@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package trabalho1poo;
+package classes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
@@ -35,13 +35,13 @@ public class OrdemServiço {
     }
     
     
-    public void adicionarServico(char tipo, double preço, Serviço serviço)
+    public void adicionarServico(char tipo, double preço, Servico serviço)
     {
         ItemOS itemOS = new ItemOS(tipo,preço,serviço);
         this.itensOS.add(itemOS);
     }
     
-    public boolean adicionarPeca(char tipo, double preço, int qtd, Peça peça)
+    public boolean adicionarPeca(char tipo, double preço, int qtd, Peca peça)
     {
         if(peça.subPeca(qtd))
         {

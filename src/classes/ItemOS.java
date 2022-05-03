@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package trabalho1poo;
+package classes;
 
 import java.util.ArrayList;
 
@@ -14,17 +14,17 @@ class ItemOS {
     private char tipo;
     private double preço;
     private int qtde;
-    private Serviço serviço;
-    private Peça peça; 
+    private Servico serviço;
+    private Peca peça; 
 
-    public ItemOS(char tipo, double preço, int qtde, Peça peça) {
+    public ItemOS(char tipo, double preço, int qtde, Peca peça) {
         this.tipo = tipo;
         this.preço = preço;
         this.qtde = qtde;
         this.peça = peça;
     }
     
-    public ItemOS(char tipo, double preço, Serviço serviço) {
+    public ItemOS(char tipo, double preço, Servico serviço) {
         this.tipo = tipo;
         this.preço = preço;
         this.serviço = serviço;
@@ -74,11 +74,11 @@ class ItemOS {
         this.qtde = qtde;
     }
 
-    public Peça getPeça() {
+    public Peca getPeça() {
         return peça;
     }
 
-    public void setPeça(Peça peça) {
+    public void setPeça(Peca peça) {
         this.peça = peça;
     }
     
