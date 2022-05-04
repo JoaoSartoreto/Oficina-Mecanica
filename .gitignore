@@ -21,6 +21,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/Oficina/nbproject/private/
-/POO1/nbproject/private/
-/build/
+
+# Arquivos de build e locais do NetBeans
+nbproject/private/
+build/

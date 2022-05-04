@@ -1,15 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package classes;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author joovitor
- */
 class ItemOS {
     private char tipo;
     private double preço;
@@ -81,7 +71,5 @@ class ItemOS {
     public void setPeça(Peca peça) {
         this.peça = peça;
     }
-    
-    
-    
+       
 }
