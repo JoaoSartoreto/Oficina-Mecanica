@@ -13,32 +13,38 @@ public class Cliente {
         this.fone = fone;
     }
 
+    // GETTERS E SETTERS
+
+    // nome
     public String getNome() {
         return nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public String getFone() {
-        return fone;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    // cpf
+    public String getCpf() {
+        return cpf;
+    }
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
+    // endereco
+    public String getEndereco() {
+        return endereco;
+    }
+
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    // fone
+    public String getFone() {
+        return fone;
     }
 
     public void setFone(String fone) {

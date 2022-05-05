@@ -1,45 +1,29 @@
 package classes;
 
-class ItemOS {
+public class ItemOS {
     private char tipo;
-    private double preço;
+    private double preco;
     private int qtde;
-    private Servico serviço;
-    private Peca peça; 
+    private Servico servico;
+    private Peca peca; 
 
-    public ItemOS(char tipo, double preço, int qtde, Peca peça) {
+    public ItemOS(char tipo, double preco, int qtde, Peca peca) {
         this.tipo = tipo;
-        this.preço = preço;
+        this.preco = preco;
         this.qtde = qtde;
-        this.peça = peça;
+        this.peca = peca;
     }
     
-    public ItemOS(char tipo, double preço, Servico serviço) {
+    public ItemOS(char tipo, double preco, int qtde, Servico servico) {
         this.tipo = tipo;
-        this.preço = preço;
-        this.serviço = serviço;
+        this.preco = preco;
+        this.qtde = qtde;
+        this.servico = servico;
     }
 
-    public String toString()
-    {
-        String saida ="";
-        
-        if(this.peça!=null)
-        {
-            saida += "Tipo: "+this.tipo+"\n";
-            saida += "Preço: "+this.preço+"\n";
-            saida += "Quantidade: "+this.qtde+"\n";
-            saida += this.peça.toString()+"\n";
-        }
-        else
-        {
-            saida += "Tipo: "+this.tipo+"\n";
-            saida += "Preço: "+this.preço+"\n";
-            saida += this.serviço.toString()+"\n";
-        }
-        return saida;
-    }
+    // GETTERS E SETTERS
 
+    // tipo
     public char getTipo() {
         return tipo;
     }
@@ -48,14 +32,16 @@ class ItemOS {
         this.tipo = tipo;
     }
 
-    public double getPreço() {
-        return preço;
+    // preco
+    public double getPreco() {
+        return preco;
     }
 
-    public void setPreço(double preço) {
-        this.preço = preço;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
+    // qtde
     public int getQtde() {
         return qtde;
     }
@@ -64,12 +50,41 @@ class ItemOS {
         this.qtde = qtde;
     }
 
-    public Peca getPeça() {
-        return peça;
+    // peca
+    public Peca getPeca() {
+        return peca;
     }
 
-    public void setPeça(Peca peça) {
-        this.peça = peça;
+    public void setPeça(Peca peca) {
+        this.peca = peca;
     }
-       
+    
+    // OUTROS MÉTODOS
+
+    public String toString() {
+        String saida ="";
+        
+        saida += "Tipo: "+this.tipo+"\n";
+        saida += "Preço: "+this.preco+"\n";
+        saida += "Quantidade: "+this.qtde+"\n";
+
+        switch (tipo) {
+            case 'P':
+                saida += this.peca.toString()+"\n";
+                break;
+        
+            case 'S':
+                saida += this.servico.toString()+"\n";
+                break;
+        }
+
+        return saida;
+    }
+
+    // Adiciona ao estoque a quantidade que havia sido empregada ao ItemOS
+    public void devolver() {
+        if (tipo == 'P') {
+            peca.adicionarEstoque(this.qtde);
+        }
+    }
 }

@@ -24,6 +24,7 @@ public class Servico {
     
     // GETTERS E SETTERS
     
+    // codServico
     public int getCodServico() {
         return codServico;
     }
@@ -32,6 +33,7 @@ public class Servico {
         this.codServico = codServico;
     }
 
+    // descricao
     public String getDescricao() {
         return descricao;
     }
@@ -40,18 +42,21 @@ public class Servico {
         this.descricao = descricao;
     }
 
+    // preco
     public double getPreco() {
         return preco;
     }
-
+    
     public void setPreco(double preco) {
         this.preco = preco;
     }
 
+    // tempoExecucao
     public Duration getTempoExecucao() {
         return tempoExecucao;
     }
     
+    // Pega as partes do tempo de execucação para formar uma String.
     public String getTempoExecucaoString() {
         String saida = "";
         saida += tempoExecucao.toDaysPart() + ":";

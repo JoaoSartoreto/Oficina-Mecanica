@@ -3,10 +3,10 @@ package classes;
 public class Peca {
     private int codPeca;
     private String descricao;
-    private float preco;
+    private double preco;
     private int qtdeEstoque;
         
-    public Peca (int codPeca, String descricao, float preco, int qtdeEstoque) {
+    public Peca (int codPeca, String descricao, double preco, int qtdeEstoque) {
         this.codPeca = codPeca;
         this.descricao = descricao;
         this.preco = preco;
@@ -15,49 +15,47 @@ public class Peca {
     
     // GETTERS E SETTERS
     
+    // codPeca
     public int getCodPeca() {
         return codPeca;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public float getPreco() {
-        return preco;
-    }
-
-    public int getQtdeEstoque() {
-        return qtdeEstoque;
     }
 
     public void setCodPeca(int codPeca) {
         this.codPeca = codPeca;
     }
 
+    // descricao
+    public String getDescricao() {
+        return descricao;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    // preco
+    public double getPreco() {
+        return preco;
     }
 
     public void setPreco(int preco) {
         this.preco = preco;
     }
 
+    // qtdeEstoque  
+    public int getQtdeEstoque() {
+        return qtdeEstoque;
+    }
+
     public void setQtdeEstoque(int qtdeEstoque) {
         this.qtdeEstoque = qtdeEstoque;
     }
     
-    public void addPeca (int qtdeEstoque, int n) {
-        this.qtdeEstoque = qtdeEstoque + n;
-    }
-    
     // OUTROS MÉTODOS
     
-    /* 
-    Adiciona uma quantidade de peças somente se for válido.
-    O método devolve um boolean de acordo com o sucesso ou falha da operação.
-    */
-    public boolean addPeca (int n) {
+    // Adiciona uma quantidade de peças somente se for válido.
+    // Devolve um boolean representando o sucesso da operação.
+    public boolean adicionarEstoque (int n) {
         if (n > 0) {
             this.qtdeEstoque = this.qtdeEstoque + n;
             return true;
@@ -68,11 +66,9 @@ public class Peca {
         }
     }
        
-    /* 
-    Subtrai uma quantidade de peças somente se for válido.
-    O método devolve um boolean de acordo com o sucesso ou falha da operação.
-    */
-    public boolean subPeca (int n) {
+    // Subtrai uma quantidade de peças somente se for válido.
+    // Devolve um boolean representando o sucesso da operação.
+    public boolean subtrairEstoque (int n) {
         if (n <= 0) {
             return false;
         }
