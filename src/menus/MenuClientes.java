@@ -3,7 +3,7 @@ package menus;
 import classes.Cliente;
 import oficina.Oficina;
 
-public class MenuClientes extends Menu{
+public class MenuClientes {
     
     // Chama o método exibirMenuNumerado para exibir o menu de gerenciamento de clientes.
     // Devolve a opção selecionada (int).
@@ -18,7 +18,7 @@ public class MenuClientes extends Menu{
         mensagem += "5 - Listar todos os cadastros\n";
         mensagem += "6 - Voltar\n";
         
-        return exibirMenuNumerado("Gerenciar Clientes", mensagem, 6);
+        return Menu.exibirMenuNumerado("Gerenciar Clientes", mensagem, 6);
     }
 
     // Chama diálogos de entrada para receber os atributos de um cliente e devolve um objeto Cliente.
@@ -32,21 +32,21 @@ public class MenuClientes extends Menu{
         String endereco;
         String telefone;
 
-        nome = exibirDialogoEntrada(titulo, "Nome: ");
+        nome = Menu.exibirDialogoEntrada(titulo, "Nome: ");
         if (nome == null) return null;
 
         // Repete se o CPF inserido já estiver cadastrado.
         do {
-            cpf = exibirDialogoEntrada(titulo, "CPF: ");    
+            cpf = Menu.exibirDialogoEntrada(titulo, "CPF: ");    
             if (cpf == null) return null;
 
-            if (Oficina.isCpfCadastrado(cpf)) exibirMensagemErro(titulo, "Este CPF já está cadastrado");
+            if (Oficina.isCpfCadastrado(cpf)) Menu.exibirMensagemErro(titulo, "Este CPF já está cadastrado");
         } while(Oficina.isCpfCadastrado(cpf));
 
-        endereco = exibirDialogoEntrada(titulo, "Endereço: ");
+        endereco = Menu.exibirDialogoEntrada(titulo, "Endereço: ");
         if (endereco == null) return null;
 
-        telefone = exibirDialogoEntrada(titulo, "Telefone: ");
+        telefone = Menu.exibirDialogoEntrada(titulo, "Telefone: ");
         if (telefone == null) return null;
         
         return new Cliente(nome, cpf, endereco, telefone);

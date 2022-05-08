@@ -1,6 +1,6 @@
 package menus;
 
-public class MenuPecas extends MenuItem{
+public class MenuPecas {
 
     // Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
     // Devolve a opção selecionada (int).

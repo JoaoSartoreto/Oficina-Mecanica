@@ -4,19 +4,18 @@ import javax.swing.JOptionPane;
 
 public abstract class Menu {
     
-    private static final String nomePrograma = "Controle de Oficina";
+    private static final String NOME_PROGRAMA = "Controle de Oficina";
 
     // Concatena o título do menu com o nome do programa, cria um array com as opções numeradas de acordo
     // com a quantidade de opções e exibe um menu numerado.
     // Devolve a opção selecionada (int).
     protected static int exibirMenuNumerado(String titulo, String mensagem, int quantidadeOpcoes)
     {
-        String tituloFinal = titulo + " - " + nomePrograma;
+        String tituloFinal = titulo + " - " + NOME_PROGRAMA;
 
         String[] opcoes = new String[quantidadeOpcoes];
-        for (int i = 0; i < opcoes.length; i++) {
+        for (int i = 0; i < opcoes.length; i++)
             opcoes[i] = Integer.toString(i + 1);
-        }
 
         return JOptionPane.showOptionDialog(null, mensagem, tituloFinal , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]) + 1;
     }
@@ -25,8 +24,8 @@ public abstract class Menu {
     // e exibe um MessageDialog de erro.
     protected static void exibirMensagemErro(String titulo, String mensagem)
     {
-        String tituloFinal = titulo + " - " + nomePrograma;
-        JOptionPane.showMessageDialog(null, "Este campo não pode estar vazio", tituloFinal, JOptionPane.ERROR_MESSAGE);
+        String tituloFinal = titulo + " - " + NOME_PROGRAMA;
+        JOptionPane.showMessageDialog(null, mensagem, tituloFinal, JOptionPane.ERROR_MESSAGE);
     }
 
     // Concatena o título do menu com o nome do programa e exibe um diálogo de entrada.
@@ -35,7 +34,7 @@ public abstract class Menu {
     protected static String exibirDialogoEntrada(String titulo, String mensagem)
     {
         String entrada;
-        String tituloFinal = titulo + " - " + nomePrograma;
+        String tituloFinal = titulo + " - " + NOME_PROGRAMA;
 
         do {
             entrada = JOptionPane.showInputDialog(null, mensagem, tituloFinal, JOptionPane.PLAIN_MESSAGE);

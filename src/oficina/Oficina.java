@@ -19,39 +19,26 @@ public class Oficina {
     private static ArrayList<Servico> listaServicos = new ArrayList<Servico>();
 
     // MAIN
-
     public static void main(String[] args) {
         boolean sair = false;
 
         do {
             int opcao = MenuPrincipal.exibir();
             switch (opcao) {
-                case 1:
-                    gerenciarClientes();
-                    break;
+                case 1 -> gerenciarClientes();
             
-                case 2:
-                    opcao = MenuPecas.exibir();
-                    break;
+                case 2 -> opcao = MenuPecas.exibir();
 
-                case 3:
-                    opcao = MenuServicos.exibir();
-                    break;
+                case 3 -> opcao = MenuServicos.exibir();
 
-                case 4:
-                    gerenciarOS();
-                    break;
+                case 4 -> gerenciarOS();
 
-                case 5:
-                    
-                    break;
-                
-                // Ao fechar a janela ou selecionar a opção 6
-                default:
-                    sair = true;
-                    break;
+                case 5 -> {
+                }
+                default -> sair = true;
             }
-        } while (!sair);
+            // Ao fechar a janela ou selecionar a opção 6
+                    } while (!sair);
     }
 
     // OUTROS MÉTODOS
@@ -61,7 +48,7 @@ public class Oficina {
     public static boolean isCpfCadastrado(String cpf)
     {
         for (Cliente cliente : listaClientes) 
-            if (cliente.getCpf() == cpf) return true;
+            if (cliente.getCpf().equals(cpf)) return true;
 
         return false;
     }
@@ -75,15 +62,13 @@ public class Oficina {
         do {
             int opcao = MenuClientes.exibir();
             switch (opcao) {
-                case 1:
+                case 1 -> {
                     Cliente cliente = MenuClientes.exibirCadastroCliente();
                     if (cliente != null) listaClientes.add(cliente);
                     System.out.println(cliente);
-                    break;
+                }
             
-                default:
-                    sair = true;
-                    break;
+                default -> sair = true;
             }
         } while (!sair);
     }
@@ -95,9 +80,7 @@ public class Oficina {
         int opcao = MenuOS.exibir();
 
         switch (opcao) {
-            case 2: 
-                opcao = MenuOS.gerenciarItens();
-                break;
+            case 2 -> opcao = MenuOS.gerenciarItens();
         }
     }
 

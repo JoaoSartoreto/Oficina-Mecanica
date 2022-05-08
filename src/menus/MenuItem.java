@@ -1,6 +1,6 @@
 package menus;
 
-public abstract class MenuItem extends Menu{
+public abstract class MenuItem {
 
     // Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
     // O tipoItem é utilizado para formar o título.
@@ -16,7 +16,7 @@ public abstract class MenuItem extends Menu{
         mensagem += "5 - Listar todos os cadastros\n";
         mensagem += "6 - Voltar";
         
-        return exibirMenuNumerado("Gerenciar " + tipoItem, mensagem, 6);
+        return Menu.exibirMenuNumerado("Gerenciar " + tipoItem, mensagem, 6);
     }
 
 }

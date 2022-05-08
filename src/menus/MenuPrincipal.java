@@ -1,6 +1,6 @@
 package menus;
 
-public class MenuPrincipal extends Menu{
+public class MenuPrincipal {
 
     // Chama o método exibirMenuNumerado para exibir o menu principal.
     // Devolve a opção selecionada (int).
@@ -15,6 +15,6 @@ public class MenuPrincipal extends Menu{
         mensagem += "5 - Consultar total vendido em um período\n";
         mensagem += "6 - Sair do programa\n";
         
-        return exibirMenuNumerado("Menu Principal", mensagem, 6);
+        return Menu.exibirMenuNumerado("Menu Principal", mensagem, 6);
     }
 }

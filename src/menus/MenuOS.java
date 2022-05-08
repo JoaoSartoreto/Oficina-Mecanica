@@ -1,6 +1,6 @@
 package menus;
 
-public class MenuOS extends Menu{
+public class MenuOS {
 
     // Chama o método exibirMenuNumerado para exibir o menu de gerenciamento de ordem de serviço.
     // Devolve a opção selecionada (int).
@@ -15,7 +15,7 @@ public class MenuOS extends Menu{
         mensagem += "6 - Listar todas as ordens\n";
         mensagem += "7 - Voltar";
         
-        return exibirMenuNumerado("Gerenciar Ordens de Serviço", mensagem, 7);
+        return Menu.exibirMenuNumerado("Gerenciar Ordens de Serviço", mensagem, 7);
     }
 
     // Chama o método exibirMenuNumerado para exibir o menu de gerenciamento de itens de OS.
@@ -30,7 +30,7 @@ public class MenuOS extends Menu{
         mensagem +="5 - Consultar total\n";
         mensagem +="6 - Voltar";
         
-        return exibirMenuNumerado("Gerenciar Itens de OS", mensagem, 6);
+        return Menu.exibirMenuNumerado("Gerenciar Itens de OS", mensagem, 6);
     }
 
 }
