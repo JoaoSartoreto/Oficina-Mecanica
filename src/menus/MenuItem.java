@@ -2,6 +2,9 @@ package menus;
 
 public abstract class MenuItem extends Menu{
 
+    // Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
+    // O tipoItem é utilizado para formar o título.
+    // Devolve a opção selecionada (int). 
     protected static int exibir(String tipoItem)
     {
         String mensagem = "";
@@ -13,6 +16,7 @@ public abstract class MenuItem extends Menu{
         mensagem += "5 - Listar todos os cadastros\n";
         mensagem += "6 - Voltar";
         
-        return menuOpcoesNumeradas("Gerenciar " + tipoItem, mensagem, 6);
+        return exibirMenuNumerado("Gerenciar " + tipoItem, mensagem, 6);
     }
+
 }

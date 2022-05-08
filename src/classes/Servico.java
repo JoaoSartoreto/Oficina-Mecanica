@@ -59,10 +59,12 @@ public class Servico {
     // Pega as partes do tempo de execucação para formar uma String.
     public String getTempoExecucaoString() {
         String saida = "";
+
         saida += tempoExecucao.toDaysPart() + ":";
         saida += tempoExecucao.toHoursPart() + ":";
         saida += tempoExecucao.toMinutesPart() + ":";
         saida += tempoExecucao.toSecondsPart();
+
         return saida;
     }
 
@@ -75,12 +77,13 @@ public class Servico {
     @Override
     public String toString() {
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
-        
         String saida = "";
+
         saida += "Código: " + codServico + "\n";
         saida += "Descrição: " + descricao + "\n";
         saida += "Preço: " + formatador.format(preco) + "\n";
         saida += "Duração (dd:hh:mm:ss): " + getTempoExecucaoString() + "\n";
+
         return saida;
     }
         

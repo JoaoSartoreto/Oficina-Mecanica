@@ -60,34 +60,31 @@ public class Peca {
             this.qtdeEstoque = this.qtdeEstoque + n;
             return true;
         }
-        else {
-
-            return false;
-        }
+        
+        return false;
     }
        
     // Subtrai uma quantidade de peças somente se for válido.
     // Devolve um boolean representando o sucesso da operação.
     public boolean subtrairEstoque (int n) {
-        if (n <= 0) {
+        if (n <= 0) 
             return false;
-        }
-        else if (n > this.qtdeEstoque) {
+        else if (n > this.qtdeEstoque)
             return false;
-        }
-        else {
-            this.qtdeEstoque = this.qtdeEstoque - n;
-            return true;
-        }
+        
+        this.qtdeEstoque = this.qtdeEstoque - n;
+        return true;
     }
     
     @Override
     public String toString() {
         String saida = "";
-        saida += "Codigo: " + this.codPeca + "\n";
-        saida += "Descricao: " + this.descricao + "\n";
-        saida += "Preco: " + this.preco + "\n";
-        saida += "Estoque: " + this.qtdeEstoque + "\n";
+
+        saida += "Codigo: " + codPeca + "\n";
+        saida += "Descricao: " + descricao + "\n";
+        saida += "Preco: " + preco + "\n";
+        saida += "Estoque: " + qtdeEstoque + "\n";
+
         return saida;
     }
     

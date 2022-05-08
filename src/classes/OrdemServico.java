@@ -15,7 +15,7 @@ public class OrdemServico {
     private static int qtd;
 
     public OrdemServico(String dataPrevTermino, String placaCarro, char situacao) {
-        //o ID da ordem de serviço, se dará pela posição em que ele foi criado
+        // O número das ordens de serviço será de acordo com a ordem de criação
         this.numeroOS = OrdemServico.qtd;
         OrdemServico.qtd++;
 
@@ -145,7 +145,7 @@ public class OrdemServico {
     }
     
     // Percorre a lista de itens chamando o método toString() para formar uma string com a lista dos itens.
-    public String listaItemOS()
+    public String listaItensOS()
     {
         String saida="";
         int indice = 0;
@@ -161,17 +161,18 @@ public class OrdemServico {
 
     public String toString()
     {
-        String saida="";
+        String saida = "";
         
-        saida += "Numero OS: "+this.numeroOS+"\n";
-        saida += "Data: "+this.dataOS+"\n";
-        saida += "Data prevista para termino: "+this.dataPrevTermino+"\n";
-        saida += "Data termino: "+this.dataTermino+"\n";
-        saida += "Placa do carro: "+this.placaCarro+"\n";
-        saida += "Situação: "+ situacao +"\n";
-        saida += "Itens: "+"\n";
-        saida += this.listaItemOS(); 
+        saida += "Numero OS: " + numeroOS + "\n";
+        saida += "Data: " + dataOS + "\n";
+        saida += "Data prevista para termino: " + dataPrevTermino + "\n";
+        saida += "Data termino: " + dataTermino + "\n";
+        saida += "Placa do carro: " + placaCarro + "\n";
+        saida += "Situação: " + situacao + "\n";
+        saida += "Itens: " + "\n";
+        saida += listaItensOS(); 
 
         return saida;
     }
+    
 }

@@ -64,17 +64,17 @@ public class ItemOS {
     public String toString() {
         String saida ="";
         
-        saida += "Tipo: "+this.tipo+"\n";
-        saida += "Preço: "+this.preco+"\n";
-        saida += "Quantidade: "+this.qtde+"\n";
+        saida += "Tipo: " + tipo + "\n";
+        saida += "Preço: " + preco + "\n";
+        saida += "Quantidade: " + qtde + "\n";
 
         switch (tipo) {
             case 'P':
-                saida += this.peca.toString()+"\n";
+                saida += this.peca.toString() + "\n";
                 break;
         
             case 'S':
-                saida += this.servico.toString()+"\n";
+                saida += this.servico.toString() + "\n";
                 break;
         }
 
@@ -84,7 +84,8 @@ public class ItemOS {
     // Adiciona ao estoque a quantidade que havia sido empregada ao ItemOS
     public void devolver() {
         if (tipo == 'P') {
-            peca.adicionarEstoque(this.qtde);
+            peca.adicionarEstoque(qtde);
         }
     }
+    
 }
