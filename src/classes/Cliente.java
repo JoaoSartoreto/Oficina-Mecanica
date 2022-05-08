@@ -51,5 +51,16 @@ public class Cliente {
         this.fone = fone;
     }
     
-    // TODO toString()
+    //toString
+    @Override
+    public String toString() {
+        String saida = "";
+
+        saida += "Nome: " + nome + "\n";
+        saida += "CPF: " + cpf + "\n";
+        saida += "Endereço: " + endereco + "\n";
+        saida += "Telefone: " + fone + "\n";
+
+        return saida;
+    }
 }
