@@ -27,7 +27,7 @@ public class Oficina {
             switch (opcao) {
                 case 1 -> gerenciarClientes();
                 case 2 -> opcao = InterfacePecas.exibir();
-                case 3 -> opcao = InterfaceServicos.exibir();
+                case 3 -> gerenciarServicos();
                 case 4 -> gerenciarOS();
                 case 5 -> {
                 }
@@ -36,7 +36,6 @@ public class Oficina {
     }
 
     // OUTROS MÉTODOS
-    
     
     // MÉTODOS RELACIONADOS AOS CLIENTES
     
@@ -65,7 +64,7 @@ public class Oficina {
         int opcao;
 
         do {
-            opcao = InterfaceClientes.exibir();
+            opcao = InterfaceServicos.exibir();
             switch (opcao) {
                 case 1 -> {
                     Cliente cliente = InterfaceClientes.exibirCadastroCliente();
@@ -76,6 +75,34 @@ public class Oficina {
                 case 3 -> InterfaceClientes.exibirExcluirCliente();
                 case 4 -> InterfaceClientes.exibirEditarCliente();
                 case 5 -> InterfaceClientes.exibirListaClientes();  
+            }
+        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
+    }
+    
+    // MÉTODOS RELACIONADOS AOS SERVIÇOS
+    
+    // Percorre a lista de serviços verificando os códigos.
+    // Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
+    public static Servico buscarServico(int codigo) {
+        for (Servico servico : listaServicos) 
+            if (servico.getCodServico() == codigo) return servico;
+
+        return null;
+    }
+    
+    // Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
+    // Também recebe os resultados desses métodos para manipular os elementos da lista de serviços.
+    private static void gerenciarServicos() {
+        int opcao;
+
+        do {
+            opcao = InterfaceServicos.exibir();
+            switch (opcao) {
+                case 1 -> {
+                    Servico servico = InterfaceServicos.exibirCadastroServico();
+                    if (servico != null) listaServicos.add(servico);
+                }
+                
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }

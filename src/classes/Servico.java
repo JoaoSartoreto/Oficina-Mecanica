@@ -1,5 +1,6 @@
 package classes;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.util.Locale;
@@ -9,9 +10,11 @@ public class Servico {
     private String descricao;
     private double preco;
     private Duration tempoExecucao;
+    private static int qtdServico;
     
-    public Servico(int codServico, String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
-        this.codServico = codServico;
+    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
+        qtdServico++;
+        this.codServico = qtdServico;
         this.descricao = descricao;
         this.preco = preco;
         
@@ -58,12 +61,15 @@ public class Servico {
     
     // Pega as partes do tempo de execucação para formar uma String.
     public String getTempoExecucaoString() {
+        DecimalFormat formatador = new DecimalFormat();
+        formatador.setMinimumIntegerDigits(2);
+        
         String saida = "";
 
-        saida += tempoExecucao.toDaysPart() + ":";
-        saida += tempoExecucao.toHoursPart() + ":";
-        saida += tempoExecucao.toMinutesPart() + ":";
-        saida += tempoExecucao.toSecondsPart();
+        saida += formatador.format(tempoExecucao.toDaysPart()) + ":";
+        saida += formatador.format(tempoExecucao.toHoursPart()) + ":";
+        saida += formatador.format(tempoExecucao.toMinutesPart()) + ":";
+        saida += formatador.format(tempoExecucao.toSecondsPart());
 
         return saida;
     }
