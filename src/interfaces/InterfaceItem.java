@@ -1,6 +1,6 @@
 package interfaces;
 
-public abstract class InterfaceItem {
+public class InterfaceItem {
 
     // Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
     // O tipoItem é utilizado para formar o título.

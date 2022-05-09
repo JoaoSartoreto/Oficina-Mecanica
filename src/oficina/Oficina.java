@@ -40,10 +40,13 @@ public class Oficina {
     
     // MÉTODOS RELACIONADOS AOS CLIENTES
     
+    public static ArrayList<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+    
     // Percorre a lista de clientes verificando o CPF dos clientes.
     // Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
-    public static Cliente buscarCliente(String cpf)
-    {
+    public static Cliente buscarCliente(String cpf) {
         for (Cliente cliente : listaClientes) 
             if (cliente.getCpf().equals(cpf)) return cliente;
 
@@ -52,15 +55,13 @@ public class Oficina {
     
     // Busca um cliente pelo CPF e remove da lista.
     // Devolve um boolean representando o sucesso da operação. 
-    public static boolean excluirCliente(String cpf)
-    {
+    public static boolean excluirCliente(String cpf) {
         return listaClientes.remove(buscarCliente(cpf));
     }
 
     // Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
     // Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
-    private static void gerenciarClientes()
-    {
+    private static void gerenciarClientes() {
         int opcao;
 
         do {
@@ -74,6 +75,7 @@ public class Oficina {
                 case 2 -> InterfaceClientes.exibirConsultaCpf();
                 case 3 -> InterfaceClientes.exibirExcluirCliente();
                 case 4 -> InterfaceClientes.exibirEditarCliente();
+                case 5 -> InterfaceClientes.exibirListaClientes();  
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
@@ -82,8 +84,7 @@ public class Oficina {
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
     // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
-    private static void gerenciarOS()
-    {
+    private static void gerenciarOS() {
         int opcao = InterfaceOS.exibir();
 
         switch (opcao) {

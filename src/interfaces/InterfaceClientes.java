@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Cliente;
+import java.util.ArrayList;
 import oficina.Oficina;
 
 public class InterfaceClientes {
@@ -117,11 +118,20 @@ public class InterfaceClientes {
                             if (telefone != null) cliente.setEndereco(telefone);
                         }
                     }
-                } while (!(opcao == 0 || opcao == 3));
+                } while (!(opcao == 0 || opcao == 3)); // Enquanto não fechar a janela ou selecionar a opção 3
             } else {
                 Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
             }
         }
     }
-                     
+    
+    public static void exibirListaClientes() {
+        ArrayList<Cliente> listaClientes = Oficina.getListaClientes();
+        String mensagem = "";
+            
+        for(Cliente cliente : listaClientes)
+            mensagem += cliente + "\n";
+        
+        Interface.exibirMensagem("Listar Clientes", mensagem);
+    }
 }

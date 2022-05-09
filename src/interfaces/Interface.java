@@ -2,7 +2,7 @@ package interfaces;
 
 import javax.swing.JOptionPane;
 
-public abstract class Interface {
+public class Interface {
     
     private static final String NOME_PROGRAMA = "Controle de Oficina";
     
