@@ -17,132 +17,95 @@ public class InterfacePecas {
     public static Peca exibirCadastrarPeca()
     {
         String titulo = "Cadastrar Peça";
-        String descricao, precoString, qtdEstoqueString;
+        String descricao, stringPreco, stringQtdeEstoque;
         double preco;
-        int qtdEstoque;
+        int qtdeEstoque;
         
-        descricao = Interface.exibirDialogoEntrada(titulo, "Descrição da peça: ");
+        descricao = Interface.exibirDialogoEntrada(titulo, "Descrição: ");
         if (descricao == null) return null;
         
-        precoString = Interface.exibirDialogoEntrada(titulo, "Valor da peça: ");
-        if(precoString != null)
-        {
-            preco = Double.parseDouble(precoString);
-        }
-        else
-        {
-            return null;
-        }
+        stringPreco = Interface.exibirDialogoEntrada(titulo, "Preço: ");
+        if (stringPreco == null) return null;
+        preco = Double.parseDouble(stringPreco);
         
-        qtdEstoqueString = Interface.exibirDialogoEntrada(titulo, "Quantidade no estoque: ");
-        if(qtdEstoqueString != null)
-        {
-            qtdEstoque = Integer.parseInt(qtdEstoqueString);
-        }
-        else
-        {
-           return null;
-        }
-        
-        return new Peca(descricao,preco,qtdEstoque);
+        stringQtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Quantidade no estoque: ");
+        if (stringQtdeEstoque == null) return null;
+        qtdeEstoque = Integer.parseInt(stringQtdeEstoque);
+              
+        return new Peca(descricao,preco,qtdeEstoque);
     }
     
     public static void exibirConsultarPeca()
     {
-        String titulo = "Consulta de peça por código";
-        String codPecaString;
-        int codPeca;
+        String titulo = "Consultar por Código";
+        String codPeca;
         
-        codPecaString = Interface.exibirDialogoEntrada(titulo, "Insira o código da peça");
-        if(codPecaString!=null)
-        {
-            codPeca = Integer.parseInt(codPecaString);
-            Peca peca = Oficina.buscarPeca(codPeca);
-            if(peca!=null)
-            {
+        codPeca = Interface.exibirDialogoEntrada(titulo, "Insira o código da peça");
+        
+        if(codPeca != null) {
+            Peca peca = Oficina.buscarPeca(Integer.parseInt(codPeca));
+            if(peca != null)
                 Interface.exibirMensagem(titulo, peca.toString());
-            }
             else
-            {
                 Interface.exibirMensagemErro(titulo, "Peça não encontrada");
-            }
         }
     }
     
-    // Aparentemente este método é desnecessário
-    /*
-    public static void listarPecaPorCodigo(ArrayList<Peca> pecas)
-    {
-        String titulo = "Listar peça por código";
-        int codigo;
-        
-        codigo = Integer.parseInt(Menu.exibirDialogoEntrada(titulo, "Informe o código da peça que deseja listar: "));
-        Peca peca = procurarPecaPorCodigo(pecas, codigo);
-        if(peca != null)
-        {
-            Menu.exibirMensagem(titulo, peca.toString());
-        }
-        else
-        {
-            Menu.exibirMensagem(titulo, "Peça não encontrada");
-        }
-    }*/
-    
     public static void exibirExcluirPeca()
     {
-        String indexString;
-        int index;
-        indexString = Interface.exibirDialogoEntrada("Excluir Peça", "Insira o índice da peça que deseja excluir");
-        if(indexString != null)
-        {
-            index = Integer.parseInt(indexString);
-            if(!Oficina.excluirPeca(index))
-            {
-                Interface.exibirMensagemErro(indexString, "Falha ao tentar excluir essa peça");
-            }
-        }
+        String titulo = "Excluir Peça";
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
         
+        if(codigo != null && !Oficina.excluirPeca(Integer.parseInt(codigo)))
+            Interface.exibirMensagemErro(titulo, "Peça não encontrada para exclusão"); 
     }
     
     // Tenho que verificar com mais atenção, mas aqui vai ter que usar Strings para verificar null
     public static void exibirEditarPeca()
     { 
-        String titulo = "Edição de peça";
-        String codPecaString;
-        int codPeca;
+        String titulo = "Editar Peça";
+        String[] opcoes = {"Editar Descrição", "Editar Preço", "Editar Quantidade em Estoque", "Sair"};
+        int opcao;
+        String codigo;
+        Peca peca;
         
-        codPecaString = Interface.exibirDialogoEntrada(titulo, "Informe o código da peça");
-        if(codPecaString!=null)
-        {
-            codPeca = Integer.parseInt(codPecaString);
-            Peca peca = Oficina.buscarPeca(codPeca);
-            if(peca!=null)
-            {
-                String descricao;
-                double preco;
-                int qtdeEstoque;
+        codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça a editar: ");
+        if (codigo != null) {
+            peca = Oficina.buscarPeca(Integer.parseInt(codigo));
+            if (peca != null) {
+                do {
+                    opcao = Interface.exibirMenu(titulo, peca.toString(), opcoes);
+                    switch (opcao) {
+                        case 1 -> {
+                            String descricao = Interface.exibirDialogoEntrada(titulo, "Nova descrição: ");
+                            if (descricao != null) peca.setDescricao(descricao);
+                        }
 
-                descricao = JOptionPane.showInputDialog("Descrição: ", peca.getDescricao());
-                preco = Double.parseDouble(JOptionPane.showInputDialog("Preço: ", peca.getPreco()));
-                qtdeEstoque = Integer.parseInt(JOptionPane.showInputDialog("Quantidade em estoque: ",peca.getQtdeEstoque()));
-                Oficina.editarPeca(codPeca, descricao, preco, qtdeEstoque);
-            }
-            else
-            {
-                Interface.exibirMensagemErro(titulo, "Peça não cadastrada");
+                        case 2 -> {
+                            String preco = Interface.exibirDialogoEntrada(titulo, "Novo preço: ");
+                            if (preco != null) peca.setPreco(Double.parseDouble(preco));
+                        }
+
+                        case 3 -> {
+                            String qtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Nova quantidade em estoque: ");
+                            if (qtdeEstoque != null) peca.setQtdeEstoque(Integer.parseInt(qtdeEstoque));
+                        }
+                    }
+                } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
+            } else {
+                Interface.exibirMensagemErro(titulo, "Peça não encontrada");
             }
         }
-              
     }
     
-    public static void listarPecas(ArrayList<Peca> pecas)
+    public static void exibirListarPecas()
     {
-        String titulo = "Listar Peças";
-        String saida ="";
+        ArrayList<Peca> pecas = Oficina.getListaPecas();
+        String saida = "";
         
-        for (Peca peca : pecas) {
-            saida += peca.toString();
-        }
-        Interface.exibirMensagem(titulo, saida);
+        for (Peca peca : pecas)
+            saida += peca.toString() + "\n";
+        
+        Interface.exibirMensagem("Listar Peças", saida);
     }
 }

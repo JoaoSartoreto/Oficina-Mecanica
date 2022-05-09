@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Servico;
+import java.util.ArrayList;
 import oficina.Oficina;
 
 public class InterfaceServicos {
@@ -63,11 +64,9 @@ public class InterfaceServicos {
         if (codigo != null) {
             servico = Oficina.buscarServico(Integer.parseInt(codigo));
             if (servico != null)
-            {
                 Interface.exibirMensagem(titulo, servico.toString());
-            } else {
+            else
                 Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
-            }
         }
     }
     
@@ -78,9 +77,7 @@ public class InterfaceServicos {
     // false é avisado que o cliente não foi encontrada para exclusão.
     public static void exibirExcluirServico() {
         String titulo = "Excluir Serviço";
-        String codigo;
-
-        codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
         
         if (codigo != null && !Oficina.excluirServico(Integer.parseInt(codigo))) 
             Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
@@ -135,8 +132,18 @@ public class InterfaceServicos {
                      }
                  } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
              } else {
-                 Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
+                 Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
              }
          }
+    }
+    
+    public static void exibirListarServicos() {
+        ArrayList<Servico> listaServicos = Oficina.getListaServicos();
+        String mensagem = "";
+            
+        for(Servico servico : listaServicos)
+            mensagem += servico + "\n";
+        
+        Interface.exibirMensagem("Listar Serviços", mensagem);
     }
 }

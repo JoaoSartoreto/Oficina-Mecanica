@@ -1,15 +1,16 @@
 package classes;
 
 public class Peca {
-    private static int qtd;
+    private static int qtdePecas;
+    
     private int codPeca;
     private String descricao;
     private double preco;
     private int qtdeEstoque;
         
     public Peca (String descricao, double preco, int qtdeEstoque) {
-        this.codPeca = Peca.qtd;
-        Peca.qtd++;
+        qtdePecas++;
+        this.codPeca = qtdePecas;
         this.descricao = descricao;
         this.preco = preco;
         this.qtdeEstoque = qtdeEstoque;

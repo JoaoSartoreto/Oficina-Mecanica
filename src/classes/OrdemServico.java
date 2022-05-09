@@ -12,12 +12,12 @@ public class OrdemServico {
     private String placaCarro;
     private char situacao;
     private ArrayList<ItemOS> itensOS;
-    private static int qtd;
+    private static int qtde;
 
     public OrdemServico(String dataPrevTermino, String placaCarro) {
         // O número das ordens de serviço será de acordo com a ordem de criação
-        this.numeroOS = OrdemServico.qtd;
-        OrdemServico.qtd++;
+        this.numeroOS = OrdemServico.qtde;
+        OrdemServico.qtde++;
 
         this.dataOS = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");

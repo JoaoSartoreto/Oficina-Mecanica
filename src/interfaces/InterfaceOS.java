@@ -170,13 +170,13 @@ public class InterfaceOS {
                 Peca peca = Oficina.buscarPeca(codPeca);
                 if(peca != null)
                 {
-                    String qtdString;
-                    int qtd;
-                    qtdString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de peças");
-                    if(qtdString!=null)
+                    String qtdeString;
+                    int qtde;
+                    qtdeString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de peças");
+                    if(qtdeString!=null)
                     {
-                        qtd = Integer.parseInt(qtdString);
-                        if(Oficina.adicionarItemOSPeca(index, peca, qtd))
+                        qtde = Integer.parseInt(qtdeString);
+                        if(Oficina.adicionarItemOSPeca(index, peca, qtde))
                         {
                             Interface.exibirMensagem(titulo, "Peça cadastrada com sucesso na OS");
                             return true;
@@ -216,13 +216,13 @@ public class InterfaceOS {
                 Servico servico = Oficina.buscarServico(codServico);
                 if(servico != null)
                 {
-                    String qtdString;
-                    int qtd;
-                    qtdString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de serviços");
-                    if(qtdString!=null)
+                    String qtdeString;
+                    int qtde;
+                    qtdeString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de serviços");
+                    if(qtdeString!=null)
                     {
-                        qtd = Integer.parseInt(qtdString);
-                        Oficina.adicionarItemOSServico(index, servico, qtd);
+                        qtde = Integer.parseInt(qtdeString);
+                        Oficina.adicionarItemOSServico(index, servico, qtde);
                         Interface.exibirMensagem(titulo, "Peça cadastrada com sucesso na OS");
                         return true;
                     }
@@ -246,7 +246,7 @@ public class InterfaceOS {
         total = ordemOS.valorOS();
         totalString += total;
         
-        Interface.exibirMensagem("Valor total da OS: "+ordemOS.getNumeroOS(), totalString);
+        Interface.exibirMensagem("Valor total da OS: " + ordemOS.getNumeroOS(), totalString);
         return totalString;
         
         //Desse jeito?

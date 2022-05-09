@@ -41,79 +41,6 @@ public class Oficina {
 
     // OUTROS MÉTODOS
     
-
-    //METODOS RELACIONADOS AS PEÇAS
-    
-    public static void gerenciarPecas()
-    {
-        boolean sair = false;
-
-        do {
-            int opcao = InterfacePecas.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    Peca peca = InterfacePecas.exibirCadastrarPeca();
-                    if (peca != null) listaPecas.add(peca);
-                }
-                
-                case 2 -> {
-                    InterfacePecas.exibirConsultarPeca();
-                }
-                
-                case 3 -> {
-                    InterfacePecas.exibirExcluirPeca();
-                }
-                
-                case 4 -> {
-                    InterfacePecas.exibirEditarPeca();
-                }
-                
-                case 5 -> {
-                    InterfacePecas.listarPecas(listaPecas);
-                }
-            
-                default -> sair = true;
-            }
-        } while (!sair);
-    }
-    
-    public static Peca buscarPeca(int codPeca)
-    {
-        for (Peca peca : listaPecas) {
-            if(peca.getCodPeca()==codPeca)
-            {
-                return peca;
-            }
-        }
-        return null;
-    }
-    
-    public static boolean excluirPeca(int index)
-    {
-        return listaPecas.remove(buscarPeca(index));
-    }
-    
-    public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque)
-    {
-        listaPecas.get(codPeca).setDescricao(descricao);
-        listaPecas.get(codPeca).setPreco(preco);
-        listaPecas.get(codPeca).setDescricao(descricao);
-    }
-    
-    //METODOS RELACIONADOS AOS SERVIÇOS
-    
-    public static Servico buscarServico(int codServico)
-    {
-        for (Servico servico : listaServicos) {
-            if(servico.getCodServico() == codServico)
-            {
-                return servico;
-            }
-        }
-        return null;
-    }
-    
-
     // MÉTODOS RELACIONADOS AOS CLIENTES
     
     public static ArrayList<Cliente> getListaClientes() {
@@ -156,16 +83,73 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
+    //METODOS RELACIONADOS AS PEÇAS
+    
+    public static ArrayList<Peca> getListaPecas() {
+        return listaPecas;
+    }
+    
+    public static Peca buscarPeca(int codPeca)
+    {
+        for (Peca peca : listaPecas)
+            if(peca.getCodPeca() == codPeca) return peca;
+
+        return null;
+    }
+    
+    public static boolean excluirPeca(int codPeca)
+    {
+        return listaPecas.remove(buscarPeca(codPeca));
+    }
+    
+    public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque)
+    {
+        listaPecas.get(codPeca).setDescricao(descricao);
+        listaPecas.get(codPeca).setPreco(preco);
+        listaPecas.get(codPeca).setDescricao(descricao);
+    }
+    
+    public static void gerenciarPecas()
+    {
+        int opcao;
+        
+        do {
+            opcao = InterfacePecas.exibir();
+            switch (opcao) {
+                case 1 -> {
+                    Peca peca = InterfacePecas.exibirCadastrarPeca();
+                    if (peca != null) listaPecas.add(peca);
+                }
+                
+                case 2 -> InterfacePecas.exibirConsultarPeca();              
+                case 3 -> InterfacePecas.exibirExcluirPeca();              
+                case 4 -> InterfacePecas.exibirEditarPeca();               
+                case 5 -> InterfacePecas.exibirListarPecas();
+            }
+        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
+    }
+    
     // MÉTODOS RELACIONADOS AOS SERVIÇOS
+    
+    public static ArrayList<Servico> getListaServicos() {
+        return listaServicos;
+    }
     
     // Percorre a lista de serviços verificando os códigos.
     // Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
-
+    public static Servico buscarServico(int codServico)
+    {
+        for (Servico servico : listaServicos)
+            if(servico.getCodServico() == codServico)
+                return servico;
+            
+        return null;
+    }
     
     // Busca um serviço pelo código e o remove da lista.
     // Devolve um boolean representando o sucesso da operação. 
-    public static boolean excluirServico(int codigo) {
-        return listaServicos.remove(buscarServico(codigo));
+    public static boolean excluirServico(int codServico) {
+        return listaServicos.remove(buscarServico(codServico));
     }
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
@@ -184,6 +168,7 @@ public class Oficina {
                 case 2 -> InterfaceServicos.exibirConsultaCodigo();
                 case 3 -> InterfaceServicos.exibirExcluirServico();
                 case 4 -> InterfaceServicos.exibirEditarServico();
+                case 5 -> InterfaceServicos.exibirListarServicos();
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }

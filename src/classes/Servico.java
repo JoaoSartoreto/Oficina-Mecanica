@@ -6,15 +6,16 @@ import java.time.Duration;
 import java.util.Locale;
 
 public class Servico {
+    private static int qtdeServicos;
+    
     private int codServico;
     private String descricao;
     private double preco;
     private Duration tempoExecucao;
-    private static int qtdServico;
     
     public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
-        qtdServico++;
-        this.codServico = qtdServico;
+        qtdeServicos++;
+        this.codServico = qtdeServicos;
         this.descricao = descricao;
         this.preco = preco;
         setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
