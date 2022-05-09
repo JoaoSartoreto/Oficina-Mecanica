@@ -103,6 +103,7 @@ public class Oficina {
                     if (servico != null) listaServicos.add(servico);
                 }
                 
+                case 2 -> InterfaceServicos.exibirConsultaCodigo();
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }

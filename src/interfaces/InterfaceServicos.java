@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Servico;
+import oficina.Oficina;
 
 public class InterfaceServicos {
     
@@ -47,4 +48,24 @@ public class InterfaceServicos {
         return new Servico(descricao, preco, diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
+    // Utiliza um diálogo de entrada para receber o código e busca o serviço pelo código.
+    // Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
+    // (não for null) ele é exibido, senão é informado que o serviço não foi encontrado.
+    public static void exibirConsultaCodigo() {
+        String titulo = "Consultar por Código";
+        String codigo;
+        Servico servico;
+        
+        codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        
+        if (codigo != null) {
+            servico = Oficina.buscarServico(Integer.parseInt(codigo));
+            if (servico != null)
+            {
+                Interface.exibirMensagem(titulo, servico.toString());
+            } else {
+                Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
+            }
+        }
+    }
 }
