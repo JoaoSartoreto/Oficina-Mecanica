@@ -1,7 +1,6 @@
 package interfaces;
 
 import classes.Cliente;
-import java.util.ArrayList;
 import oficina.Oficina;
 
 public class InterfaceClientes {
@@ -70,5 +69,15 @@ public class InterfaceClientes {
                 Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
             }
         }
+    }
+
+    public static void exibirExcluirCliente()
+    {
+        String titulo = "Excluir Cliente";
+        String cpf;
+
+        cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");
+        if (cpf != null && !Oficina.excluirCliente(cpf)) 
+            Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
     }
 }

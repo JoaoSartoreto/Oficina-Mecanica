@@ -5,6 +5,7 @@ import classes.Cliente;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
+import interfaces.Interface;
 import interfaces.InterfaceClientes;
 import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
@@ -42,7 +43,10 @@ public class Oficina {
     }
 
     // OUTROS MÉTODOS
-
+    
+    
+    // MÉTODOS RELACIONADOS AOS CLIENTES
+    
     // Percorre a lista de clientes verificando o CPF dos clientes.
     // Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
     public static Cliente buscarCliente(String cpf)
@@ -51,6 +55,13 @@ public class Oficina {
             if (cliente.getCpf().equals(cpf)) return cliente;
 
         return null;
+    }
+    
+    // Busca um cliente pelo CPF e remove da lista.
+    // Devolve um boolean representando o sucesso da operação. 
+    public static boolean excluirCliente(String cpf)
+    {
+        return listaClientes.remove(buscarCliente(cpf));
     }
 
     // Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
@@ -70,12 +81,18 @@ public class Oficina {
                 case 2 -> {
                     InterfaceClientes.exibirConsultaCpf();
                 }
+                
+                case 3 -> {
+                    InterfaceClientes.exibirExcluirCliente();
+                }
             
                 default -> sair = true;
             }
         } while (!sair);
     }
-
+    
+    // MÉTODOS RELACIONADOS À OS
+    
     // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
     // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
     private static void gerenciarOS()
