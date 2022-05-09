@@ -1,34 +1,36 @@
-package menus;
+package interfaces;
 
 import classes.Peca;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class MenuPecas {
+public class InterfacePecas {
 
     // Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
     // Devolve a opção selecionada (int).
     public static int exibir() {
-        return MenuItem.exibir("Peças");
+        return InterfaceItem.exibir("Peças");
     }
     
-    public static Peca cadastrarPeca()
+    // Aqui terá que utilizar Strings para verificar null também
+    public static Peca exibirCadastrarPeca()
     {
-        String titulo = "Cadastro de Peça";
-        int codPeca;
+        String titulo = "Cadastrar Peça";
         String descricao;
         double preco;
-        int qtdeEstoque;
+        int qtdEstoque;
         
-        codPeca = Integer.parseInt(Menu.exibirDialogoEntrada(titulo, "Insira o código da peça: "));
-        descricao = Menu.exibirDialogoEntrada(titulo, "Insira a descrição da peça: ");
-        preco = Double.parseDouble(Menu.exibirDialogoEntrada(titulo, "Informe o valor da peça: "));
-        qtdeEstoque = Integer.parseInt(Menu.exibirDialogoEntrada(titulo, "Informe a quantidade no estoque: "));
-        Peca peca = new Peca(codPeca, descricao, preco, qtdeEstoque);
-        return peca;
+        descricao = Interface.exibirDialogoEntrada(titulo, "Descrição da peça: ");
+        if (descricao == null) return null;
+        
+        preco = Double.parseDouble(Interface.exibirDialogoEntrada(titulo, "Valor da peça: "));
+        
+        qtdEstoque = Integer.parseInt(Interface.exibirDialogoEntrada(titulo, "Quantidade no estoque: "));
+        
+        return null;
     }
     
-    private static Peca procurarPecaPorCodigo(ArrayList<Peca> pecas, int codigo)
+    private static Peca exibirConsultarPeca(ArrayList<Peca> pecas, int codigo)
     {
         Peca pecaSearch = null;
         
@@ -42,6 +44,8 @@ public class MenuPecas {
         return pecaSearch;
     }
     
+    // Aparentemente este método é desnecessário
+    /*
     public static void listarPecaPorCodigo(ArrayList<Peca> pecas)
     {
         String titulo = "Listar peça por código";
@@ -51,24 +55,20 @@ public class MenuPecas {
         Peca peca = procurarPecaPorCodigo(pecas, codigo);
         if(peca != null)
         {
-            Menu.imprimeString(titulo, peca.toString());
+            Menu.exibirMensagem(titulo, peca.toString());
         }
         else
         {
-            Menu.imprimeString(titulo, "Peça não encontrada");
+            Menu.exibirMensagem(titulo, "Peça não encontrada");
         }
-    }
+    }*/
     
-    public static void excluirPeca(ArrayList<Peca> pecas)
+    public static int exibirExcluirPeca(ArrayList<Peca> pecas)
     {
-        String titulo = "Exclusão de peça";
-        int index;
-        
-        index = Integer.parseInt(Menu.exibirDialogoEntrada(titulo, "Informe o index da peça que deseja excluir: "));
-        pecas.remove(index);
-        Menu.imprimeString(titulo, "Peça excluida com sucesso");
+        return Integer.parseInt(Interface.exibirDialogoEntrada("Excluir Peça", "Insira o índice da peça que deseja excluir"));
     }
     
+    // Tenho que verificar com mais atenção, mas aqui vai ter que usar Strings para verificar null
     public static void editarPeca(Peca peca)
     {   
         String descricao;
@@ -86,12 +86,12 @@ public class MenuPecas {
     
     public static void listarPecas(ArrayList<Peca> pecas)
     {
-        String titulo = "Listagem de peças";
+        String titulo = "Listar Peças";
         String saida ="";
         
         for (Peca peca : pecas) {
             saida += peca.toString();
         }
-        Menu.imprimeString(titulo, saida);
+        Interface.exibirMensagem(titulo, saida);
     }
 }

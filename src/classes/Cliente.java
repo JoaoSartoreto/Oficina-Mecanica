@@ -51,7 +51,6 @@ public class Cliente {
         this.fone = fone;
     }
     
-    //toString
     @Override
     public String toString() {
         String saida = "";

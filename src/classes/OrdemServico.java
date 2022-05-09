@@ -24,7 +24,7 @@ public class OrdemServico {
         this.dataPrevTermino = LocalDate.parse(dataPrevTermino,formato);
         this.placaCarro = placaCarro;
         this.situacao = 'A';
-        this.itensOS = new ArrayList<ItemOS>();
+        this.itensOS = new ArrayList<>();
     }
     
     // GETTERS E SETTERS
@@ -78,7 +78,7 @@ public class OrdemServico {
     // Devolve um boolean representando o sucesso da operação.
     public boolean adicionarServico(char tipo, double preço, int qtde, Servico servico) {
         if (situacao == 'A') {
-            ItemOS itemOS = new ItemOS(tipo ,preço, qtde, servico);
+            ItemOS itemOS = new ItemOS(tipo, qtde, servico);
             this.itensOS.add(itemOS);
             return true;
         }
@@ -91,7 +91,7 @@ public class OrdemServico {
     public boolean adicionarPeca(char tipo, double preço, int qtde, Peca peca) {
         if (situacao == 'A') {
             if (peca.subtrairEstoque(qtde)) {
-                ItemOS itemOS = new ItemOS(tipo, preço, qtde , peca);
+                ItemOS itemOS = new ItemOS(tipo, qtde , peca);
                 this.itensOS.add(itemOS);
                 return true;
             }
@@ -169,6 +169,7 @@ public class OrdemServico {
         return total;
     }
 
+    @Override
     public String toString()
     {
         String saida = "";
@@ -179,7 +180,7 @@ public class OrdemServico {
         saida += "Data termino: " + dataTermino + "\n";
         saida += "Placa do carro: " + placaCarro + "\n";
         saida += "Situação: " + situacao + "\n";
-        saida += "Itens: " + "\n";
+        saida += "Itens: \n";
         saida += listaItensOS(); 
 
         return saida;

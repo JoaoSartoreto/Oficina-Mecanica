@@ -7,16 +7,16 @@ public class ItemOS {
     private Servico servico;
     private Peca peca; 
 
-    public ItemOS(char tipo, double preco, int qtde, Peca peca) {
+    public ItemOS(char tipo, int qtde, Peca peca) {
         this.tipo = tipo;
-        this.preco = preco;
+        this.preco = peca.getPreco();
         this.qtde = qtde;
         this.peca = peca;
     }
     
-    public ItemOS(char tipo, double preco, int qtde, Servico servico) {
+    public ItemOS(char tipo, int qtde, Servico servico) {
         this.tipo = tipo;
-        this.preco = preco;
+        this.preco = servico.getPreco();
         this.qtde = qtde;
         this.servico = servico;
     }
@@ -61,6 +61,7 @@ public class ItemOS {
     
     // OUTROS MÉTODOS
 
+    @Override
     public String toString() {
         String saida ="";
         
@@ -69,13 +70,9 @@ public class ItemOS {
         saida += "Quantidade: " + qtde + "\n";
 
         switch (tipo) {
-            case 'P':
-                saida += this.peca.toString() + "\n";
-                break;
+            case 'P' -> saida += this.peca.toString() + "\n";
         
-            case 'S':
-                saida += this.servico.toString() + "\n";
-                break;
+            case 'S' -> saida += this.servico.toString() + "\n";
         }
 
         return saida;

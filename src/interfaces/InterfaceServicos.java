@@ -1,10 +1,10 @@
-package menus;
+package interfaces;
 
-public class MenuServicos {
+public class InterfaceServicos {
     
     // Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
     // Devolve a opção selecionada (int).
     public static int exibir() {
-        return MenuItem.exibir("Serviços");
+        return InterfaceItem.exibir("Serviços");
     }
 }

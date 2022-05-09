@@ -5,31 +5,31 @@ import classes.Cliente;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import menus.MenuClientes;
-import menus.MenuOS;
-import menus.MenuPecas;
-import menus.MenuPrincipal;
-import menus.MenuServicos;
+import interfaces.InterfaceClientes;
+import interfaces.InterfaceOS;
+import interfaces.InterfacePecas;
+import interfaces.InterfacePrincipal;
+import interfaces.InterfaceServicos;
 
 public class Oficina {
 
-    private static ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-    private static ArrayList<OrdemServico> listaOS = new ArrayList<OrdemServico>();
-    private static ArrayList<Peca> listaPecas = new ArrayList<Peca>();
-    private static ArrayList<Servico> listaServicos = new ArrayList<Servico>();
+    private static ArrayList<Cliente> listaClientes = new ArrayList<>();
+    private static ArrayList<OrdemServico> listaOS = new ArrayList<>();
+    private static ArrayList<Peca> listaPecas = new ArrayList<>();
+    private static ArrayList<Servico> listaServicos = new ArrayList<>();
 
     // MAIN
     public static void main(String[] args) {
         boolean sair = false;
 
         do {
-            int opcao = MenuPrincipal.exibir();
+            int opcao = InterfacePrincipal.exibir();
             switch (opcao) {
                 case 1 -> gerenciarClientes();
             
-                case 2 -> opcao = MenuPecas.exibir();
+                case 2 -> opcao = InterfacePecas.exibir();
 
-                case 3 -> opcao = MenuServicos.exibir();
+                case 3 -> opcao = InterfaceServicos.exibir();
 
                 case 4 -> gerenciarOS();
 
@@ -60,10 +60,10 @@ public class Oficina {
         boolean sair = false;
 
         do {
-            int opcao = MenuClientes.exibir();
+            int opcao = InterfaceClientes.exibir();
             switch (opcao) {
                 case 1 -> {
-                    Cliente cliente = MenuClientes.exibirCadastroCliente();
+                    Cliente cliente = InterfaceClientes.exibirCadastroCliente();
                     if (cliente != null) listaClientes.add(cliente);
                     System.out.println(cliente);
                 }
@@ -77,10 +77,10 @@ public class Oficina {
     // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
     private static void gerenciarOS()
     {
-        int opcao = MenuOS.exibir();
+        int opcao = InterfaceOS.exibir();
 
         switch (opcao) {
-            case 2 -> opcao = MenuOS.gerenciarItens();
+            case 2 -> opcao = InterfaceOS.exibirGerenciarItens();
         }
     }
 

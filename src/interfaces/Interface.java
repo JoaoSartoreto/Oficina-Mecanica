@@ -1,8 +1,8 @@
-package menus;
+package interfaces;
 
 import javax.swing.JOptionPane;
 
-public abstract class Menu {
+public abstract class Interface {
     
     private static final String NOME_PROGRAMA = "Controle de Oficina";
 
@@ -46,9 +46,10 @@ public abstract class Menu {
         return entrada;
     }
 
-    public static void imprimeString(String titulo,String string)
+    public static void exibirMensagem(String titulo,String mensagem)
     {
-        JOptionPane.showMessageDialog(null, string, titulo, JOptionPane.INFORMATION_MESSAGE);
+        String tituloFinal =  titulo + " - " + NOME_PROGRAMA;
+        JOptionPane.showMessageDialog(null, mensagem, tituloFinal, JOptionPane.PLAIN_MESSAGE);
     }
     
 }

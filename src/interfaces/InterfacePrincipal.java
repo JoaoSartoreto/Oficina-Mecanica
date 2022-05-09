@@ -1,6 +1,6 @@
-package menus;
+package interfaces;
 
-public class MenuPrincipal {
+public class InterfacePrincipal {
 
     // Chama o método exibirMenuNumerado para exibir o menu principal.
     // Devolve a opção selecionada (int).
@@ -15,6 +15,6 @@ public class MenuPrincipal {
         mensagem += "5 - Consultar total vendido em um período\n";
         mensagem += "6 - Sair do programa\n";
         
-        return Menu.exibirMenuNumerado("Menu Principal", mensagem, 6);
+        return Interface.exibirMenuNumerado("Menu Principal", mensagem, 6);
     }
 }
