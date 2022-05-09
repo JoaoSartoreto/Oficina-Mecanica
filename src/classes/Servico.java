@@ -1,5 +1,6 @@
 package classes;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.util.Locale;
@@ -9,17 +10,14 @@ public class Servico {
     private String descricao;
     private double preco;
     private Duration tempoExecucao;
+    private static int qtdServico;
     
-    public Servico(int codServico, String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
-        this.codServico = codServico;
+    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
+        qtdServico++;
+        this.codServico = qtdServico;
         this.descricao = descricao;
         this.preco = preco;
-        
-        // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
-        this.tempoExecucao = Duration.ofDays(diasExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
+        setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
     // GETTERS E SETTERS
@@ -58,18 +56,29 @@ public class Servico {
     
     // Pega as partes do tempo de execucação para formar uma String.
     public String getTempoExecucaoString() {
+        DecimalFormat formatador = new DecimalFormat();
+        formatador.setMinimumIntegerDigits(2);
+        
         String saida = "";
 
-        saida += tempoExecucao.toDaysPart() + ":";
-        saida += tempoExecucao.toHoursPart() + ":";
-        saida += tempoExecucao.toMinutesPart() + ":";
-        saida += tempoExecucao.toSecondsPart();
+        saida += formatador.format(tempoExecucao.toDaysPart()) + ":";
+        saida += formatador.format(tempoExecucao.toHoursPart()) + ":";
+        saida += formatador.format(tempoExecucao.toMinutesPart()) + ":";
+        saida += formatador.format(tempoExecucao.toSecondsPart());
 
         return saida;
     }
 
     public void setTempoExecucao(Duration tempoExecucao) {
         this.tempoExecucao = tempoExecucao;
+    }
+    
+    public final void setTempoExecucao(int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) {
+        // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
+        this.tempoExecucao = Duration.ofDays(diasExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
     }
     
     // OUTROS MÉTODOS
@@ -82,7 +91,7 @@ public class Servico {
         saida += "Código: " + codServico + "\n";
         saida += "Descrição: " + descricao + "\n";
         saida += "Preço: " + formatador.format(preco) + "\n";
-        saida += "Duração (dd:hh:mm:ss): " + getTempoExecucaoString() + "\n";
+        saida += "Tempo de Execução: (dd:hh:mm:ss): " + getTempoExecucaoString() + "\n";
 
         return saida;
     }

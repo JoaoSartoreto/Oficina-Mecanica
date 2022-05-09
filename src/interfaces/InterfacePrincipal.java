@@ -15,6 +15,6 @@ public class InterfacePrincipal {
         mensagem += "5 - Consultar total vendido em um período\n";
         mensagem += "6 - Sair do programa\n";
         
-        return Interface.exibirMenuNumerado("Menu Principal", mensagem, 6);
+        return Interface.exibirMenu("Menu Principal", mensagem, 6);
     }
 }

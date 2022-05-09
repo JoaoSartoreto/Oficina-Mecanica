@@ -22,7 +22,7 @@ public class InterfaceOS {
         mensagem += "6 - Listar todas as ordens\n";
         mensagem += "7 - Voltar";
         
-        return Interface.exibirMenuNumerado("Gerenciar OS", mensagem, 7);
+        return Interface.exibirMenu("Gerenciar OS", mensagem, 7);
     }
     
     public static OrdemServico exibirAbrirOS()
@@ -129,7 +129,7 @@ public class InterfaceOS {
         mensagem += "5 - Consultar total\n";
         mensagem += "6 - Voltar";
         
-        return Interface.exibirMenuNumerado("Gerenciar Itens de OS", mensagem, 6);
+        return Interface.exibirMenu("Gerenciar Itens de OS", mensagem, 6);
     }
     
     // TODO método para selecionar OS

@@ -1,6 +1,6 @@
 package interfaces;
 
-public abstract class InterfaceItem {
+public class InterfaceItem {
 
     // Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
     // O tipoItem é utilizado para formar o título.
@@ -16,7 +16,7 @@ public abstract class InterfaceItem {
         mensagem += "5 - Listar todos os cadastros\n";
         mensagem += "6 - Voltar";
         
-        return Interface.exibirMenuNumerado("Gerenciar " + tipoItem, mensagem, 6);
+        return Interface.exibirMenu("Gerenciar " + tipoItem, mensagem, 6);
     }
 
 }
