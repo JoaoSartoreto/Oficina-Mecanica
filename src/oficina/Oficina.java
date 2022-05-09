@@ -5,7 +5,6 @@ import classes.Cliente;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import interfaces.Interface;
 import interfaces.InterfaceClientes;
 import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
@@ -21,25 +20,19 @@ public class Oficina {
 
     // MAIN
     public static void main(String[] args) {
-        boolean sair = false;
-
+        int opcao;
+        
         do {
-            int opcao = InterfacePrincipal.exibir();
+            opcao = InterfacePrincipal.exibir();
             switch (opcao) {
                 case 1 -> gerenciarClientes();
-            
                 case 2 -> opcao = InterfacePecas.exibir();
-
                 case 3 -> opcao = InterfaceServicos.exibir();
-
                 case 4 -> gerenciarOS();
-
                 case 5 -> {
                 }
-                default -> sair = true;
             }
-            // Ao fechar a janela ou selecionar a opção 6
-                    } while (!sair);
+        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
 
     // OUTROS MÉTODOS
@@ -68,27 +61,21 @@ public class Oficina {
     // Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
     private static void gerenciarClientes()
     {
-        boolean sair = false;
+        int opcao;
 
         do {
-            int opcao = InterfaceClientes.exibir();
+            opcao = InterfaceClientes.exibir();
             switch (opcao) {
                 case 1 -> {
                     Cliente cliente = InterfaceClientes.exibirCadastroCliente();
                     if (cliente != null) listaClientes.add(cliente);
                 }
                 
-                case 2 -> {
-                    InterfaceClientes.exibirConsultaCpf();
-                }
-                
-                case 3 -> {
-                    InterfaceClientes.exibirExcluirCliente();
-                }
-            
-                default -> sair = true;
+                case 2 -> InterfaceClientes.exibirConsultaCpf();
+                case 3 -> InterfaceClientes.exibirExcluirCliente();
+                case 4 -> InterfaceClientes.exibirEditarCliente();
             }
-        } while (!sair);
+        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
     // MÉTODOS RELACIONADOS À OS

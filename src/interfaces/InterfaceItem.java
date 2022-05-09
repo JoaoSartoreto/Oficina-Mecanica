@@ -16,7 +16,7 @@ public abstract class InterfaceItem {
         mensagem += "5 - Listar todos os cadastros\n";
         mensagem += "6 - Voltar";
         
-        return Interface.exibirMenuNumerado("Gerenciar " + tipoItem, mensagem, 6);
+        return Interface.exibirMenu("Gerenciar " + tipoItem, mensagem, 6);
     }
 
 }
