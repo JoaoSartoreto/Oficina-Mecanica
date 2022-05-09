@@ -14,7 +14,7 @@ public class OrdemServico {
     private ArrayList<ItemOS> itensOS;
     private static int qtd;
 
-    public OrdemServico(String dataPrevTermino, String placaCarro, char situacao) {
+    public OrdemServico(String dataPrevTermino, String placaCarro) {
         // O número das ordens de serviço será de acordo com a ordem de criação
         this.numeroOS = OrdemServico.qtd;
         OrdemServico.qtd++;
@@ -23,7 +23,7 @@ public class OrdemServico {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataPrevTermino = LocalDate.parse(dataPrevTermino,formato);
         this.placaCarro = placaCarro;
-        this.situacao = situacao;
+        this.situacao = 'A';
         this.itensOS = new ArrayList<ItemOS>();
     }
     
@@ -157,6 +157,16 @@ public class OrdemServico {
         }
         
         return saida;
+    }
+    
+    // Percorre a lista de itens e retorna a soma de todos os itens
+    public double valorOS()
+    {
+        double total=0;
+        for (ItemOS itemOS : itensOS) {
+            total += (itemOS.getPreco() * itemOS.getQtde());
+        }
+        return total;
     }
 
     public String toString()

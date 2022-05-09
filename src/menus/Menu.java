@@ -46,9 +46,9 @@ public abstract class Menu {
         return entrada;
     }
 
-    public static void imprimeString(String string)
+    public static void imprimeString(String titulo,String string)
     {
-        JOptionPane.showMessageDialog(null, string);
+        JOptionPane.showMessageDialog(null, string, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
     
 }
