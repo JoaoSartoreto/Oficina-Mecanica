@@ -44,13 +44,13 @@ public class Oficina {
     // OUTROS MÉTODOS
 
     // Percorre a lista de clientes verificando o CPF dos clientes.
-    // Se algum cliente possuir o CPF igual ao passado por parâmetro devolve true, senão devolve false.
-    public static boolean isCpfCadastrado(String cpf)
+    // Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
+    public static Cliente buscarCliente(String cpf)
     {
         for (Cliente cliente : listaClientes) 
-            if (cliente.getCpf().equals(cpf)) return true;
+            if (cliente.getCpf().equals(cpf)) return cliente;
 
-        return false;
+        return null;
     }
 
     // Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
@@ -65,7 +65,10 @@ public class Oficina {
                 case 1 -> {
                     Cliente cliente = InterfaceClientes.exibirCadastroCliente();
                     if (cliente != null) listaClientes.add(cliente);
-                    System.out.println(cliente);
+                }
+                
+                case 2 -> {
+                    InterfaceClientes.exibirConsultaCpf();
                 }
             
                 default -> sair = true;

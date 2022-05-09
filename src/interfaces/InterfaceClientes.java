@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Cliente;
+import java.util.ArrayList;
 import oficina.Oficina;
 
 public class InterfaceClientes {
@@ -40,8 +41,8 @@ public class InterfaceClientes {
             cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");    
             if (cpf == null) return null;
 
-            if (Oficina.isCpfCadastrado(cpf)) Interface.exibirMensagemErro(titulo, "Este CPF já está cadastrado");
-        } while(Oficina.isCpfCadastrado(cpf));
+            if (Oficina.buscarCliente(cpf) != null) Interface.exibirMensagemErro(titulo, "Este CPF já está cadastrado");
+        } while(Oficina.buscarCliente(cpf) != null);
 
         endereco = Interface.exibirDialogoEntrada(titulo, "Endereço: ");
         if (endereco == null) return null;
@@ -52,4 +53,22 @@ public class InterfaceClientes {
         return new Cliente(nome, cpf, endereco, telefone);
     }
     
+    public static void exibirConsultaCpf()
+    {
+        String titulo = "Consultar por CPF";
+        String cpf;
+        Cliente cliente;
+        
+        cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");
+        
+        if (cpf != null) {
+            cliente = Oficina.buscarCliente(cpf);
+            if (cliente != null)
+            {
+                Interface.exibirMensagem(titulo, cliente.toString());
+            } else {
+                Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
+            }
+        }
+    }
 }
