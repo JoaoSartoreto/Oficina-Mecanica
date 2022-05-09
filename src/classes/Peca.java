@@ -1,13 +1,15 @@
 package classes;
 
 public class Peca {
+    private static int qtd;
     private int codPeca;
     private String descricao;
     private double preco;
     private int qtdeEstoque;
         
-    public Peca (int codPeca, String descricao, double preco, int qtdeEstoque) {
-        this.codPeca = codPeca;
+    public Peca (String descricao, double preco, int qtdeEstoque) {
+        this.codPeca = Peca.qtd;
+        Peca.qtd++;
         this.descricao = descricao;
         this.preco = preco;
         this.qtdeEstoque = qtdeEstoque;
@@ -38,7 +40,7 @@ public class Peca {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 

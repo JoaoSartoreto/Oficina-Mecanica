@@ -20,7 +20,7 @@ public class OrdemServico {
         OrdemServico.qtd++;
 
         this.dataOS = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
         this.dataPrevTermino = LocalDate.parse(dataPrevTermino,formato);
         this.placaCarro = placaCarro;
         this.situacao = 'A';
@@ -76,7 +76,7 @@ public class OrdemServico {
 
     // Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean adicionarServico(char tipo, double preço, int qtde, Servico servico) {
+    public boolean adicionarServico(char tipo, int qtde, Servico servico) {
         if (situacao == 'A') {
             ItemOS itemOS = new ItemOS(tipo, qtde, servico);
             this.itensOS.add(itemOS);
@@ -88,7 +88,7 @@ public class OrdemServico {
     
     // Se a OS estiver aberta e haver quantidade da peça suficiente no estoque adiciona um ItemOS da peça à lista de itens.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean adicionarPeca(char tipo, double preço, int qtde, Peca peca) {
+    public boolean adicionarPeca(char tipo, int qtde, Peca peca) {
         if (situacao == 'A') {
             if (peca.subtrairEstoque(qtde)) {
                 ItemOS itemOS = new ItemOS(tipo, qtde , peca);
