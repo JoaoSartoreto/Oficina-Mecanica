@@ -89,7 +89,7 @@ public class InterfaceClientes {
     
     // Utiliza um diálogo para receber o CPF e busca o cliente pelo CPF para editá-lo
     // Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
-    // (não for null)  é exibido um menu para editar suas informações, este menu chama diálogos para receber entrada
+    // (não for null) é exibido um menu para editar suas informações, este menu chama diálogos para receber entrada
     // e alterar os valores dos atributos do cliente.
     // O método altera apenas o endereço e o telefone porque são as únicas informações que se alteram de um cliente.
     public static void exibirEditarCliente() {

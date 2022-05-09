@@ -17,12 +17,7 @@ public class Servico {
         this.codServico = qtdServico;
         this.descricao = descricao;
         this.preco = preco;
-        
-        // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
-        this.tempoExecucao = Duration.ofDays(diasExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
-        this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
+        setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
     // GETTERS E SETTERS
@@ -78,6 +73,14 @@ public class Servico {
         this.tempoExecucao = tempoExecucao;
     }
     
+    public final void setTempoExecucao(int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) {
+        // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
+        this.tempoExecucao = Duration.ofDays(diasExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
+        this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
+    }
+    
     // OUTROS MÉTODOS
     
     @Override
@@ -88,7 +91,7 @@ public class Servico {
         saida += "Código: " + codServico + "\n";
         saida += "Descrição: " + descricao + "\n";
         saida += "Preço: " + formatador.format(preco) + "\n";
-        saida += "Duração (dd:hh:mm:ss): " + getTempoExecucaoString() + "\n";
+        saida += "Tempo de Execução: (dd:hh:mm:ss): " + getTempoExecucaoString() + "\n";
 
         return saida;
     }

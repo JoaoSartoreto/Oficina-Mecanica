@@ -64,7 +64,7 @@ public class Oficina {
         int opcao;
 
         do {
-            opcao = InterfaceServicos.exibir();
+            opcao = InterfaceClientes.exibir();
             switch (opcao) {
                 case 1 -> {
                     Cliente cliente = InterfaceClientes.exibirCadastroCliente();
@@ -111,6 +111,7 @@ public class Oficina {
                 
                 case 2 -> InterfaceServicos.exibirConsultaCodigo();
                 case 3 -> InterfaceServicos.exibirExcluirServico();
+                case 4 -> InterfaceServicos.exibirEditarServico();
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
