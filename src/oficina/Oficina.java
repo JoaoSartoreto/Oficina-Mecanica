@@ -52,7 +52,7 @@ public class Oficina {
         return null;
     }
     
-    // Busca um cliente pelo CPF e remove da lista.
+    // Busca um cliente pelo CPF e o remove da lista.
     // Devolve um boolean representando o sucesso da operação. 
     public static boolean excluirCliente(String cpf) {
         return listaClientes.remove(buscarCliente(cpf));
@@ -71,10 +71,10 @@ public class Oficina {
                     if (cliente != null) listaClientes.add(cliente);
                 }
                 
-                case 2 -> InterfaceClientes.exibirConsultaCpf();
+                case 2 -> InterfaceClientes.exibirConsultarCpf();
                 case 3 -> InterfaceClientes.exibirExcluirCliente();
                 case 4 -> InterfaceClientes.exibirEditarCliente();
-                case 5 -> InterfaceClientes.exibirListaClientes();  
+                case 5 -> InterfaceClientes.exibirListarClientes();  
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
@@ -88,6 +88,12 @@ public class Oficina {
             if (servico.getCodServico() == codigo) return servico;
 
         return null;
+    }
+    
+    // Busca um serviço pelo código e o remove da lista.
+    // Devolve um boolean representando o sucesso da operação. 
+    public static boolean excluirServico(int codigo) {
+        return listaServicos.remove(buscarServico(codigo));
     }
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
@@ -104,6 +110,7 @@ public class Oficina {
                 }
                 
                 case 2 -> InterfaceServicos.exibirConsultaCodigo();
+                case 3 -> InterfaceServicos.exibirExcluirServico();
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }

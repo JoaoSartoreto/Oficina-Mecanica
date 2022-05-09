@@ -54,7 +54,7 @@ public class InterfaceClientes {
     // Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF.
     // Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
     // (não for null) ele é exibido, senão é informado que o cliente não foi encontrado.
-    public static void exibirConsultaCpf() {
+    public static void exibirConsultarCpf() {
         String titulo = "Consultar por CPF";
         String cpf;
         Cliente cliente;
@@ -125,7 +125,7 @@ public class InterfaceClientes {
         }
     }
     
-    public static void exibirListaClientes() {
+    public static void exibirListarClientes() {
         ArrayList<Cliente> listaClientes = Oficina.getListaClientes();
         String mensagem = "";
             

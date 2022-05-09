@@ -68,4 +68,19 @@ public class InterfaceServicos {
             }
         }
     }
+    
+    // Utiliza um diálogo de entrada para receber o código e busca o serviço pelo código para excluí-lo.
+    // Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
+    // (não for null) ele é excluido chamando o método Oficina.excluirServico(int codigo).
+    // O método excluirServico devolve um boolean representando o sucesso da operação, desta forma se devolver um
+    // false é avisado que o cliente não foi encontrada para exclusão.
+    public static void exibirExcluirServico() {
+        String titulo = "Excluir Serviço";
+        String codigo;
+
+        codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        
+        if (codigo != null && !Oficina.excluirServico(Integer.parseInt(codigo))) 
+            Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
+    }
 }
