@@ -286,14 +286,14 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
     }
     
-    // METODOS RELACIONADOS AOS ITEM OS
+    // METODOS RELACIONADOS AOS ITENS OS
     
     private static void gerenciarItemOS()
     {
-        boolean sair = false;
+        int opcao;
 
         do {
-            int opcao = InterfaceOS.exibirGerenciarItens();
+            opcao = InterfaceOS.exibirGerenciarItens();
             switch (opcao) {
                 case 1 -> {
                     InterfaceOS.exibirAdicionarPeca();
@@ -317,7 +317,7 @@ public class Oficina {
             
                 default -> sair = true;
             }
-        } while (!sair);
+        } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
     public static boolean adicionarItemOSPeca(OrdemServico ordemOS, Peca peca, int quantidade)
