@@ -9,19 +9,19 @@ public class ItemOS {
     private int id;
     private static int qtd;
 
-    public ItemOS(char tipo, int qtde, Peca peca) {
+    public ItemOS(int qtde, Peca peca) {
         ItemOS.qtd++;
         this.id = ItemOS.qtd;
-        this.tipo = tipo;
+        this.tipo = 'P';
         this.preco = peca.getPreco();
         this.qtde = qtde;
         this.peca = peca;
     }
     
-    public ItemOS(char tipo, int qtde, Servico servico) {
+    public ItemOS(int qtde, Servico servico) {
         ItemOS.qtd++;
         this.id = ItemOS.qtd;
-        this.tipo = tipo;
+        this.tipo = 'S';
         this.preco = servico.getPreco();
         this.qtde = qtde;
         this.servico = servico;

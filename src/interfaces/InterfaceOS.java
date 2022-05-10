@@ -62,18 +62,13 @@ public class InterfaceOS {
         
         numeroString = Interface.exibirDialogoEntrada(titulo, "Número: ");
         
-        if(numeroString!=null)
-        {
+        if(numeroString != null) {
             numero = Integer.parseInt(numeroString);
             OrdemServico ordemOS = Oficina.buscarOS(numero);
             if(ordemOS!=null)
-            {
                 Oficina.cancelarOS(ordemOS);
-            }
             else
-            {
                 Interface.exibirMensagemErro(titulo, "Ordem de serviço não encontrada");
-            }
         }
     }
     
@@ -89,13 +84,9 @@ public class InterfaceOS {
             numero = Integer.parseInt(numeroString);
             OrdemServico ordemOS = Oficina.buscarOS(numero);
             if(ordemOS!=null)
-            {
                 Oficina.finalizarOS(ordemOS);
-            }
             else
-            {
                 Interface.exibirMensagemErro(titulo, "Ordem de serviço não encontrada");
-            }
         }        
     }
     
@@ -118,7 +109,6 @@ public class InterfaceOS {
         String titulo = "Listar Ordens de Serviço";
         String saida= Oficina.listarOSs();
         
-   
         Interface.exibirMensagem(titulo, saida);
     }
 
@@ -139,104 +129,78 @@ public class InterfaceOS {
         return Interface.exibirMenu("Gerenciar Itens de OS", mensagem, 6);
     }
     
-    // TODO método para selecionar OS
-    
     public static OrdemServico exibirSelecionarOS(String titulo)
     {    
-        String indexString;
-        int index;
-        indexString = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
-        if(indexString!=null)
-        {
-            index = Integer.parseInt(indexString);
-            OrdemServico ordemOS = Oficina.buscarOS(index);
-            return ordemOS;
-        }
-        return null;
-    }
-    // TODO método para selecionar peça
-    
-    public static void exibirAdicionarPeca()
-    {
-        String titulo = "Adicionar Peça a OS";
-        String codPecaString;
-        int codPeca;
+        String numero;
+        OrdemServico ordemServico;
         
-        OrdemServico ordemOS = exibirSelecionarOS(titulo);
-        if(ordemOS!=null)
-        {
-            codPecaString = Interface.exibirDialogoEntrada(titulo, "Insira o codigo da peça que deseja inserir");
-            if(codPecaString!=null)
-            {
-                codPeca = Integer.parseInt(codPecaString);
-                Peca peca = Oficina.buscarPeca(codPeca);
-                if(peca != null)
-                {
-                    String qtdeString;
-                    int qtde;
-                    qtdeString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de peças");
-                    if(qtdeString!=null)
-                    {
-                        qtde = Integer.parseInt(qtdeString);
-                        if(Oficina.adicionarItemOSPeca(ordemOS, peca, qtde))
-                        {
-                            Interface.exibirMensagem(titulo, "Peça cadastrada com sucesso na OS");
-                        }
-                        else
-                        {
-                            Interface.exibirMensagemErro(titulo, "Falha ao cadastrar peça na OS");
-                        }
-                    }
-                }
-                else
-                {
-                    Interface.exibirMensagemErro(titulo, "Peça não encontrada");
-                }
-            }
-        }
-        else
-        {
-            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-        }
+        numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+        if(numero == null) return null;
+        
+        ordemServico = Oficina.buscarOS(Integer.parseInt(numero));
+        if (ordemServico == null) Interface.exibirMensagem(titulo, "OS não encontrada");
+        return ordemServico;
     }
     
-    // TODO método para selecionar serviço
-    
-    public static void exibirAdicionarServico() {
-        String titulo = "Adicionar Serviço a OS";
-        String codServicoString;
-        int codServico;
+    public static void exibirAdicionarPeca() {   
+        String titulo = "Adicionar Peça à OS";
         
-        OrdemServico ordemOS = exibirSelecionarOS(titulo);
-        if(ordemOS!=null)
-        {
-            codServicoString = Interface.exibirDialogoEntrada(titulo, "Insira o codigo do serviço que deseja inserir");
-            if(codServicoString!=null)
-            {
-                codServico = Integer.parseInt(codServicoString);
-                Servico servico = Oficina.buscarServico(codServico);
-                if(servico != null)
-                {
-                    String qtdeString;
-                    int qtde;
-                    qtdeString = Interface.exibirDialogoEntrada(titulo, "Informe a quantidade de serviços");
-                    if(qtdeString!=null)
-                    {
-                        qtde = Integer.parseInt(qtdeString);
-                        Oficina.adicionarItemOSServico(ordemOS, servico, qtde);
-                        Interface.exibirMensagem(titulo, "Serviço cadastrada com sucesso na OS");
-                    }
-                }
-                else
-                {
-                    Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
-                }
-            }
+        OrdemServico ordemServico = exibirSelecionarOS(titulo);
+        if (ordemServico == null) return;
+        if (ordemServico.getSituação() != 'A') {
+            Interface.exibirMensagemErro(titulo, "A OS não está aberta");
+            return;
         }
-        else
-        {
-            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        if (codigo == null) return;
+        
+        Peca peca = Oficina.buscarPeca(Integer.parseInt(codigo));
+        if (peca == null) {
+            Interface.exibirMensagem(titulo, "Peça não encontrada");
+            return;
         }
+        
+        String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
+        if (qtde == null) return;
+        
+        if (Integer.parseInt(qtde) <= 0)
+            Interface.exibirMensagemErro(titulo, "Quantidade inválida");
+        
+        if (Integer.parseInt(qtde) > peca.getQtdeEstoque())
+            Interface.exibirMensagemErro(titulo, "Quantidade insuficiente no estoque");
+        
+        ordemServico.adicionarPeca(Integer.parseInt(qtde), peca);
+        Interface.exibirMensagem(titulo, "Peça adiciona à OS com sucesso");
+    }
+           
+    public static void exibirAdicionarServico() {   
+        String titulo = "Adicionar Serviço à OS";
+        
+        OrdemServico ordemServico = exibirSelecionarOS(titulo);
+        if (ordemServico == null) return;
+        if (ordemServico.getSituação() != 'A') {
+            Interface.exibirMensagemErro(titulo, "A OS não está aberta");
+            return;
+        }
+        
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        if (codigo == null) return;
+        
+        Servico servico = Oficina.buscarServico(Integer.parseInt(codigo));
+        if (servico == null) {
+            Interface.exibirMensagem(titulo, "Serviço não encontrado");
+            return;
+        }
+        
+        String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
+        if (qtde == null) return;
+        
+        if (Integer.parseInt(qtde) <= 0)
+            Interface.exibirMensagemErro(titulo, "Quantidade inválida");
+        
+        ordemServico.adicionarServico(Integer.parseInt(qtde), servico);
+        Interface.exibirMensagem(titulo, "Serviço adicionado à OS com sucesso");
     }
     
     public static void exibirExcluirPeca()

@@ -88,9 +88,9 @@ public class OrdemServico {
 
     // Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean adicionarServico(char tipo, int qtde, Servico servico) {
+    public boolean adicionarServico(int qtde, Servico servico) {
         if (situacao == 'A') {
-            ItemOS itemOS = new ItemOS(tipo, qtde, servico);
+            ItemOS itemOS = new ItemOS(qtde, servico);
             this.itensOS.add(itemOS);
             return true;
         }
@@ -100,10 +100,10 @@ public class OrdemServico {
     
     // Se a OS estiver aberta e haver quantidade da peça suficiente no estoque adiciona um ItemOS da peça à lista de itens.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean adicionarPeca(char tipo, int qtde, Peca peca) {
+    public boolean adicionarPeca(int qtde, Peca peca) {
         if (situacao == 'A') {
             if (peca.subtrairEstoque(qtde)) {
-                ItemOS itemOS = new ItemOS(tipo, qtde , peca);
+                ItemOS itemOS = new ItemOS(qtde , peca);
                 this.itensOS.add(itemOS);
                 return true;
             }

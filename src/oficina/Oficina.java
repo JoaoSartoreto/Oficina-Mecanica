@@ -26,16 +26,11 @@ public class Oficina {
         do {
             opcao = InterfacePrincipal.exibir();
             switch (opcao) {
-                case 1 -> gerenciarClientes();
-            
+                case 1 -> gerenciarClientes();            
                 case 2 -> gerenciarPecas();
-
                 case 3 -> gerenciarServicos();
-
                 case 4 -> gerenciarOS();
-                
-                case 5 -> {
-                }
+                case 5 -> {}
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
@@ -84,7 +79,6 @@ public class Oficina {
                     Cliente cliente = InterfaceClientes.exibirCadastroCliente();
                     if (cliente != null) listaClientes.add(cliente);
                 }
-                
                 case 2 -> InterfaceClientes.exibirConsultarCpf();
                 case 3 -> InterfaceClientes.exibirExcluirCliente();
                 case 4 -> InterfaceClientes.exibirEditarCliente();
@@ -99,16 +93,14 @@ public class Oficina {
         return listaPecas;
     }
     
-    public static Peca buscarPeca(int codPeca)
-    {
+    public static Peca buscarPeca(int codPeca) {
         for (Peca peca : listaPecas)
             if(peca.getCodPeca() == codPeca) return peca;
 
         return null;
     }
     
-    public static int excluirPeca(int codPeca)
-    {
+    public static int excluirPeca(int codPeca) {
         Peca peca = buscarPeca(codPeca);
         
         if (peca == null) return 1;
@@ -122,15 +114,13 @@ public class Oficina {
         return 0;
     }
     
-    public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque)
-    {
+    public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque) {
         listaPecas.get(codPeca).setDescricao(descricao);
         listaPecas.get(codPeca).setPreco(preco);
         listaPecas.get(codPeca).setDescricao(descricao);
     }
     
-    public static void gerenciarPecas()
-    {
+    public static void gerenciarPecas() {
         int opcao;
         
         do {
@@ -140,7 +130,6 @@ public class Oficina {
                     Peca peca = InterfacePecas.exibirCadastrarPeca();
                     if (peca != null) listaPecas.add(peca);
                 }
-                
                 case 2 -> InterfacePecas.exibirConsultarPeca();              
                 case 3 -> InterfacePecas.exibirExcluirPeca();              
                 case 4 -> InterfacePecas.exibirEditarPeca();               
@@ -157,8 +146,7 @@ public class Oficina {
     
     // Percorre a lista de serviços verificando os códigos.
     // Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
-    public static Servico buscarServico(int codServico)
-    {
+    public static Servico buscarServico(int codServico) {
         for (Servico servico : listaServicos)
             if(servico.getCodServico() == codServico)
                 return servico;
@@ -194,7 +182,6 @@ public class Oficina {
                     Servico servico = InterfaceServicos.exibirCadastroServico();
                     if (servico != null) listaServicos.add(servico);
                 }
-                
                 case 2 -> InterfaceServicos.exibirConsultaCodigo();
                 case 3 -> InterfaceServicos.exibirExcluirServico();
                 case 4 -> InterfaceServicos.exibirEditarServico();
@@ -205,8 +192,7 @@ public class Oficina {
     
     // MÉTODOS RELACIONADOS À OS
     
-    public static OrdemServico buscarOS(int numero)
-    {
+    public static OrdemServico buscarOS(int numero) {
         for (OrdemServico ordemOS : listaOS)
             if(ordemOS.getNumeroOS() == numero)
                 return ordemOS;
@@ -214,18 +200,15 @@ public class Oficina {
         return null;
     }
     
-    public static void cancelarOS(OrdemServico ordemOS)
-    {
+    public static void cancelarOS(OrdemServico ordemOS) {
         ordemOS.cancelarOS();
     }
         
-    public static void finalizarOS(OrdemServico ordemOS)
-    {
+    public static void finalizarOS(OrdemServico ordemOS) {
         ordemOS.finalizarOS();
     }
     
-    public static int excluirOS(int numero)
-    {
+    public static int excluirOS(int numero) {
         OrdemServico ordemServico = buscarOS(numero);
         
         if (ordemServico == null) return 1;
@@ -235,8 +218,7 @@ public class Oficina {
         return 0;
     }
     
-    public static String listarOSs()
-    {
+    public static String listarOSs() {
         String saida="";
         for (int i = 0; i < listaOS.size();i++) {
             saida += listaOS.get(i).toString();
@@ -246,8 +228,7 @@ public class Oficina {
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
     // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
-    private static void gerenciarOS()
-    {
+    private static void gerenciarOS() {
         int opcao;
         
         do {
@@ -256,8 +237,7 @@ public class Oficina {
                 case 1 -> {
                     OrdemServico ordemServico = InterfaceOS.exibirAbrirOS();
                     if (ordemServico != null) listaOS.add(ordemServico);
-                }
-                
+                }  
                 case 2 -> gerenciarItemOS();
                 case 3 -> InterfaceOS.exibirCancelarOS();
                 case 4 -> InterfaceOS.exibirFinalizarOS();
@@ -269,55 +249,36 @@ public class Oficina {
     
     // METODOS RELACIONADOS AOS ITENS OS
     
-    private static void gerenciarItemOS()
-    {
+    private static void gerenciarItemOS() {   
         int opcao;
-
+        OrdemServico ordemServico;
+        
         do {
             opcao = InterfaceOS.exibirGerenciarItens();
-            switch (opcao) {
-                case 1 -> {
-                    InterfaceOS.exibirAdicionarPeca();
-                }
-                
-                case 2 -> {
-                    InterfaceOS.exibirAdicionarServico();
-                }
-                
-                case 3 -> {
-                    InterfaceOS.exibirExcluirPeca();
-                }
-                
-                case 4 -> {
-                    InterfaceOS.exibirExcluirServico();
-                }
-                
-                case 5 -> {
-                    InterfaceOS.consultarTotalOS();
-                }
             
-                default -> sair = true;
+            switch (opcao) {
+                case 1 -> InterfaceOS.exibirAdicionarPeca();
+                case 2 -> InterfaceOS.exibirAdicionarServico();
+                case 3 -> InterfaceOS.exibirExcluirPeca();
+                case 4 -> InterfaceOS.exibirExcluirServico();
+                case 5 -> InterfaceOS.consultarTotalOS();
             }
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    public static boolean adicionarItemOSPeca(OrdemServico ordemOS, Peca peca, int quantidade)
-    {
-        if(peca.subtrairEstoque(quantidade))
-        {
+    public static boolean adicionarItemOSPeca(OrdemServico ordemOS, Peca peca, int quantidade) {
+        if(peca.subtrairEstoque(quantidade)){
             ordemOS.adicionarPeca('P', quantidade , peca);
             return true;
         }
         return false;
     }
     
-    public static void adicionarItemOSServico(OrdemServico ordemOS, Servico servico, int quantidade)
-    {
+    public static void adicionarItemOSServico(OrdemServico ordemOS, Servico servico, int quantidade) {
         ordemOS.adicionarServico('S', quantidade, servico);
     }
     
-    public static ItemOS buscarItemOS(int id)
-    {
+    public static ItemOS buscarItemOS(int id) {
         for (OrdemServico ordemOS : listaOS) {
             for(int i=0;i<ordemOS.getItensOS().size();i++)
             {
@@ -330,8 +291,7 @@ public class Oficina {
         return null;
     }
     
-    public static void excluirItemOS(OrdemServico ordemOS, ItemOS itemOS)
-    {
+    public static void excluirItemOS(OrdemServico ordemOS, ItemOS itemOS) {
         ordemOS.removerItemOS(itemOS);
     }
 
