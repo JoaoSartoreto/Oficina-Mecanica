@@ -2,6 +2,7 @@ package oficina;
 import java.util.ArrayList;
 
 import classes.Cliente;
+import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -57,9 +58,18 @@ public class Oficina {
     }
     
     // Busca um cliente pelo CPF e o remove da lista.
-    // Devolve um boolean representando o sucesso da operação. 
-    public static boolean excluirCliente(String cpf) {
-        return listaClientes.remove(buscarCliente(cpf));
+    // Devolve um int representando o sucesso da operação ou especificando o erro. 
+    public static int excluirCliente(String cpf) {
+        Cliente cliente = buscarCliente(cpf);
+        
+        if (cliente == null) return 1;
+        
+        for (OrdemServico ordemServico : listaOS)
+            if (ordemServico.getCliente() == cliente) return 2;
+        
+        listaClientes.remove(cliente);
+        
+        return 0;
     }
 
     // Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
@@ -97,9 +107,19 @@ public class Oficina {
         return null;
     }
     
-    public static boolean excluirPeca(int codPeca)
+    public static int excluirPeca(int codPeca)
     {
-        return listaPecas.remove(buscarPeca(codPeca));
+        Peca peca = buscarPeca(codPeca);
+        
+        if (peca == null) return 1;
+        
+        for (OrdemServico ordemServico : listaOS)
+            for (ItemOS itemOS : ordemServico.getItensOS())
+                if (itemOS.getPeca() == peca) return 2;
+        
+        listaPecas.remove(peca);
+        
+        return 0;
     }
     
     public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque)
@@ -148,8 +168,18 @@ public class Oficina {
     
     // Busca um serviço pelo código e o remove da lista.
     // Devolve um boolean representando o sucesso da operação. 
-    public static boolean excluirServico(int codServico) {
-        return listaServicos.remove(buscarServico(codServico));
+    public static int excluirServico(int codServico) {
+        Servico servico = buscarServico(codServico);
+        
+        if (servico == null) return 1;
+        
+        for (OrdemServico ordemServico : listaOS)
+            for (ItemOS itemOS : ordemServico.getItensOS())
+                if (itemOS.getServico() == servico) return 2;
+        
+        listaServicos.remove(servico);
+        
+        return 0;
     }
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
@@ -175,53 +205,12 @@ public class Oficina {
     
     // MÉTODOS RELACIONADOS À OS
     
-    // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
-    // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
-    private static void gerenciarOS()
-    {
-        boolean sair = false;
-
-        do {
-            int opcao = InterfaceOS.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    OrdemServico ordemOS = InterfaceOS.exibirAbrirOS();
-                    if (ordemOS != null) listaOS.add(ordemOS);
-                }
-                
-                case 2 -> {
-                    gerenciarItemOS();
-                }
-                
-                case 3 -> {
-                    InterfaceOS.exibirCancelarOS();
-                }
-                
-                case 4 -> {
-                    InterfaceOS.exibirFinalizarOS();
-                }
-                
-                case 5 -> {
-                    InterfaceOS.exibirExcluirOS();
-                }
-                
-                case 6 -> {
-                    InterfaceOS.exibirListaOS(listaOS);
-                }
-            
-                default -> sair = true;
-            }
-        } while (!sair);
-    }
-    
     public static OrdemServico buscarOS(int numero)
     {
-        for (OrdemServico ordemOS : listaOS) {
-            if(ordemOS.getNumeroOS()==numero)
-            {
+        for (OrdemServico ordemOS : listaOS)
+            if(ordemOS.getNumeroOS() == numero)
                 return ordemOS;
-            }
-        }
+            
         return null;
     }
     
@@ -229,15 +218,21 @@ public class Oficina {
     {
         ordemOS.cancelarOS();
     }
-    
+        
     public static void finalizarOS(OrdemServico ordemOS)
     {
         ordemOS.finalizarOS();
     }
     
-    public static void excluirOS(OrdemServico ordemOS)
+    public static int excluirOS(int numero)
     {
-        listaOS.remove(ordemOS);
+        OrdemServico ordemServico = buscarOS(numero);
+        
+        if (ordemServico == null) return 1;
+        if (!ordemServico.cancelarOS()) return 2;
+        
+        listaOS.remove(ordemServico);
+        return 0;
     }
     
     public static String listarOSs()
@@ -247,6 +242,29 @@ public class Oficina {
             saida += listaOS.get(i).toString();
         }
         return saida;
+    }
+    
+    // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
+    // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
+    private static void gerenciarOS()
+    {
+        int opcao;
+        
+        do {
+            opcao = InterfaceOS.exibir();
+            switch (opcao) {
+                case 1 -> {
+                    OrdemServico ordemServico = InterfaceOS.exibirAbrirOS();
+                    if (ordemServico != null) listaOS.add(ordemServico);
+                }
+                
+                case 2 -> gerenciarItemOS();
+                case 3 -> InterfaceOS.exibirCancelarOS();
+                case 4 -> InterfaceOS.exibirFinalizarOS();
+                case 5 -> InterfaceOS.exibirExcluirOS();
+                case 6 -> InterfaceOS.exibirListaOS(listaOS);
+            }
+        } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
     }
     
     // METODOS RELACIONADOS AOS ITEM OS

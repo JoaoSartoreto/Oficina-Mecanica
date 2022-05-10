@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 
 public class OrdemServico {
+    private static int qtde;
+    
     private int numeroOS;
     private LocalDate dataOS;
     private LocalDate dataPrevTermino;
@@ -12,19 +14,20 @@ public class OrdemServico {
     private String placaCarro;
     private char situacao;
     private ArrayList<ItemOS> itensOS;
-    private static int qtde;
+    private Cliente cliente;
 
-    public OrdemServico(String dataPrevTermino, String placaCarro) {
+    public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) {
         // O número das ordens de serviço será de acordo com a ordem de criação
         this.numeroOS = OrdemServico.qtde;
         OrdemServico.qtde++;
 
         this.dataOS = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
-        this.dataPrevTermino = LocalDate.parse(dataPrevTermino,formato);
+        this.dataPrevTermino = LocalDate.parse(dataPrevTermino, formato);
         this.placaCarro = placaCarro;
         this.situacao = 'A';
         this.itensOS = new ArrayList<>();
+        this.cliente = cliente;
     }
     
     // GETTERS E SETTERS
@@ -70,6 +73,15 @@ public class OrdemServico {
     // itensOS
     public ArrayList<ItemOS> getItensOS() {
         return itensOS;
+    }
+    
+    //cliente
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     // OUTROS MÉTODOS
@@ -172,12 +184,14 @@ public class OrdemServico {
     @Override
     public String toString()
     {
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String saida = "";
         
         saida += "Numero OS: " + numeroOS + "\n";
+        saida += "Cliente: " + cliente.getNome() + " CPF: " + cliente.getCpf() + "\n";
         saida += "Data: " + dataOS + "\n";
-        saida += "Data prevista para termino: " + dataPrevTermino + "\n";
-        saida += "Data termino: " + dataTermino + "\n";
+        saida += "Data prevista para termino: " + dataPrevTermino.format(formatador) + "\n";
+        saida += "Data termino: " + (dataTermino == null ? "Em aberto" : dataTermino.format(formatador)) + "\n";
         saida += "Placa do carro: " + placaCarro + "\n";
         saida += "Situação: " + situacao + "\n";
         saida += "Itens: \n";
@@ -185,5 +199,5 @@ public class OrdemServico {
 
         return saida;
     }
-    
+
 }

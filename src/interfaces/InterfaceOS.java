@@ -1,5 +1,6 @@
 package interfaces;
 
+import classes.Cliente;
 import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
@@ -30,6 +31,8 @@ public class InterfaceOS {
         String titulo = "Abir OS";
         String dataPrevTermino;
         String placaCarro;
+        String cpfCliente;
+        Cliente cliente;
         
         dataPrevTermino = Interface.exibirDialogoEntrada(titulo, "Data prevista para o término: ");
         if (dataPrevTermino == null) return null;
@@ -37,7 +40,18 @@ public class InterfaceOS {
         placaCarro = Interface.exibirDialogoEntrada(titulo, "Placa do carro: ");
         if (placaCarro == null) return null;
         
-        return new OrdemServico(dataPrevTermino, placaCarro);
+        do {
+            cpfCliente = Interface.exibirDialogoEntrada(titulo, "CPF do cliente: ");
+            if (cpfCliente == null) return null;
+            
+            cliente = Oficina.buscarCliente(cpfCliente);
+            if (cliente == null)
+                Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
+            
+        } while (cliente == null);
+        
+        
+        return new OrdemServico(dataPrevTermino, placaCarro, cliente);
     }
     
     public static void exibirCancelarOS ()
@@ -46,7 +60,8 @@ public class InterfaceOS {
         String numeroString;
         int numero;
         
-        numeroString = Interface.exibirDialogoEntrada(titulo, "Insira o numero da OS que deseja cancelar");
+        numeroString = Interface.exibirDialogoEntrada(titulo, "Número: ");
+        
         if(numeroString!=null)
         {
             numero = Integer.parseInt(numeroString);
@@ -87,23 +102,15 @@ public class InterfaceOS {
     public static void exibirExcluirOS()
     {
         String titulo = "Excluir Ordem de Serviço";
-        String numeroString;
-        int numero;
+        String numero;
         
-        numeroString = Interface.exibirDialogoEntrada(titulo, "Insira o numero da OS que deseja excluir");
-        if(numeroString!=null)
-        {
-            numero = Integer.parseInt(numeroString);
-            OrdemServico ordemOS = Oficina.buscarOS(numero);
-            if(ordemOS!=null)
-            {
-                Oficina.excluirOS(ordemOS);
+        numero = Interface.exibirDialogoEntrada(titulo, "Número: ");
+        if (numero != null)
+            switch(Oficina.excluirOS(Integer.parseInt(numero))){
+                case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
+                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está abertada");
             }
-            else
-            {
-                Interface.exibirMensagemErro(titulo, "Ordem de serviço não encontrada");
-            }
-        }        
     }
     
     public static void exibirListaOS(ArrayList<OrdemServico> ordensOS)
@@ -134,22 +141,9 @@ public class InterfaceOS {
     
     // TODO método para selecionar OS
     
-    public static int exibirSelecionarOS()
-    {
-        String titulo = "Selecione a Ordem de Servico";
-        String indexString;
-        int index;
-        
-        indexString = Interface.exibirDialogoEntrada(titulo, "Insira o index da ordem de serviço que deseja adicionar um item");
-        if(indexString!=null)
-        {
-            index = Integer.parseInt(indexString);
-            return index;
-        }
-        else
-        {
-            return -1;
-        }
+    public static String exibirSelecionarOS(String titulo)
+    {    
+        return Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
     }
     // TODO método para selecionar peça
     

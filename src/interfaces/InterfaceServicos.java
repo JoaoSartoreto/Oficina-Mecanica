@@ -79,8 +79,12 @@ public class InterfaceServicos {
         String titulo = "Excluir Serviço";
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
         
-        if (codigo != null && !Oficina.excluirServico(Integer.parseInt(codigo))) 
-            Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
+        if (codigo != null)
+            switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
+                case 0 -> Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
+                case 2 -> Interface.exibirMensagemErro(titulo, "O serviço está presente em ordens de serviço");
+            }
     }
     
     // Utiliza um diálogo para receber o código e busca o serviço pelo código para editá-lo

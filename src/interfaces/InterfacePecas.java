@@ -56,8 +56,12 @@ public class InterfacePecas {
         String titulo = "Excluir Peça";
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
         
-        if(codigo != null && !Oficina.excluirPeca(Integer.parseInt(codigo)))
-            Interface.exibirMensagemErro(titulo, "Peça não encontrada para exclusão"); 
+        if (codigo != null)
+            switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
+                case 0 -> Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");
+                case 2 -> Interface.exibirMensagemErro(titulo, "A peça está presente em ordens de serviço");
+            }
     }
     
     // Tenho que verificar com mais atenção, mas aqui vai ter que usar Strings para verificar null

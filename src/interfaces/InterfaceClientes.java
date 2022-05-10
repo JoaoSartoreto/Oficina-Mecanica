@@ -83,8 +83,12 @@ public class InterfaceClientes {
 
         cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");
         
-        if (cpf != null && !Oficina.excluirCliente(cpf)) 
-            Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
+        if (cpf != null)
+            switch (Oficina.excluirCliente(cpf)) {
+                case 0 -> Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
+                case 2 -> Interface.exibirMensagemErro(titulo, "O cliente possui ordens de serviço");
+            }
     }
     
     // Utiliza um diálogo para receber o CPF e busca o cliente pelo CPF para editá-lo

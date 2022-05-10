@@ -49,7 +49,16 @@ public class ItemOS {
     public void setQtde(int qtde) {
         this.qtde = qtde;
     }
-
+    
+    // servico
+    public Servico getServico() {
+        return servico;
+    }
+    
+    public void setServico(Servico servico) {
+        this.servico = servico;
+    }
+    
     // peca
     public Peca getPeca() {
         return peca;
@@ -68,11 +77,11 @@ public class ItemOS {
         saida += "Tipo: " + tipo + "\n";
         saida += "Preço: " + preco + "\n";
         saida += "Quantidade: " + qtde + "\n";
-
-        switch (tipo) {
-            case 'P' -> saida += this.peca.toString() + "\n";
         
-            case 'S' -> saida += this.servico.toString() + "\n";
+        switch (tipo) {
+            case 'P' -> saida += "Peça: " + peca.getDescricao() + " Código: " + peca.getCodPeca() + "\n";
+        
+            case 'S' -> saida += "Serviço: " + servico.getDescricao() + " Código: " + servico.getCodServico() + "\n";
         }
 
         return saida;
