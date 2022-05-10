@@ -220,30 +220,8 @@ public class Oficina {
         return 0;
     }
     
-    public static String listarOSs() {
-        String saida="";
-        for (int i = 0; i < listaOS.size();i++) {
-            saida += listaOS.get(i).toString();
-        }
-        return saida;
-    }
-    
-    //Uma ordem de serviço sempre é aberta sem valor nenhum, e seu valor é de acordo
-    //com suas peças e serviços embutidos. Portanto antes de fazer a conversão do 
-    //totalOS, retornado pelo proprio metodo da OrdemServico, é preciso verificar
-    //se de fato é um numero, e não uma string vazia.
-    public static String verificarTotalOS(OrdemServico ordemOS)
-    {
-        String totalString;
-        double total = 0;
-        totalString = ordemOS.valorOS();
-        if(isNumeric(totalString))
-        {
-            total = Double.parseDouble(totalString);
-        }
-        
-        String totalFinalString = ""+total;
-        return totalFinalString;
+    public static ArrayList<OrdemServico> getListaOS() {
+        return listaOS;
     }
     
     // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
@@ -262,7 +240,7 @@ public class Oficina {
                 case 3 -> InterfaceOS.exibirCancelarOS();
                 case 4 -> InterfaceOS.exibirFinalizarOS();
                 case 5 -> InterfaceOS.exibirExcluirOS();
-                case 6 -> InterfaceOS.exibirListaOS(listaOS);
+                case 6 -> InterfaceOS.exibirListaOS();
             }
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
     }
@@ -271,7 +249,6 @@ public class Oficina {
     
     private static void gerenciarItemOS() {   
         int opcao;
-        OrdemServico ordemServico;
         
         do {
             opcao = InterfaceOS.exibirGerenciarItens();
@@ -281,45 +258,53 @@ public class Oficina {
                 case 2 -> InterfaceOS.exibirAdicionarServico();
                 case 3 -> InterfaceOS.exibirExcluirPeca();
                 case 4 -> InterfaceOS.exibirExcluirServico();
-                case 5 -> InterfaceOS.consultarTotalOS();
+                case 5 -> InterfaceOS.exibirConsultarTotal();
             }
-        } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 6
+        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    public static boolean adicionarItemOSPeca(OrdemServico ordemOS, Peca peca, int quantidade) {
-        if(peca.subtrairEstoque(quantidade)){
-            ordemOS.adicionarPeca('P', quantidade , peca);
-            return true;
-        }
-        return false;
+    // Fizemos este método pois o enunciado pede para que Oficina implemente esta funcionalidade, mas deixamos
+    // as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim
+    // manipulações indevidas.
+    public static boolean adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) {
+        return ordemServico.adicionarPeca(quantidade, peca);
     }
     
-    public static void adicionarItemOSServico(OrdemServico ordemOS, Servico servico, int quantidade) {
-        ordemOS.adicionarServico('S', quantidade, servico);
+    // Fizemos este método pois o enunciado pede para que Oficina implemente esta funcionalidade, mas deixamos
+    // as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim
+    // manipulações indevidas.
+    public static boolean adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) {
+        return ordemServico.adicionarServico(quantidade, servico);
     }
     
-    public static ItemOS buscarItemOS(int id) {
-        for (OrdemServico ordemOS : listaOS) {
-            for(int i=0;i<ordemOS.getItensOS().size();i++)
-            {
-                if(ordemOS.getItensOS().get(i).getId() == id)
-                {
-                    return ordemOS.getItensOS().get(i);
-                }
-            }
-        }
-        return null;
+    public static boolean excluirItemOSPeca(OrdemServico ordemOS, int codigo) {
+        return ordemOS.removerItemOSPeca(codigo);
     }
     
-    public static void excluirItemOS(OrdemServico ordemOS, ItemOS itemOS) {
-        ordemOS.removerItemOS(itemOS);
+    public static boolean excluirItemOSServico(OrdemServico ordemOS, int codigo) {
+        return ordemOS.removerItemOSServico(codigo);
     }
-    
-    
     
     //METODOS PARA CONSULTAR O VALOR VENDIDO DURANTE UM PERIODO
     
- 
+    //Uma ordem de serviço sempre é aberta sem valor nenhum, e seu valor é de acordo
+    //com suas peças e serviços embutidos. Portanto antes de fazer a conversão do 
+    //totalOS, retornado pelo proprio metodo da OrdemServico, é preciso verificar
+    //se de fato é um numero, e não uma string vazia.
+    public static String verificarTotalOS(OrdemServico ordemOS)
+    {
+        String totalString;
+        double total = 0;
+        totalString = Double.toString(ordemOS.getValorOS());
+        if(isNumeric(totalString))
+        {
+            total = Double.parseDouble(totalString);
+        }
+        
+        String totalFinalString = ""+total;
+        return totalFinalString;
+    }
+    
     public static boolean isNumeric(String strNum) {
     if (strNum == null) {
         return false;

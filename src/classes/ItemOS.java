@@ -1,17 +1,16 @@
 package classes;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class ItemOS {
     private char tipo;
     private double preco;
     private int qtde;
     private Servico servico;
     private Peca peca; 
-    private int id;
-    private static int qtd;
 
     public ItemOS(int qtde, Peca peca) {
-        ItemOS.qtd++;
-        this.id = ItemOS.qtd;
         this.tipo = 'P';
         this.preco = peca.getPreco();
         this.qtde = qtde;
@@ -19,8 +18,6 @@ public class ItemOS {
     }
     
     public ItemOS(int qtde, Servico servico) {
-        ItemOS.qtd++;
-        this.id = ItemOS.qtd;
         this.tipo = 'S';
         this.preco = servico.getPreco();
         this.qtde = qtde;
@@ -30,10 +27,6 @@ public class ItemOS {
     // GETTERS E SETTERS
 
     // tipo
-
-    public int getId() {
-        return id;
-    }
     
     public char getTipo() {
         return tipo;
@@ -83,16 +76,17 @@ public class ItemOS {
 
     @Override
     public String toString() {
+        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         String saida ="";
-        saida += "ID: "+id+"\n";
+
         saida += "Tipo: " + tipo + "\n";
-        saida += "Preço: " + preco + "\n";
+        saida += "Preço: " + formatador.format(preco) + "\n";
         saida += "Quantidade: " + qtde + "\n";
         
         switch (tipo) {
-            case 'P' -> saida += "Peça: " + peca.getDescricao() + " Código: " + peca.getCodPeca() + "\n";
+            case 'P' -> saida += "Peça: " + peca.getDescricao() + " (Código: " + peca.getCodPeca() + ")\n";
         
-            case 'S' -> saida += "Serviço: " + servico.getDescricao() + " Código: " + servico.getCodServico() + "\n";
+            case 'S' -> saida += "Serviço: " + servico.getDescricao() + " (Código: " + servico.getCodServico() + ")\n";
         }
 
         return saida;

@@ -1,5 +1,8 @@
 package classes;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Peca {
     private static int qtdePecas;
     
@@ -82,12 +85,13 @@ public class Peca {
     
     //toString
     @Override
-    public String toString() {
+    public String toString() {    
+        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         String saida = "";
 
-        saida += "Codigo: " + codPeca + "\n";
-        saida += "Descricao: " + descricao + "\n";
-        saida += "Preco: " + preco + "\n";
+        saida += "Código: " + codPeca + "\n";
+        saida += "Descrição: " + descricao + "\n";
+        saida += "Preco: " + formatador.format(preco) + "\n";
         saida += "Estoque: " + qtdeEstoque + "\n";
 
         return saida;

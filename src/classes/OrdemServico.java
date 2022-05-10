@@ -1,8 +1,10 @@
 package classes;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class OrdemServico {
     private static int qtde;
@@ -114,12 +116,27 @@ public class OrdemServico {
 
     // Remove um itemOS, devolvendo as peças, se a OS estiver aberta.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean removerItemOS(ItemOS itemOS) {      
-        if (situacao == 'A') {
-            itemOS.devolver();
-            this.itensOS.remove(itemOS);
-            return true;
-        }
+    public boolean removerItemOSPeca(int codigo) {      
+        if (situacao == 'A')
+            for (ItemOS itemOS : itensOS) 
+                if (itemOS.getTipo() == 'P' && itemOS.getPeca().getCodPeca() == codigo) {
+                    itemOS.devolver();
+                    itensOS.remove(itemOS);
+                    return true;
+                }
+
+        return false;
+    }
+    
+    // Remove um itemOS, devolvendo as peças, se a OS estiver aberta.
+    // Devolve um boolean representando o sucesso da operação.
+    public boolean removerItemOSServico(int codigo) {      
+        if (situacao == 'A')
+            for (ItemOS itemOS : itensOS) 
+                if (itemOS.getTipo() == 'S' && itemOS.getServico().getCodServico() == codigo) {
+                    itensOS.remove(itemOS);
+                    return true;
+                }
 
         return false;
     }
@@ -127,13 +144,10 @@ public class OrdemServico {
     // Se a OS estiver aberta percorre a lista de itens devolvendo as peças, altera a situação para C (Cancelada)
     // e coloca a data de término com a data atual.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean cancelarOS()
-    {
+    public boolean cancelarOS() {
         if (situacao == 'A') {
             // Percorre todas os itemOS devolvendo as peças
-            for (ItemOS itemOS : itensOS) {
-                itemOS.devolver();
-            }
+            for (ItemOS itemOS : itensOS) itemOS.devolver();
 
             this.situacao = 'C';
             this.dataTermino = LocalDate.now();
@@ -145,8 +159,7 @@ public class OrdemServico {
     
     // Se a OS estiver aberta altera a situação para F (Finalizada) e coloca a data de término com a data atual.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean finalizarOS()
-    {   
+    public boolean finalizarOS() {   
         if (situacao == 'A') {
             this.situacao = 'F';
             this.dataTermino = LocalDate.now();
@@ -154,6 +167,16 @@ public class OrdemServico {
         }
         
         return false;
+    }
+    
+    public String consultarTotal() {
+        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
+        String saida = "";
+        
+        saida += "Total: " + formatador.format(getValorOS()) +"\n\n";
+        saida += listaItensOS();
+        
+        return saida;
     }
     
     // Percorre a lista de itens chamando o método toString() para formar uma string com a lista dos itens.
@@ -172,32 +195,30 @@ public class OrdemServico {
     }
     
     // Percorre a lista de itens e retorna a soma de todos os itens
-    public String valorOS()
-    {
-        double total=0;
-        String totalString = "";
-        for (ItemOS itemOS : itensOS) {
+    public double getValorOS() {
+        double total = 0;
+        
+        for (ItemOS itemOS : itensOS)
             total += (itemOS.getPreco() * itemOS.getQtde());
-        }
-        totalString += total;
-        return totalString;
+    
+        return total;
     }
 
     @Override
     public String toString()
     {
-        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
+        DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String saida = "";
         
         saida += "Numero OS: " + numeroOS + "\n";
-        saida += "Cliente: " + cliente.getNome() + " CPF: " + cliente.getCpf() + "\n";
-        saida += "Data: " + dataOS + "\n";
-        saida += "Data prevista para termino: " + dataPrevTermino.format(formatador) + "\n";
-        saida += "Data termino: " + (dataTermino == null ? "Em aberto" : dataTermino.format(formatador)) + "\n";
+        saida += "Cliente: " + cliente.getNome() + " (CPF: " + cliente.getCpf() + ")\n";
+        saida += "Data: " + dataOS.format(formatadorData) + "\n";
+        saida += "Data prevista para termino: " + dataPrevTermino.format(formatadorData) + "\n";
+        saida += "Data termino: " + (dataTermino == null ? "Em aberto" : dataTermino.format(formatadorData)) + "\n";
         saida += "Placa do carro: " + placaCarro + "\n";
         saida += "Situação: " + situacao + "\n";
-        saida += "Itens: \n";
-        saida += listaItensOS(); 
+        saida += "Valor: " + formatadorMoeda.format(getValorOS());
 
         return saida;
     }

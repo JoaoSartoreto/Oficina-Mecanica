@@ -1,7 +1,6 @@
 package interfaces;
 
 import classes.Cliente;
-import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -104,12 +103,15 @@ public class InterfaceOS {
             }
     }
     
-    public static void exibirListaOS(ArrayList<OrdemServico> ordensOS)
+    public static void exibirListaOS()
     {
-        String titulo = "Listar Ordens de Serviço";
-        String saida= Oficina.listarOSs();
+        ArrayList<OrdemServico> listaOS = Oficina.getListaOS();
+        String mensagem = "";
+            
+        for(OrdemServico ordemServico : listaOS)
+            mensagem += ordemServico + "\n";
         
-        Interface.exibirMensagem(titulo, saida);
+        Interface.exibirMensagem("Listar Ordens de Serviço", mensagem);
     }
 
     // GERENCIAR ITENS
@@ -164,11 +166,17 @@ public class InterfaceOS {
         String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
         if (qtde == null) return;
         
-        if (Integer.parseInt(qtde) <= 0)
+        if (Integer.parseInt(qtde) <= 0) {
             Interface.exibirMensagemErro(titulo, "Quantidade inválida");
+            return;
+        }
+            
         
-        if (Integer.parseInt(qtde) > peca.getQtdeEstoque())
+        if (Integer.parseInt(qtde) > peca.getQtdeEstoque()) {
             Interface.exibirMensagemErro(titulo, "Quantidade insuficiente no estoque");
+            return;
+        }
+            
         
         ordemServico.adicionarPeca(Integer.parseInt(qtde), peca);
         Interface.exibirMensagem(titulo, "Peça adiciona à OS com sucesso");
@@ -203,93 +211,52 @@ public class InterfaceOS {
         Interface.exibirMensagem(titulo, "Serviço adicionado à OS com sucesso");
     }
     
-    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
-    //são validos. Se forem ele chama o metodo da oficina responsavel por excluir a peça
-    public static void exibirExcluirPeca()
-    {
+    public static void exibirExcluirPeca() {   
         String titulo = "Excluir Peça da OS";
-        String idItemOSString;
-        int idItemOS;
         
-        OrdemServico ordemOS = exibirSelecionarOS(titulo);
-        if(ordemOS!=null)
-        {
-            idItemOSString = Interface.exibirDialogoEntrada(titulo, "Insira o id da peça que deseja remover");
-            if(idItemOSString!=null)
-            {
-                idItemOS = Integer.parseInt(idItemOSString);
-                ItemOS itemOS = Oficina.buscarItemOS(idItemOS);
-                if(itemOS!=null)
-                {
-                    Oficina.excluirItemOS(ordemOS, itemOS);
-                }
-                else
-                {
-                    Interface.exibirMensagemErro(titulo, "Peça não encontrada");
-                }
-                
-            }
+        OrdemServico ordemServico = exibirSelecionarOS(titulo);
+        if (ordemServico == null) return;
+        if (ordemServico.getSituação() != 'A') {
+            Interface.exibirMensagemErro(titulo, "A OS não está aberta");
+            return;
         }
-        else
-        {
-            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-        }
-       
+        
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        if (codigo == null) return;
+        
+        if (Oficina.excluirItemOSPeca(ordemServico, Integer.parseInt(codigo)))
+            Interface.exibirMensagem(titulo, "Item excluído com sucesso");
+        else 
+            Interface.exibirMensagemErro(titulo, "Item não encontrado par exclusão");
     }
     
-    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
-    //são validos. Se forem ele chama o metodo da oficina responsavel por excluir o serviço
-    public static void exibirExcluirServico()
-    {
-        String titulo = "Excluir serviço da OS";
-        String idItemOSString;
-        int idItemOS;
+    public static void exibirExcluirServico() {   
+        String titulo = "Excluir Serviço da OS";
         
-        OrdemServico ordemOS = exibirSelecionarOS(titulo);
-        if(ordemOS!=null)
-        {
-            idItemOSString = Interface.exibirDialogoEntrada(titulo, "Insira o id do serviço que deseja remover");
-            if(idItemOSString!=null)
-            {
-                idItemOS = Integer.parseInt(idItemOSString);
-                ItemOS itemOS = Oficina.buscarItemOS(idItemOS);
-                if(itemOS!=null)
-                {
-                    Oficina.excluirItemOS(ordemOS, itemOS);
-                }
-                else
-                {
-                    Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
-                }
-                
-            }
+        OrdemServico ordemServico = exibirSelecionarOS(titulo);
+        if (ordemServico == null) return;
+        if (ordemServico.getSituação() != 'A') {
+            Interface.exibirMensagemErro(titulo, "A OS não está aberta");
+            return;
         }
-        else
-        {
-            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-        }
+        
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        if (codigo == null) return;
+        
+        if (Oficina.excluirItemOSServico(ordemServico, Integer.parseInt(codigo)))
+            Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
+        else 
+            Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
     }
     
-    
-    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
-    //são validos. Se forem ele chama o metodo da oficina responsavel consultar o valor de uma ordem de serviço
-    public static void consultarTotalOS()
+    public static void exibirConsultarTotal()
     {
-        // Aqui terá que passar uma String ou OS e mostrar o total dela;
         
-        String titulo = "Excluir serviço da OS";
+        String titulo = "Consultar Total";
         
-        OrdemServico ordemOS = exibirSelecionarOS(titulo);
-        if(ordemOS!=null)
-        {
-            String totalString;
-            totalString = Oficina.verificarTotalOS(ordemOS);
-            totalString += "\n"+ordemOS.listaItensOS();
-            Interface.exibirMensagem(titulo, "O total dessa Ordem de Serviço é: "+totalString);
-        }
-        else
-        {
-            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-        }
+        OrdemServico ordemServico = exibirSelecionarOS(titulo);
+        if (ordemServico == null) return;
+        
+        Interface.exibirMensagem(titulo, ordemServico.consultarTotal());
     }
 }
