@@ -19,6 +19,8 @@ public class ItemOS {
     }
     
     public ItemOS(char tipo, int qtde, Servico servico) {
+        ItemOS.qtd++;
+        this.id = ItemOS.qtd;
         this.tipo = tipo;
         this.preco = servico.getPreco();
         this.qtde = qtde;
