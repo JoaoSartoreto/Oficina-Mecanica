@@ -321,8 +321,6 @@ public class InterfaceOS {
         // Aqui terá que passar uma String ou OS e mostrar o total dela;
         
         String titulo = "Excluir serviço da OS";
-        String idItemOSString;
-        int idItemOS;
         
         OrdemServico ordemOS = exibirSelecionarOS(titulo);
         if(ordemOS!=null)

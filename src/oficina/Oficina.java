@@ -314,8 +314,6 @@ public class Oficina {
                 case 5 -> {
                     InterfaceOS.consultarTotalOS();
                 }
-            
-                default -> sair = true;
             }
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
