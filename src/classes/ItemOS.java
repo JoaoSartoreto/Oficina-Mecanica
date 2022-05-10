@@ -79,7 +79,6 @@ public class ItemOS {
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         String saida ="";
 
-        saida += "Tipo: " + tipo + "\n";
         saida += "Preço: " + formatador.format(preco) + "\n";
         saida += "Quantidade: " + qtde + "\n";
         

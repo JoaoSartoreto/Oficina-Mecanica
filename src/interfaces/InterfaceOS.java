@@ -56,37 +56,29 @@ public class InterfaceOS {
     public static void exibirCancelarOS ()
     {
         String titulo = "Cancelar Ordem de Serviço";
-        String numeroString;
-        int numero;
+        String numero;
         
-        numeroString = Interface.exibirDialogoEntrada(titulo, "Número: ");
-        
-        if(numeroString != null) {
-            numero = Integer.parseInt(numeroString);
-            OrdemServico ordemOS = Oficina.buscarOS(numero);
-            if(ordemOS!=null)
-                Oficina.cancelarOS(ordemOS);
-            else
-                Interface.exibirMensagemErro(titulo, "Ordem de serviço não encontrada");
-        }
+        numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+        if (numero != null)
+            switch(Oficina.cancelarOS(Integer.parseInt(numero))){
+                case 0 -> Interface.exibirMensagem(titulo, "OS cancelada com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
+                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está aberta");
+            }
     }
     
     public static void exibirFinalizarOS()
     {
         String titulo = "Finalizar Ordem de Serviço";
-        String numeroString;
-        int numero;
+        String numero;
         
-        numeroString = Interface.exibirDialogoEntrada(titulo, "Insira o indice da OS que deseja finalizar");
-        if(numeroString!=null)
-        {
-            numero = Integer.parseInt(numeroString);
-            OrdemServico ordemOS = Oficina.buscarOS(numero);
-            if(ordemOS!=null)
-                Oficina.finalizarOS(ordemOS);
-            else
-                Interface.exibirMensagemErro(titulo, "Ordem de serviço não encontrada");
-        }        
+        numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+        if (numero != null)
+            switch(Oficina.finalizarOS(Integer.parseInt(numero))){
+                case 0 -> Interface.exibirMensagem(titulo, "OS finalizada com sucesso");
+                case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para finalizar");
+                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está aberta");
+            }        
     }
     
     public static void exibirExcluirOS()
@@ -94,12 +86,12 @@ public class InterfaceOS {
         String titulo = "Excluir Ordem de Serviço";
         String numero;
         
-        numero = Interface.exibirDialogoEntrada(titulo, "Número: ");
+        numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
         if (numero != null)
             switch(Oficina.excluirOS(Integer.parseInt(numero))){
                 case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
                 case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está abertada");
+                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está aberta");
             }
     }
     
@@ -154,7 +146,7 @@ public class InterfaceOS {
             return;
         }
         
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         if (codigo == null) return;
         
         Peca peca = Oficina.buscarPeca(Integer.parseInt(codigo));
@@ -192,7 +184,7 @@ public class InterfaceOS {
             return;
         }
         
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         if (codigo == null) return;
         
         Servico servico = Oficina.buscarServico(Integer.parseInt(codigo));
@@ -221,7 +213,7 @@ public class InterfaceOS {
             return;
         }
         
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         if (codigo == null) return;
         
         if (Oficina.excluirItemOSPeca(ordemServico, Integer.parseInt(codigo)))
@@ -240,7 +232,7 @@ public class InterfaceOS {
             return;
         }
         
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         if (codigo == null) return;
         
         if (Oficina.excluirItemOSServico(ordemServico, Integer.parseInt(codigo)))

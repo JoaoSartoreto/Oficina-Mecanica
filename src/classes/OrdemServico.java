@@ -211,14 +211,14 @@ public class OrdemServico {
         DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String saida = "";
         
-        saida += "Numero OS: " + numeroOS + "\n";
+        saida += "Número OS: " + numeroOS + "\n";
         saida += "Cliente: " + cliente.getNome() + " (CPF: " + cliente.getCpf() + ")\n";
         saida += "Data: " + dataOS.format(formatadorData) + "\n";
         saida += "Data prevista para termino: " + dataPrevTermino.format(formatadorData) + "\n";
         saida += "Data termino: " + (dataTermino == null ? "Em aberto" : dataTermino.format(formatadorData)) + "\n";
         saida += "Placa do carro: " + placaCarro + "\n";
         saida += "Situação: " + situacao + "\n";
-        saida += "Valor: " + formatadorMoeda.format(getValorOS());
+        saida += "Valor: " + formatadorMoeda.format(getValorOS() + "\n");
 
         return saida;
     }

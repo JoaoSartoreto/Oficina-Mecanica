@@ -1,7 +1,9 @@
 package interfaces;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import oficina.Oficina;
 
 public class InterfacePrincipal {
@@ -24,22 +26,16 @@ public class InterfacePrincipal {
     
     public static void consultarTotalVendidoEmPeriodo()
     {
-        String titulo = "Total vendido em um periodo";
-        String periodoInicialString, periodoFinalString;
+        String titulo = "Total Vendido em um Período";
+        String dataInicio, dataFinal;
         
-        periodoInicialString = Interface.exibirDialogoEntrada(titulo, "Informe a data inicial do periodo: ");
-        if(periodoInicialString != null)
-        {
-            periodoFinalString = Interface.exibirDialogoEntrada(titulo, "Informe a data final do periodo: ");
-            if(periodoFinalString!=null)
-            {
-                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("d/M/yyyy");
-                LocalDate dataInicial = LocalDate.parse(periodoInicialString, formatador);
-                LocalDate dataFinal = LocalDate.parse(periodoFinalString, formatador);
-                String totalVendidoString;
-                totalVendidoString = Oficina.totalVendidoPeriodo(dataInicial, dataFinal);
-                Interface.exibirMensagem(titulo, "Total: "+totalVendidoString);
-            }
-        }
+        dataInicio = Interface.exibirDialogoEntrada(titulo, "Data inicial do período: ");
+        if (dataInicio == null) return;
+        
+        dataFinal = Interface.exibirDialogoEntrada(titulo, "Data final do período: ");
+        if (dataFinal == null) return;
+        
+        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
+        Interface.exibirMensagem(titulo, "Total: " + formatador.format(Oficina.getTotalVendidoPeriodo(dataInicio, dataFinal)));
     }
 }

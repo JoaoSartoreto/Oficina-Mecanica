@@ -12,6 +12,7 @@ import interfaces.InterfacePecas;
 import interfaces.InterfacePrincipal;
 import interfaces.InterfaceServicos;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Oficina {
 
@@ -202,12 +203,22 @@ public class Oficina {
         return null;
     }
     
-    public static void cancelarOS(OrdemServico ordemOS) {
-        ordemOS.cancelarOS();
+    public static int cancelarOS(int numero) {
+        OrdemServico ordemServico = buscarOS(numero);
+        
+        if (ordemServico == null) return 1;
+        if (!ordemServico.cancelarOS()) return 2;
+        
+        return 0;
     }
         
-    public static void finalizarOS(OrdemServico ordemOS) {
-        ordemOS.finalizarOS();
+    public static int finalizarOS(int numero) {
+        OrdemServico ordemServico = buscarOS(numero);
+        
+        if (ordemServico == null) return 1;
+        if (!ordemServico.finalizarOS()) return 2;
+        
+        return 0;
     }
     
     public static int excluirOS(int numero) {
@@ -317,27 +328,24 @@ public class Oficina {
     return true;
 }
     
-    public static String totalVendidoPeriodo(LocalDate dataInicio, LocalDate dataFinal)
+    public static double getTotalVendidoPeriodo(String textDataInicio, String textDataFinal)
     {
-        String totalString ="";
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate dataInicio = LocalDate.parse(textDataInicio, formato);
+        LocalDate dataFinal = LocalDate.parse(textDataFinal, formato);
+        
         double total = 0;
         
-        for (OrdemServico ordemOS : listaOS) {
-            if(ordemOS.getSituação()=='F')
-            {
-                if(ordemOS.getDataOS().isBefore(dataFinal) && ordemOS.getDataOS().isAfter(dataInicio)
-                    && ordemOS.getSituação()=='F')
-                {
-                    totalString = Oficina.verificarTotalOS(ordemOS);
-                    if(isNumeric(totalString))
-                    {
-                        total += Double.parseDouble(totalString);
-                    }
-                }
-            }
-        }
-        String totalFinalString = "" + total;
-        return totalFinalString;    
+        for (OrdemServico ordemServico : listaOS)
+            if(ordemServico.getSituação()== 'F'){
+                LocalDate dataTermino = ordemServico.getDataTermino();
+                boolean depoisInicio = dataTermino.isAfter(dataInicio) || dataTermino.equals(dataInicio);
+                boolean antesFinal = dataTermino.isBefore(dataFinal) || dataTermino.equals(dataFinal);
+                if(depoisInicio && antesFinal)
+                    total += ordemServico.getValorOS();
+            } 
+        
+        return total;
     }
 
 }
