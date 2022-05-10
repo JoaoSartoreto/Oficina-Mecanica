@@ -285,15 +285,15 @@ public class Oficina {
                 }
                 
                 case 3 -> {
-                    
+                    InterfaceOS.exibirExcluirPeca();
                 }
                 
                 case 4 -> {
-                    
+                    InterfaceOS.exibirExcluirServico();
                 }
                 
                 case 5 -> {
-                    
+                    InterfaceOS.consultarTotalOS();
                 }
             
                 default -> sair = true;
@@ -301,19 +301,38 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    public static boolean adicionarItemOSPeca(int indexOS, Peca peca, int quantidade)
+    public static boolean adicionarItemOSPeca(OrdemServico ordemOS, Peca peca, int quantidade)
     {
         if(peca.subtrairEstoque(quantidade))
         {
-            listaOS.get(indexOS).adicionarPeca('P', quantidade , peca);
+            ordemOS.adicionarPeca('P', quantidade , peca);
             return true;
         }
         return false;
     }
     
-    public static void adicionarItemOSServico(int indexOS, Servico servico, int quantidade)
+    public static void adicionarItemOSServico(OrdemServico ordemOS, Servico servico, int quantidade)
     {
-        listaOS.get(indexOS).adicionarServico('S', quantidade, servico);
+        ordemOS.adicionarServico('S', quantidade, servico);
+    }
+    
+    public static ItemOS buscarItemOS(int id)
+    {
+        for (OrdemServico ordemOS : listaOS) {
+            for(int i=0;i<ordemOS.getItensOS().size();i++)
+            {
+                if(ordemOS.getItensOS().get(i).getId() == id)
+                {
+                    return ordemOS.getItensOS().get(i);
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static void excluirItemOS(OrdemServico ordemOS, ItemOS itemOS)
+    {
+        ordemOS.removerItemOS(itemOS);
     }
 
 }

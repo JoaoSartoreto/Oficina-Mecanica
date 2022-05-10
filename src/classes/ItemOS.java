@@ -6,8 +6,12 @@ public class ItemOS {
     private int qtde;
     private Servico servico;
     private Peca peca; 
+    private int id;
+    private static int qtd;
 
     public ItemOS(char tipo, int qtde, Peca peca) {
+        ItemOS.qtd++;
+        this.id = ItemOS.qtd;
         this.tipo = tipo;
         this.preco = peca.getPreco();
         this.qtde = qtde;
@@ -15,6 +19,8 @@ public class ItemOS {
     }
     
     public ItemOS(char tipo, int qtde, Servico servico) {
+        ItemOS.qtd++;
+        this.id = ItemOS.qtd;
         this.tipo = tipo;
         this.preco = servico.getPreco();
         this.qtde = qtde;
@@ -24,6 +30,11 @@ public class ItemOS {
     // GETTERS E SETTERS
 
     // tipo
+
+    public int getId() {
+        return id;
+    }
+    
     public char getTipo() {
         return tipo;
     }
@@ -73,7 +84,7 @@ public class ItemOS {
     @Override
     public String toString() {
         String saida ="";
-        
+        saida += "ID: "+id+"\n";
         saida += "Tipo: " + tipo + "\n";
         saida += "Preço: " + preco + "\n";
         saida += "Quantidade: " + qtde + "\n";

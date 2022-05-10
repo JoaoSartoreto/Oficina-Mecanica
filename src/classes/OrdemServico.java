@@ -18,9 +18,9 @@ public class OrdemServico {
 
     public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) {
         // O número das ordens de serviço será de acordo com a ordem de criação
-        this.numeroOS = OrdemServico.qtde;
+        
         OrdemServico.qtde++;
-
+        this.numeroOS = OrdemServico.qtde;
         this.dataOS = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
         this.dataPrevTermino = LocalDate.parse(dataPrevTermino, formato);
@@ -114,10 +114,10 @@ public class OrdemServico {
 
     // Remove um itemOS, devolvendo as peças, se a OS estiver aberta.
     // Devolve um boolean representando o sucesso da operação.
-    public boolean removerItemOS(int indice) {      
+    public boolean removerItemOS(ItemOS itemOS) {      
         if (situacao == 'A') {
-            itensOS.get(indice).devolver();
-            this.itensOS.remove(indice);
+            itemOS.devolver();
+            this.itensOS.remove(itemOS);
             return true;
         }
 
