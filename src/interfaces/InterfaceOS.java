@@ -156,7 +156,7 @@ public class InterfaceOS {
     }
     // TODO método para selecionar peça
     
-    public static boolean exibirAdicionarPeca()
+    public static void exibirAdicionarPeca()
     {
         String titulo = "Adicionar Peça a OS";
         String codPecaString;
@@ -181,12 +181,10 @@ public class InterfaceOS {
                         if(Oficina.adicionarItemOSPeca(ordemOS, peca, qtde))
                         {
                             Interface.exibirMensagem(titulo, "Peça cadastrada com sucesso na OS");
-                            return true;
                         }
                         else
                         {
                             Interface.exibirMensagemErro(titulo, "Falha ao cadastrar peça na OS");
-                            return false;
                         }
                     }
                 }
@@ -196,13 +194,15 @@ public class InterfaceOS {
                 }
             }
         }
-       Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-       return false;
+        else
+        {
+            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        }
     }
     
     // TODO método para selecionar serviço
     
-    public static boolean exibirAdicionarServico() {
+    public static void exibirAdicionarServico() {
         String titulo = "Adicionar Serviço a OS";
         String codServicoString;
         int codServico;
@@ -224,8 +224,7 @@ public class InterfaceOS {
                     {
                         qtde = Integer.parseInt(qtdeString);
                         Oficina.adicionarItemOSServico(ordemOS, servico, qtde);
-                        Interface.exibirMensagem(titulo, "Peça cadastrada com sucesso na OS");
-                        return true;
+                        Interface.exibirMensagem(titulo, "Serviço cadastrada com sucesso na OS");
                     }
                 }
                 else
@@ -234,11 +233,13 @@ public class InterfaceOS {
                 }
             }
         }
-        Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-        return false;
+        else
+        {
+            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        }
     }
     
-    public static boolean exibirExcluirPeca()
+    public static void exibirExcluirPeca()
     {
         String titulo = "Excluir Peça da OS";
         String idItemOSString;
@@ -258,16 +259,19 @@ public class InterfaceOS {
                 }
                 else
                 {
-                    Interface.exibirMensagemErro(titulo, "ItemOS não encontrado");
+                    Interface.exibirMensagemErro(titulo, "Peça não encontrada");
                 }
                 
             }
         }
-       Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-       return false;
+        else
+        {
+            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        }
+       
     }
     
-    public static boolean exibirExcluirServico()
+    public static void exibirExcluirServico()
     {
         String titulo = "Excluir serviço da OS";
         String idItemOSString;
@@ -276,7 +280,7 @@ public class InterfaceOS {
         OrdemServico ordemOS = exibirSelecionarOS(titulo);
         if(ordemOS!=null)
         {
-            idItemOSString = Interface.exibirDialogoEntrada(titulo, "Insira o id ddo serviço que deseja remover");
+            idItemOSString = Interface.exibirDialogoEntrada(titulo, "Insira o id do serviço que deseja remover");
             if(idItemOSString!=null)
             {
                 idItemOS = Integer.parseInt(idItemOSString);
@@ -287,13 +291,15 @@ public class InterfaceOS {
                 }
                 else
                 {
-                    Interface.exibirMensagemErro(titulo, "ItemOS não encontrado");
+                    Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
                 }
                 
             }
         }
-       Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
-       return false;
+        else
+        {
+            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        }
     }
     
     public static String consultarTotalOS()
