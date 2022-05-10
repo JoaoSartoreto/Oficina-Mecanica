@@ -11,6 +11,7 @@ import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
 import interfaces.InterfacePrincipal;
 import interfaces.InterfaceServicos;
+import java.time.LocalDate;
 
 public class Oficina {
 
@@ -34,8 +35,8 @@ public class Oficina {
 
                 case 4 -> gerenciarOS();
                 
-                case 5 -> {
-                }
+                case 5 -> InterfacePrincipal.consultarTotalVendidoEmPeriodo();
+                
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
@@ -244,6 +245,24 @@ public class Oficina {
         return saida;
     }
     
+    //Uma ordem de serviço sempre é aberta sem valor nenhum, e seu valor é de acordo
+    //com suas peças e serviços embutidos. Portanto antes de fazer a conversão do 
+    //totalOS, retornado pelo proprio metodo da OrdemServico, é preciso verificar
+    //se de fato é um numero, e não uma string vazia.
+    public static String verificarTotalOS(OrdemServico ordemOS)
+    {
+        String totalString;
+        double total = 0;
+        totalString = ordemOS.valorOS();
+        if(isNumeric(totalString))
+        {
+            total = Double.parseDouble(totalString);
+        }
+        
+        String totalFinalString = ""+total;
+        return totalFinalString;
+    }
+    
     // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
     // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
     private static void gerenciarOS()
@@ -333,6 +352,46 @@ public class Oficina {
     public static void excluirItemOS(OrdemServico ordemOS, ItemOS itemOS)
     {
         ordemOS.removerItemOS(itemOS);
+    }
+    
+    
+    
+    //METODOS PARA CONSULTAR O VALOR VENDIDO DURANTE UM PERIODO
+    
+ 
+    public static boolean isNumeric(String strNum) {
+    if (strNum == null) {
+        return false;
+    }
+    try {
+        double d = Double.parseDouble(strNum);
+    } catch (NumberFormatException nfe) {
+        return false;
+    }
+    return true;
+}
+    
+    public static String totalVendidoPeriodo(LocalDate dataInicio, LocalDate dataFinal)
+    {
+        String totalString ="";
+        double total = 0;
+        
+        for (OrdemServico ordemOS : listaOS) {
+            if(ordemOS.getSituação()=='F')
+            {
+                if(ordemOS.getDataOS().isBefore(dataFinal) && ordemOS.getDataOS().isAfter(dataInicio)
+                    && ordemOS.getSituação()=='F')
+                {
+                    totalString = Oficina.verificarTotalOS(ordemOS);
+                    if(isNumeric(totalString))
+                    {
+                        total += Double.parseDouble(totalString);
+                    }
+                }
+            }
+        }
+        String totalFinalString = "" + total;
+        return totalFinalString;    
     }
 
 }

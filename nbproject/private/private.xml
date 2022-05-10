@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/classes/OrdemServico.java</file>
-            <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/interfaces/InterfacePecas.java</file>
-            <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/classes/Peca.java</file>
+            <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/interfaces/InterfacePrincipal.java</file>
             <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/interfaces/InterfaceClientes.java</file>
             <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/interfaces/InterfaceOS.java</file>
+            <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/oficina/Oficina.java</file>
             <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/classes/ItemOS.java</file>
+            <file>file:/home/joovitor/Documentos/UFMS/3º%20Semestre/Progamação%20Orientada%20a%20Objetos/Trabalhos/Trabalho1/POO1/src/interfaces/InterfaceServicos.java</file>
         </group>
     </open-files>
 </project-private>

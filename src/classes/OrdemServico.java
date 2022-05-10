@@ -172,13 +172,15 @@ public class OrdemServico {
     }
     
     // Percorre a lista de itens e retorna a soma de todos os itens
-    public double valorOS()
+    public String valorOS()
     {
         double total=0;
+        String totalString = "";
         for (ItemOS itemOS : itensOS) {
             total += (itemOS.getPreco() * itemOS.getQtde());
         }
-        return total;
+        totalString += total;
+        return totalString;
     }
 
     @Override

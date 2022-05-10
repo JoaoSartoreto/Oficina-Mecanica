@@ -141,6 +141,8 @@ public class InterfaceOS {
     
     // TODO método para selecionar OS
     
+    
+    //Metodo para o usuario escolher a Ordem de Serviço que deseja alterar
     public static OrdemServico exibirSelecionarOS(String titulo)
     {    
         String indexString;
@@ -156,6 +158,9 @@ public class InterfaceOS {
     }
     // TODO método para selecionar peça
     
+    
+    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
+    //são validos. Se forem ele chama o metodo da oficina responsavel por adicionar a peça
     public static void exibirAdicionarPeca()
     {
         String titulo = "Adicionar Peça a OS";
@@ -202,6 +207,8 @@ public class InterfaceOS {
     
     // TODO método para selecionar serviço
     
+    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
+    //são validos. Se forem ele chama o metodo da oficina responsavel por adicionar o serviço
     public static void exibirAdicionarServico() {
         String titulo = "Adicionar Serviço a OS";
         String codServicoString;
@@ -239,6 +246,8 @@ public class InterfaceOS {
         }
     }
     
+    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
+    //são validos. Se forem ele chama o metodo da oficina responsavel por excluir a peça
     public static void exibirExcluirPeca()
     {
         String titulo = "Excluir Peça da OS";
@@ -271,6 +280,8 @@ public class InterfaceOS {
        
     }
     
+    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
+    //são validos. Se forem ele chama o metodo da oficina responsavel por excluir o serviço
     public static void exibirExcluirServico()
     {
         String titulo = "Excluir serviço da OS";
@@ -302,26 +313,28 @@ public class InterfaceOS {
         }
     }
     
-    public static String consultarTotalOS()
+    
+    //Chama o selecionador de ordem de serviços, e verifica se os valroes inseridos pelo usuario
+    //são validos. Se forem ele chama o metodo da oficina responsavel consultar o valor de uma ordem de serviço
+    public static void consultarTotalOS()
     {
         // Aqui terá que passar uma String ou OS e mostrar o total dela;
         
+        String titulo = "Excluir serviço da OS";
+        String idItemOSString;
+        int idItemOS;
         
-        OrdemServico ordemOS = exibirAbrirOS();
-        if(ordemOS !=null)
+        OrdemServico ordemOS = exibirSelecionarOS(titulo);
+        if(ordemOS!=null)
         {
-            String totalString = "";
-            double total;
-            total = ordemOS.valorOS();
-            totalString += total;
-        
-            Interface.exibirMensagem("Valor total da OS: " + ordemOS.getNumeroOS(), totalString);
+            String totalString;
+            totalString = Oficina.verificarTotalOS(ordemOS);
+            totalString += "\n"+ordemOS.listaItensOS();
+            Interface.exibirMensagem(titulo, "O total dessa Ordem de Serviço é: "+totalString);
         }
-        
-        
-        return "Não possui valor";
-        
-        //Desse jeito?
-        
+        else
+        {
+            Interface.exibirMensagemErro(titulo, "Ordem de Serviço não encontrada");
+        }
     }
 }
