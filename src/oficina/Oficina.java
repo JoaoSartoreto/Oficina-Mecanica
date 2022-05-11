@@ -21,7 +21,7 @@ public class Oficina {
     private static ArrayList<Peca> listaPecas = new ArrayList<>();
     private static ArrayList<Servico> listaServicos = new ArrayList<>();
 
-    // MAIN
+    /* MAIN */
     public static void main(String[] args) {
         int opcao;
         
@@ -38,16 +38,18 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
 
-    // OUTROS MÉTODOS
+    /* -- OUTROS MÉTODOS -- */
     
-    // MÉTODOS RELACIONADOS AOS CLIENTES
+    /* -- MÉTODOS RELACIONADOS AOS CLIENTES -- */
     
     public static ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
     
-    // Percorre a lista de clientes verificando o CPF dos clientes.
-    // Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
+    /* 
+    Percorre a lista de clientes verificando o CPF dos clientes.
+    Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
+    */
     public static Cliente buscarCliente(String cpf) {
         for (Cliente cliente : listaClientes) 
             if (cliente.getCpf().equals(cpf)) return cliente;
@@ -55,8 +57,10 @@ public class Oficina {
         return null;
     }
     
-    // Busca um cliente pelo CPF e o remove da lista.
-    // Devolve um int representando o sucesso da operação ou especificando o erro. 
+    /*
+    Busca um cliente pelo CPF e se não houver nenhum erro o remove da lista.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int excluirCliente(String cpf) {
         Cliente cliente = buscarCliente(cpf);
         
@@ -70,8 +74,10 @@ public class Oficina {
         return 0;
     }
 
-    // Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
-    // Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
+    /*
+    Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
+    Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
+    */
     private static void gerenciarClientes() {
         int opcao;
 
@@ -90,12 +96,16 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    //METODOS RELACIONADOS AS PEÇAS
+    /* -- MÉTODOS RELACIONADOS ÀS PEÇAS -- */
     
     public static ArrayList<Peca> getListaPecas() {
         return listaPecas;
     }
     
+    /* 
+    Percorre a lista de peças verificando o código das peças.
+    Se encontrar uma peça com código correspondente ela é devolvida, senão é devolvido null.
+    */
     public static Peca buscarPeca(int codPeca) {
         for (Peca peca : listaPecas)
             if(peca.getCodPeca() == codPeca) return peca;
@@ -103,6 +113,10 @@ public class Oficina {
         return null;
     }
     
+    /*
+    Busca uma peça pelo código e se não houver nenhum erro a remove da lista.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int excluirPeca(int codPeca) {
         Peca peca = buscarPeca(codPeca);
         
@@ -117,12 +131,10 @@ public class Oficina {
         return 0;
     }
     
-    public static void editarPeca(int codPeca, String descricao, double preco, int qtdeEstoque) {
-        listaPecas.get(codPeca).setDescricao(descricao);
-        listaPecas.get(codPeca).setPreco(preco);
-        listaPecas.get(codPeca).setDescricao(descricao);
-    }
-    
+    /*
+    Chama os menus e diálogos relacionadas ao gerenciamento de peças de acordo com as opções selecionadas.
+    Também recebe os resultados desses métodos para manipular os elementos da lista de peças.
+    */
     public static void gerenciarPecas() {
         int opcao;
         
@@ -141,14 +153,16 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    // MÉTODOS RELACIONADOS AOS SERVIÇOS
+    /* -- MÉTODOS RELACIONADOS AOS SERVIÇOS -- */
     
     public static ArrayList<Servico> getListaServicos() {
         return listaServicos;
     }
     
-    // Percorre a lista de serviços verificando os códigos.
-    // Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
+    /*
+    Percorre a lista de serviços verificando os códigos.
+    Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
+    */
     public static Servico buscarServico(int codServico) {
         for (Servico servico : listaServicos)
             if(servico.getCodServico() == codServico)
@@ -157,8 +171,10 @@ public class Oficina {
         return null;
     }
     
-    // Busca um serviço pelo código e o remove da lista.
-    // Devolve um boolean representando o sucesso da operação. 
+    /*
+    Busca um serviço pelo código e se não houver nenhum erro o remove da lista.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int excluirServico(int codServico) {
         Servico servico = buscarServico(codServico);
         
@@ -173,8 +189,10 @@ public class Oficina {
         return 0;
     }
     
-    // Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
-    // Também recebe os resultados desses métodos para manipular os elementos da lista de serviços.
+    /*
+    Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
+    Também recebe os resultados desses métodos para manipular os elementos da lista de serviços.
+    */
     private static void gerenciarServicos() {
         int opcao;
 
@@ -185,7 +203,7 @@ public class Oficina {
                     Servico servico = InterfaceServicos.exibirCadastroServico();
                     if (servico != null) listaServicos.add(servico);
                 }
-                case 2 -> InterfaceServicos.exibirConsultaCodigo();
+                case 2 -> InterfaceServicos.exibirConsultarServico();
                 case 3 -> InterfaceServicos.exibirExcluirServico();
                 case 4 -> InterfaceServicos.exibirEditarServico();
                 case 5 -> InterfaceServicos.exibirListarServicos();
@@ -193,8 +211,16 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    // MÉTODOS RELACIONADOS À OS
+    /* -- MÉTODOS RELACIONADOS À OS -- */
     
+    public static ArrayList<OrdemServico> getListaOS() {
+        return listaOS;
+    }
+
+    /*
+    Percorre a lista de OS verificando os números.
+    Se encontrar uma OS com número correspondente ela é devolvida, senão é devolvido null.
+    */
     public static OrdemServico buscarOS(int numero) {
         for (OrdemServico ordemOS : listaOS)
             if(ordemOS.getNumeroOS() == numero)
@@ -203,6 +229,10 @@ public class Oficina {
         return null;
     }
     
+    /*
+    Busca uma OS pelo número e se não houver nenhum erro a cancela.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int cancelarOS(int numero) {
         OrdemServico ordemServico = buscarOS(numero);
         
@@ -211,7 +241,11 @@ public class Oficina {
         
         return 0;
     }
-        
+    
+    /*
+    Busca uma OS pelo número e se não houver nenhum erro a finaliza.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int finalizarOS(int numero) {
         OrdemServico ordemServico = buscarOS(numero);
         
@@ -221,6 +255,10 @@ public class Oficina {
         return 0;
     }
     
+    /*
+    Busca uma OS pelo número e se não houver nenhum erro a cancela (para devolver as peças) e a remove da lista.
+    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    */
     public static int excluirOS(int numero) {
         OrdemServico ordemServico = buscarOS(numero);
         
@@ -231,12 +269,10 @@ public class Oficina {
         return 0;
     }
     
-    public static ArrayList<OrdemServico> getListaOS() {
-        return listaOS;
-    }
-    
-    // Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
-    // Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
+    /*
+    Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
+    Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
+    */
     private static void gerenciarOS() {
         int opcao;
         
@@ -256,8 +292,9 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
     }
     
-    // METODOS RELACIONADOS AOS ITENS OS
+    /* -- MÉTODOS RELACIONADOS AOS ITENS DE OS -- */
     
+    /* Chama os menus relacionadas ao gerenciamento de itens de OS de acordo com as opções selecionadas. */
     private static void gerenciarItemOS() {   
         int opcao;
         
@@ -274,16 +311,15 @@ public class Oficina {
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
     
-    // Fizemos este método pois o enunciado pede para que Oficina implemente esta funcionalidade, mas deixamos
-    // as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim
-    // manipulações indevidas.
+    /* 
+    Fizemos os métodos de adição e exclusão de ItemOS pois o enunciado pede para que Oficina implemente esta funcionalidade, mas 
+    deixamos as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim manipulações indevidas.
+    */
+
     public static boolean adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) {
         return ordemServico.adicionarPeca(quantidade, peca);
     }
     
-    // Fizemos este método pois o enunciado pede para que Oficina implemente esta funcionalidade, mas deixamos
-    // as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim
-    // manipulações indevidas.
     public static boolean adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) {
         return ordemServico.adicionarServico(quantidade, servico);
     }
@@ -296,38 +332,11 @@ public class Oficina {
         return ordemOS.removerItemOSServico(codigo);
     }
     
-    //METODOS PARA CONSULTAR O VALOR VENDIDO DURANTE UM PERIODO
+    /* -- CONSULTA DO VALOR VENDIDO DURANTE UM PERIODO -- */
     
-    //Uma ordem de serviço sempre é aberta sem valor nenhum, e seu valor é de acordo
-    //com suas peças e serviços embutidos. Portanto antes de fazer a conversão do 
-    //totalOS, retornado pelo proprio metodo da OrdemServico, é preciso verificar
-    //se de fato é um numero, e não uma string vazia.
-    public static String verificarTotalOS(OrdemServico ordemOS)
-    {
-        String totalString;
-        double total = 0;
-        totalString = Double.toString(ordemOS.getValorOS());
-        if(isNumeric(totalString))
-        {
-            total = Double.parseDouble(totalString);
-        }
-        
-        String totalFinalString = ""+total;
-        return totalFinalString;
-    }
-    
-    public static boolean isNumeric(String strNum) {
-    if (strNum == null) {
-        return false;
-    }
-    try {
-        double d = Double.parseDouble(strNum);
-    } catch (NumberFormatException nfe) {
-        return false;
-    }
-    return true;
-}
-    
+    /*
+    Percorre a lista de OS adicionando o valor total das OS finalizadas cujas datas de término são depois ou igual à data de início  do período e antes ou igual à data final do período. 
+    */
     public static double getTotalVendidoPeriodo(String textDataInicio, String textDataFinal)
     {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -337,7 +346,7 @@ public class Oficina {
         double total = 0;
         
         for (OrdemServico ordemServico : listaOS)
-            if(ordemServico.getSituação()== 'F'){
+            if(ordemServico.getSituação() == 'F'){
                 LocalDate dataTermino = ordemServico.getDataTermino();
                 boolean depoisInicio = dataTermino.isAfter(dataInicio) || dataTermino.equals(dataInicio);
                 boolean antesFinal = dataTermino.isBefore(dataFinal) || dataTermino.equals(dataFinal);

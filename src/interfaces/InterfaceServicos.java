@@ -6,15 +6,19 @@ import oficina.Oficina;
 
 public class InterfaceServicos {
     
-    // Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
-    // Devolve a opção selecionada (int).
+    /*
+    Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
+    Devolve a opção selecionada (int).
+    */
     public static int exibir() {
         return InterfaceItem.exibir("Serviços");
     }
     
-    // Chama diálogos de entrada para receber os atributos de um cliente e devolve um objeto Cliente.
-    // Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
-    // O método também chama um método da Oficina para verificar se o CPF inserido já foi cadastrado.
+    /*
+    Chama diálogos de entrada para receber os atributos de um serviço e devolve um objeto Servico.
+    Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
+    O método também verifica exceções na inserção do tempo de execução do serviço.
+    */
     public static Servico exibirCadastroServico() {
         String titulo = "Cadastrar Serviço";
         String descricao;
@@ -51,15 +55,17 @@ public class InterfaceServicos {
         return new Servico(descricao, preco, diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
-    // Utiliza um diálogo de entrada para receber o código e busca o serviço pelo código.
-    // Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
-    // (não for null) ele é exibido, senão é informado que o serviço não foi encontrado.
-    public static void exibirConsultaCodigo() {
+    /* 
+    Utiliza um diálogo de entrada para receber o código do serviço e busca o serviço pelo código.
+    Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
+    (não for null) ele é exibido, senão é informado que o serviço não foi encontrado.
+    */
+    public static void exibirConsultarServico() {
         String titulo = "Consultar por Código";
         String codigo;
         Servico servico;
         
-        codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
         if (codigo != null) {
             servico = Oficina.buscarServico(Integer.parseInt(codigo));
@@ -70,14 +76,15 @@ public class InterfaceServicos {
         }
     }
     
-    // Utiliza um diálogo de entrada para receber o código e busca o serviço pelo código para excluí-lo.
-    // Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
-    // (não for null) ele é excluido chamando o método Oficina.excluirServico(int codigo).
-    // O método excluirServico devolve um boolean representando o sucesso da operação, desta forma se devolver um
-    // false é avisado que o cliente não foi encontrada para exclusão.
+    /* 
+    Utiliza um diálogo de entrada para receber o código do serviço e busca busca o serviço pelo código para excluí-lo.
+    Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se não ocorrer
+    nenhum erro ele é excluído chamando o método Oficina.excluirServico(int codServico).
+    O êxito da operação ou o erro que ocorreu é informado por uma mensagem.
+    */
     public static void exibirExcluirServico() {
         String titulo = "Excluir Serviço";
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
         if (codigo != null)
             switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
@@ -87,12 +94,14 @@ public class InterfaceServicos {
             }
     }
     
-    // Utiliza um diálogo para receber o código e busca o serviço pelo código para editá-lo
-    // Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
-    // (não for null) é exibido um menu para editar suas informações, este menu chama diálogos para receber entrada
-    // e alterar os valores dos atributos do serviço.
+    /* 
+    Utiliza um diálogo de entrada para receber o código do serviço e busca o serviço pelo código para editá-lo.
+    Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
+    (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
+    e alterar os valores dos atributos do serviço.
+    */
     public static void exibirEditarServico() {
-        String titulo = "Editar Cliente";
+        String titulo = "Editar Serviço";
         String[] opcoes = {"Editar Descrição", "Editar Preço", "Editar Tempo de Execução", "Sair"};
         int opcao;
         String codigo;
@@ -140,7 +149,8 @@ public class InterfaceServicos {
              }
          }
     }
-    
+
+    /* Percorre a lista de serviços para formar uma String com a lista e a exibe em uma mensagem. */
     public static void exibirListarServicos() {
         ArrayList<Servico> listaServicos = Oficina.getListaServicos();
         String mensagem = "";

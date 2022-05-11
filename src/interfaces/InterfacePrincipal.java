@@ -1,15 +1,15 @@
 package interfaces;
 
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import oficina.Oficina;
 
 public class InterfacePrincipal {
 
-    // Chama o método exibirMenuNumerado para exibir o menu principal.
-    // Devolve a opção selecionada (int).
+    /* 
+    Chama o método exibirMenuNumerado para exibir o menu principal.
+    Devolve a opção selecionada (int).
+    */
     public static int exibir()
     {
         String mensagem = "";
@@ -24,6 +24,11 @@ public class InterfacePrincipal {
         return Interface.exibirMenu("Menu Principal", mensagem, 6);
     }
     
+    /*
+    Utiliza diálogos para receber a data de início e a data final do período.
+    Essas datas são enviadas para o método Oficina.getTotalVendidoPeriodo que devolverá
+    o total vendido nesse período, esse total é formatado e exibido em uma mensagem.
+    */
     public static void consultarTotalVendidoEmPeriodo()
     {
         String titulo = "Total Vendido em um Período";

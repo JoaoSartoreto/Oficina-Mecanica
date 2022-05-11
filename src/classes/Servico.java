@@ -21,9 +21,9 @@ public class Servico {
         setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
-    // GETTERS E SETTERS
+    /* -- GETTERS E SETTERS -- */
     
-    // codServico
+    /* codServico */
     public int getCodServico() {
         return codServico;
     }
@@ -32,7 +32,7 @@ public class Servico {
         this.codServico = codServico;
     }
 
-    // descricao
+    /* descricao */
     public String getDescricao() {
         return descricao;
     }
@@ -41,7 +41,7 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    // preco
+    /* preco */
     public double getPreco() {
         return preco;
     }
@@ -50,12 +50,14 @@ public class Servico {
         this.preco = preco;
     }
 
-    // tempoExecucao
+    /* tempoExecucao */
     public Duration getTempoExecucao() {
         return tempoExecucao;
     }
     
-    // Pega as partes do tempo de execucação para formar uma String.
+    /* 
+    Pega as partes do tempo de execucação e as formata para formar uma String.
+    */
     public String getTempoExecucaoString() {
         DecimalFormat formatador = new DecimalFormat();
         formatador.setMinimumIntegerDigits(2);
@@ -75,15 +77,18 @@ public class Servico {
     }
     
     public final void setTempoExecucao(int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) {
-        // Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo
+        /* Instancia um Duration a partir dos dias e acrescenta as outras unidades de tempo */
         this.tempoExecucao = Duration.ofDays(diasExecucao);
         this.tempoExecucao = this.tempoExecucao.plusHours(horasExecucao);
         this.tempoExecucao = this.tempoExecucao.plusMinutes(minutosExecucao);
         this.tempoExecucao = this.tempoExecucao.plusSeconds(segundosExecucao);
     }
     
-    // OUTROS MÉTODOS
+    /* -- OUTROS MÉTODOS -- */
     
+    /*
+    Um toString comum, a única diferença é o uso de um formatador para o preço.
+    */
     @Override
     public String toString() {
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));

@@ -2,9 +2,11 @@ package interfaces;
 
 public class InterfaceItem {
 
-    // Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
-    // O tipoItem é utilizado para formar o título.
-    // Devolve a opção selecionada (int). 
+    /*
+    Chama o método exibirMenuNumerado para exibir um menu de gerenciamento de Peca ou Servico.
+    O tipoItem é utilizado para formar o título.
+    Devolve a opção selecionada (int).
+    */
     protected static int exibir(String tipoItem)
     {
         String mensagem = "";

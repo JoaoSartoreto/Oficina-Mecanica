@@ -13,9 +13,9 @@ public class Cliente {
         this.fone = fone;
     }
 
-    // GETTERS E SETTERS
+    /* -- GETTERS E SETTERS -- */
 
-    // nome
+    /* nome */
     public String getNome() {
         return nome;
     }
@@ -24,7 +24,7 @@ public class Cliente {
         this.nome = nome;
     }
 
-    // cpf
+    /* cpf */
     public String getCpf() {
         return cpf;
     }
@@ -33,7 +33,7 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    // endereco
+    /* endereco */
     public String getEndereco() {
         return endereco;
     }
@@ -42,7 +42,7 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    // fone
+    /* fone */
     public String getFone() {
         return fone;
     }

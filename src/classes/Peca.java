@@ -19,9 +19,9 @@ public class Peca {
         this.qtdeEstoque = qtdeEstoque;
     }
     
-    // GETTERS E SETTERS
+    /* -- GETTERS E SETTERS -- */
     
-    // codPeca
+    /* codPeca */
     public int getCodPeca() {
         return codPeca;
     }
@@ -30,7 +30,7 @@ public class Peca {
         this.codPeca = codPeca;
     }
 
-    // descricao
+    /* descricao */
     public String getDescricao() {
         return descricao;
     }
@@ -39,7 +39,7 @@ public class Peca {
         this.descricao = descricao;
     }
 
-    // preco
+    /* preco */
     public double getPreco() {
         return preco;
     }
@@ -48,7 +48,7 @@ public class Peca {
         this.preco = preco;
     }
 
-    // qtdeEstoque  
+    /* qtdeEstoque */  
     public int getQtdeEstoque() {
         return qtdeEstoque;
     }
@@ -57,10 +57,12 @@ public class Peca {
         this.qtdeEstoque = qtdeEstoque;
     }
     
-    // OUTROS MÉTODOS
+    /* -- OUTROS MÉTODOS -- */
     
-    // Adiciona uma quantidade de peças somente se for válido.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Adiciona uma quantidade de peças no estoque desde que a quantidade seja maior que 0.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean adicionarEstoque (int n) {
         if (n > 0) {
             this.qtdeEstoque = this.qtdeEstoque + n;
@@ -69,9 +71,12 @@ public class Peca {
         
         return false;
     }
-       
-    // Subtrai uma quantidade de peças somente se for válido.
-    // Devolve um boolean representando o sucesso da operação.
+    
+    /*
+    Subtrai uma quantidade de peças do estoque desde que a quantidade seja maior que 0 e seja uma quantidade
+    disponível no estoque.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean subtrairEstoque (int n) {
         if (n <= 0) 
             return false;
@@ -82,8 +87,9 @@ public class Peca {
         return true;
     }
     
-    
-    //toString
+    /*
+    Um toString comum, a única diferença é o uso de um formatador para o preço.
+    */
     @Override
     public String toString() {    
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
@@ -92,7 +98,7 @@ public class Peca {
         saida += "Código: " + codPeca + "\n";
         saida += "Descrição: " + descricao + "\n";
         saida += "Preco: " + formatador.format(preco) + "\n";
-        saida += "Estoque: " + qtdeEstoque + "\n";
+        saida += "Quantidade em estoque: " + qtdeEstoque + "\n";
 
         return saida;
     }

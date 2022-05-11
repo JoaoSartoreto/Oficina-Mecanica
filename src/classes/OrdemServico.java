@@ -19,8 +19,6 @@ public class OrdemServico {
     private Cliente cliente;
 
     public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) {
-        // O número das ordens de serviço será de acordo com a ordem de criação
-        
         OrdemServico.qtde++;
         this.numeroOS = OrdemServico.qtde;
         this.dataOS = LocalDate.now();
@@ -32,19 +30,19 @@ public class OrdemServico {
         this.cliente = cliente;
     }
     
-    // GETTERS E SETTERS
+    /* -- GETTERS E SETTERS */
     
-    // numeroOS
+    /* numeroOS */
     public int getNumeroOS() {
         return numeroOS;
     }
 
-    // dataOS
+    /* dataOS */
     public LocalDate getDataOS() {
         return dataOS;
     }
 
-    // dataPrevTermino
+    /* dataPrevTermino */
     public LocalDate getDataPrevTermino() {
         return dataPrevTermino;
     }
@@ -53,12 +51,12 @@ public class OrdemServico {
         this.dataPrevTermino = dataPrevTermino;
     }
 
-    // dataTermino  
+    /* dataTermino */ 
     public LocalDate getDataTermino() {
         return dataTermino;
     }
 
-    // placaCarro
+    /* placaCarro */
     public String getPlacaCarro() {
         return placaCarro;
     }
@@ -67,17 +65,17 @@ public class OrdemServico {
         this.placaCarro = placaCarro;
     }
 
-    // situacao
+    /* situacao */
     public char getSituação() {
         return situacao;
     }
 
-    // itensOS
+    /* itensOS */
     public ArrayList<ItemOS> getItensOS() {
         return itensOS;
     }
     
-    //cliente
+    /* cliente */
     public Cliente getCliente() {
         return cliente;
     }
@@ -86,10 +84,12 @@ public class OrdemServico {
         this.cliente = cliente;
     }
 
-    // OUTROS MÉTODOS
+    /* -- OUTROS MÉTODOS -- */
 
-    // Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean adicionarServico(int qtde, Servico servico) {
         if (situacao == 'A') {
             ItemOS itemOS = new ItemOS(qtde, servico);
@@ -100,8 +100,11 @@ public class OrdemServico {
         return false; 
     }
     
-    // Se a OS estiver aberta e haver quantidade da peça suficiente no estoque adiciona um ItemOS da peça à lista de itens.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta e haver quantidade da peça suficiente no estoque 
+    adiciona um ItemOS da peça à lista de itens.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean adicionarPeca(int qtde, Peca peca) {
         if (situacao == 'A') {
             if (peca.subtrairEstoque(qtde)) {
@@ -114,8 +117,12 @@ public class OrdemServico {
         return false;
     }
 
-    // Remove um itemOS, devolvendo as peças, se a OS estiver aberta.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta percorre a lista de itens procurando um item que seja uma peça e 
+    que tenha o código correspodente, se encontrar o item sua quantidade é devolvida ao estoque
+    e o item é removido da lista.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean removerItemOSPeca(int codigo) {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
@@ -128,8 +135,11 @@ public class OrdemServico {
         return false;
     }
     
-    // Remove um itemOS, devolvendo as peças, se a OS estiver aberta.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta percorre a lista de itens procurando um item que seja um serviço e 
+    que tenha o código correspodente, se encontrar o item ele é removido da lista.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean removerItemOSServico(int codigo) {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
@@ -141,9 +151,11 @@ public class OrdemServico {
         return false;
     }
     
-    // Se a OS estiver aberta percorre a lista de itens devolvendo as peças, altera a situação para C (Cancelada)
-    // e coloca a data de término com a data atual.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta percorre a lista de itens devolvendo as peças, altera a situação para C (Cancelada)
+    e coloca a data de término com a data atual.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean cancelarOS() {
         if (situacao == 'A') {
             // Percorre todas os itemOS devolvendo as peças
@@ -157,8 +169,10 @@ public class OrdemServico {
         return false;
     }
     
-    // Se a OS estiver aberta altera a situação para F (Finalizada) e coloca a data de término com a data atual.
-    // Devolve um boolean representando o sucesso da operação.
+    /*
+    Se a OS estiver aberta  altera a situação para F (Finalizada) e coloca a data de término com a data atual.
+    Devolve um boolean representando o sucesso da operação.
+    */
     public boolean finalizarOS() {   
         if (situacao == 'A') {
             this.situacao = 'F';
@@ -169,6 +183,10 @@ public class OrdemServico {
         return false;
     }
     
+    /*
+    Chama getValorOS() e listaItensOS() para concatenar o valor total da OS com sua lista de itens.
+    O método utiliza um formatador para o valor total e devolve uma String.
+    */
     public String consultarTotal() {
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         String saida = "";
@@ -179,7 +197,9 @@ public class OrdemServico {
         return saida;
     }
     
-    // Percorre a lista de itens chamando o método toString() para formar uma string com a lista dos itens.
+    /*
+    Percorre a lista de itens chamando o método toString() para formar uma string com a lista dos itens.
+    */
     public String listaItensOS()
     {
         String saida="";
@@ -194,7 +214,11 @@ public class OrdemServico {
         return saida;
     }
     
-    // Percorre a lista de itens e retorna a soma de todos os itens
+    /*
+    Percorre a lista de itens adicionando ao valor total da OS o produto do preço de cada item pela
+    sua respectiva quantidade.
+    Devolve um double contendo o valor total da OS.
+    */
     public double getValorOS() {
         double total = 0;
         
@@ -204,6 +228,9 @@ public class OrdemServico {
         return total;
     }
 
+    /*
+    Um toString comum, a única diferença é o uso de formatadores.
+    */
     @Override
     public String toString()
     {

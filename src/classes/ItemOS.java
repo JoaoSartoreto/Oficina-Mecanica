@@ -24,9 +24,9 @@ public class ItemOS {
         this.servico = servico;
     }
 
-    // GETTERS E SETTERS
+    /* -- GETTERS E SETTERS -- */
 
-    // tipo
+    /* tipo */
     
     public char getTipo() {
         return tipo;
@@ -36,7 +36,7 @@ public class ItemOS {
         this.tipo = tipo;
     }
 
-    // preco
+    /* preco */
     public double getPreco() {
         return preco;
     }
@@ -45,7 +45,7 @@ public class ItemOS {
         this.preco = preco;
     }
 
-    // qtde
+    /* qtde */
     public int getQtde() {
         return qtde;
     }
@@ -54,7 +54,7 @@ public class ItemOS {
         this.qtde = qtde;
     }
     
-    // servico
+    /* servico */
     public Servico getServico() {
         return servico;
     }
@@ -63,7 +63,7 @@ public class ItemOS {
         this.servico = servico;
     }
     
-    // peca
+    /* peca */
     public Peca getPeca() {
         return peca;
     }
@@ -72,12 +72,24 @@ public class ItemOS {
         this.peca = peca;
     }
     
-    // OUTROS MÉTODOS
-
+    /* -- OUTROS MÉTODOS -- */
+    
+    /* Adiciona ao estoque a quantidade que havia sido empregada ao ItemOS se este item for uma peça. */  
+    public void devolver() {
+        if (tipo == 'P') {
+            peca.adicionarEstoque(qtde);
+        }
+    }
+    
+    /*
+    toString comum, as únicas diferença são: 
+    - O uso de um formatador para formatar o preço;
+    - A saída será de acordo com o tipo do item.
+    */
     @Override
     public String toString() {
         NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
-        String saida ="";
+        String saida = "";
 
         saida += "Preço: " + formatador.format(preco) + "\n";
         saida += "Quantidade: " + qtde + "\n";
@@ -90,12 +102,4 @@ public class ItemOS {
 
         return saida;
     }
-
-    // Adiciona ao estoque a quantidade que havia sido empregada ao ItemOS
-    public void devolver() {
-        if (tipo == 'P') {
-            peca.adicionarEstoque(qtde);
-        }
-    }
-    
 }

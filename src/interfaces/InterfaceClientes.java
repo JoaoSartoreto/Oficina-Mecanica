@@ -6,8 +6,10 @@ import oficina.Oficina;
 
 public class InterfaceClientes {
     
-    // Chama o método exibirMenuNumerado para exibir o menu de gerenciamento de clientes.
-    // Devolve a opção selecionada (int).
+    /*
+    Chama o método exibirMenuNumerado para exibir o menu de gerenciamento de clientes.
+    Devolve a opção selecionada (int).
+    */
     public static int exibir() {
         String mensagem = "";
         
@@ -21,9 +23,12 @@ public class InterfaceClientes {
         return Interface.exibirMenu("Gerenciar Clientes", mensagem, 6);
     }
 
-    // Chama diálogos de entrada para receber os atributos de um cliente e devolve um objeto Cliente.
-    // Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
-    // O método também chama um método da Oficina para verificar se o CPF inserido já foi cadastrado.
+    /*
+    Chama diálogos de entrada para receber os atributos de um cliente e devolve um objeto Cliente.
+    Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
+    O método também chama um método da Oficina para verificar se um cliente com o mesmo CPF já foi cadastrado,
+    se já houver um cliente com o mesmo CPF cadastro é exibida uma mensagem de erro.
+    */
     public static Cliente exibirCadastroCliente() {
         String titulo = "Cadastrar Cliente";
         String nome;
@@ -51,9 +56,11 @@ public class InterfaceClientes {
         return new Cliente(nome, cpf, endereco, telefone);
     }
     
-    // Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF.
-    // Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
-    // (não for null) ele é exibido, senão é informado que o cliente não foi encontrado.
+    /* 
+    Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF.
+    Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
+    (não for null) ele é exibido, senão é informado que o cliente não foi encontrado.
+    */
     public static void exibirConsultarCpf() {
         String titulo = "Consultar por CPF";
         String cpf;
@@ -71,12 +78,13 @@ public class InterfaceClientes {
             }
         }
     }
-    
-    // Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF para excluí-lo.
-    // Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
-    // (não for null) ele é excluido chamando o método Oficina.excluirCliente(String cpf).
-    // O método excluirCliente devolve um boolean representando o sucesso da operação, desta forma se devolver um
-    // false é avisado que o cliente não foi encontrada para exclusão.
+        
+    /* 
+    Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF para excluí-lo.
+    Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se não ocorrer nenhum erro
+    ele é excluido chamando o método Oficina.excluirCliente(String cpf).
+    O êxito da operação ou o erro que ocorreu é informado por uma mensagem.
+    */
     public static void exibirExcluirCliente() {
         String titulo = "Excluir Cliente";
         String cpf;
@@ -91,11 +99,13 @@ public class InterfaceClientes {
             }
     }
     
-    // Utiliza um diálogo para receber o CPF e busca o cliente pelo CPF para editá-lo
-    // Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
-    // (não for null) é exibido um menu para editar suas informações, este menu chama diálogos para receber entrada
-    // e alterar os valores dos atributos do cliente.
-    // O método altera apenas o endereço e o telefone porque são as únicas informações que se alteram de um cliente.
+    /* 
+    Utiliza um diálogo para receber o CPF e busca o cliente pelo CPF para editá-lo
+    Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
+    (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
+    e alterar os valores dos atributos do cliente.
+    O método altera apenas o endereço e o telefone porque são as únicas informações que se alteram de um cliente.
+    */
     public static void exibirEditarCliente() {
         String titulo = "Editar Cliente";
         String[] opcoes = {"Editar Endereço", "Editar Telefone", "Sair"};
@@ -129,6 +139,7 @@ public class InterfaceClientes {
         }
     }
     
+    /* Percorre a lista de clientes para formar uma String com a lista e a exibe em uma mensagem. */
     public static void exibirListarClientes() {
         ArrayList<Cliente> listaClientes = Oficina.getListaClientes();
         String mensagem = "";

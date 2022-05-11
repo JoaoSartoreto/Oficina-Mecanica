@@ -2,18 +2,23 @@ package interfaces;
 
 import classes.Peca;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import oficina.Oficina;
 
 public class InterfacePecas {
 
-    // Chama o método exibir() de MenuItem passando "Peças" como o tipo de item para exibir o menu de gerenciamento de peças.
-    // Devolve a opção selecionada (int).
+    /*
+    Chama o método exibir() de MenuItem passando "Peças" como o tipo de item
+    para exibir o menu de gerenciamento de peças.
+    Devolve a opção selecionada (int).
+    */
     public static int exibir() {
         return InterfaceItem.exibir("Peças");
     }
     
-    // Aqui terá que utilizar Strings para verificar null também
+    /*
+    Chama diálogos de entrada para receber os atributos de uma peça e devolve um objeto Peca.
+    Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
+    */
     public static Peca exibirCadastrarPeca()
     {
         String titulo = "Cadastrar Peça";
@@ -35,12 +40,17 @@ public class InterfacePecas {
         return new Peca(descricao,preco,qtdeEstoque);
     }
     
+    /* 
+    Utiliza um diálogo de entrada para receber o código da peça e busca a peça pelo código.
+    Se o código não for null (operação não ter sido cancelada), é buscada a peça pelo código e se ela existir
+    (não for null) ela é exibida, senão é informado que a peça não foi encontrada.
+    */
     public static void exibirConsultarPeca()
     {
         String titulo = "Consultar por Código";
         String codPeca;
         
-        codPeca = Interface.exibirDialogoEntrada(titulo, "Insira o código da peça");
+        codPeca = Interface.exibirDialogoEntrada(titulo, "Código da peça");
         
         if(codPeca != null) {
             Peca peca = Oficina.buscarPeca(Integer.parseInt(codPeca));
@@ -51,10 +61,16 @@ public class InterfacePecas {
         }
     }
     
+    /* 
+    Utiliza um diálogo de entrada para receber o código da peça e busca busca a peça pelo código para excluí-la.
+    Se o código não for null (operação não ter sido cancelada), é buscada a peça pelo código e se não ocorrer
+    nenhum erro ela é excluída chamando o método Oficina.excluirPeca(int codPeca).
+    O êxito da operação ou o erro que ocorreu é informado por uma mensagem.
+    */
     public static void exibirExcluirPeca()
     {
         String titulo = "Excluir Peça";
-        String codigo = Interface.exibirDialogoEntrada(titulo, "Código: ");
+        String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         
         if (codigo != null)
             switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
@@ -64,7 +80,12 @@ public class InterfacePecas {
             }
     }
     
-    // Tenho que verificar com mais atenção, mas aqui vai ter que usar Strings para verificar null
+    /* 
+    Utiliza um diálogo de entrada para receber o código da peça e busca a peça pelo código para editá-la.
+    Se o código não for null (operação não ter sido cancelada), é buscada a peça pelo código e se ela existir
+    (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
+    e alterar os valores dos atributos da peça.
+    */
     public static void exibirEditarPeca()
     { 
         String titulo = "Editar Peça";
@@ -102,6 +123,7 @@ public class InterfacePecas {
         }
     }
     
+    /* Percorre a lista de peças para formar uma String com a lista e a exibe em uma mensagem */
     public static void exibirListarPecas()
     {
         ArrayList<Peca> pecas = Oficina.getListaPecas();
