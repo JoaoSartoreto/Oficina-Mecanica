@@ -128,7 +128,7 @@ public class InterfaceOS {
         String mensagem = "";
             
         for(OrdemServico ordemServico : listaOS)
-            mensagem += ordemServico + "\n";
+            mensagem += ordemServico.toString() + "\n";
         
         Interface.exibirMensagem("Listar Ordens de Serviço", mensagem);
     }

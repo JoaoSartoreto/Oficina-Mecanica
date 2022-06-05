@@ -108,7 +108,7 @@ public class Oficina {
     */
     public static Peca buscarPeca(int codPeca) {
         for (Peca peca : listaPecas)
-            if(peca.getCodPeca() == codPeca) return peca;
+            if(peca.getCodigo() == codPeca) return peca;
 
         return null;
     }
@@ -124,7 +124,7 @@ public class Oficina {
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if (itemOS.getPeca() == peca) return 2;
+                if ((Peca)itemOS.getProduto() == peca) return 2;
         
         listaPecas.remove(peca);
         
@@ -165,7 +165,7 @@ public class Oficina {
     */
     public static Servico buscarServico(int codServico) {
         for (Servico servico : listaServicos)
-            if(servico.getCodServico() == codServico)
+            if(servico.getCodigo() == codServico)
                 return servico;
             
         return null;
@@ -182,7 +182,7 @@ public class Oficina {
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if (itemOS.getServico() == servico) return 2;
+                if ((Servico)itemOS.getProduto() == servico) return 2;
         
         listaServicos.remove(servico);
         

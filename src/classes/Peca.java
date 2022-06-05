@@ -1,54 +1,14 @@
 package classes;
 
-import java.text.NumberFormat;
-import java.util.Locale;
 
-public class Peca {
-    private static int qtdePecas;
-    
-    private int codPeca;
-    private String descricao;
-    private double preco;
+public class Peca extends Produto{
     private int qtdeEstoque;
-        
-    public Peca (String descricao, double preco, int qtdeEstoque) {
-        qtdePecas++;
-        this.codPeca = qtdePecas;
-        this.descricao = descricao;
-        this.preco = preco;
+
+    public Peca(int qtdeEstoque, String descricao, double preco) {
+        super(descricao, preco);
         this.qtdeEstoque = qtdeEstoque;
     }
-    
-    /* -- GETTERS E SETTERS -- */
-    
-    /* codPeca */
-    public int getCodPeca() {
-        return codPeca;
-    }
 
-    public void setCodPeca(int codPeca) {
-        this.codPeca = codPeca;
-    }
-
-    /* descricao */
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    /* preco */
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    /* qtdeEstoque */  
     public int getQtdeEstoque() {
         return qtdeEstoque;
     }
@@ -56,6 +16,7 @@ public class Peca {
     public void setQtdeEstoque(int qtdeEstoque) {
         this.qtdeEstoque = qtdeEstoque;
     }
+        
     
     /* -- OUTROS MÉTODOS -- */
     
@@ -92,12 +53,9 @@ public class Peca {
     */
     @Override
     public String toString() {    
-        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
-        String saida = "";
+        
+        String saida = super.toString();
 
-        saida += "Código: " + codPeca + "\n";
-        saida += "Descrição: " + descricao + "\n";
-        saida += "Preco: " + formatador.format(preco) + "\n";
         saida += "Quantidade em estoque: " + qtdeEstoque + "\n";
 
         return saida;

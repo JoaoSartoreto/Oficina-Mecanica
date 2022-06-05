@@ -126,7 +126,7 @@ public class OrdemServico {
     public boolean removerItemOSPeca(int codigo) {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
-                if (itemOS.getTipo() == 'P' && itemOS.getPeca().getCodPeca() == codigo) {
+                if (itemOS.getTipo() == 'P' && itemOS.getProduto().getCodigo()== codigo) {
                     itemOS.devolver();
                     itensOS.remove(itemOS);
                     return true;
@@ -143,7 +143,7 @@ public class OrdemServico {
     public boolean removerItemOSServico(int codigo) {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
-                if (itemOS.getTipo() == 'S' && itemOS.getServico().getCodServico() == codigo) {
+                if (itemOS.getTipo() == 'S' && itemOS.getProduto().getCodigo()== codigo) {
                     itensOS.remove(itemOS);
                     return true;
                 }
@@ -245,7 +245,7 @@ public class OrdemServico {
         saida += "Data termino: " + (dataTermino == null ? "Em aberto" : dataTermino.format(formatadorData)) + "\n";
         saida += "Placa do carro: " + placaCarro + "\n";
         saida += "Situação: " + situacao + "\n";
-        saida += "Valor: " + formatadorMoeda.format(getValorOS() + "\n");
+        saida += "Valor: " + formatadorMoeda.format(this.getValorOS())+"\n";
 
         return saida;
     }

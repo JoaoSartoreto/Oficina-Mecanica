@@ -37,7 +37,7 @@ public class InterfacePecas {
         if (stringQtdeEstoque == null) return null;
         qtdeEstoque = Integer.parseInt(stringQtdeEstoque);
               
-        return new Peca(descricao,preco,qtdeEstoque);
+        return new Peca(qtdeEstoque, descricao, preco);
     }
     
     /* 
