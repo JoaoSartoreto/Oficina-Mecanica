@@ -7,9 +7,15 @@ public class Exceptions {
         super("Teste");
         }
         
-        public static class ExcluirOSAbertaEx extends Exception {
-            public ExcluirOSAbertaEx () {
+        public static class OSFechadaEx extends Exception {
+            public OSFechadaEx() {
                 super("Esta OS não está aberta");
+            }
+        }
+        
+        public static class ExcluirServicoEmOSEx extends Exception {
+            public ExcluirServicoEmOSEx() {
+                super("");
             }
         }
     }

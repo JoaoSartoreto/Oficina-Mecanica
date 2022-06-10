@@ -1,7 +1,7 @@
 package interfaces;
 
 import classes.Cliente;
-import classes.Exceptions.ExcluiClienteEx.ExcluirOSAbertaEx;
+import classes.Exceptions.ExcluiClienteEx.*;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -119,10 +119,10 @@ public class InterfaceOS {
                 switch(Oficina.excluirOS(Integer.parseInt(numero))){
                     case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
                     case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
-                    case 2 -> throw new ExcluirOSAbertaEx();
+                    case 2 -> throw new OSFechadaEx();
                 }
-            } catch (ExcluirOSAbertaEx e) {
-                Interface.exibirMensagemErro(titulo,"Esta OS não está aberta");
+            } catch (OSFechadaEx e) {
+                Interface.exibirMensagemErro(titulo,e.getMessage());
             }
     }
     
@@ -231,9 +231,13 @@ public class InterfaceOS {
         String titulo = "Adicionar Serviço à OS";
         
         OrdemServico ordemServico = exibirSelecionarOS(titulo);
-        if (ordemServico == null) return;
-        if (ordemServico.getSituação() != 'A') {
-            Interface.exibirMensagemErro(titulo, "A OS não está aberta");
+        try {
+            if (ordemServico == null) return;
+            if (ordemServico.getSituação() != 'A') {
+                throw new OSFechadaEx();
+            }
+        } catch (OSFechadaEx e) {
+            Interface.exibirMensagemErro(titulo,e.getMessage());
             return;
         }
         
@@ -279,7 +283,7 @@ public class InterfaceOS {
         if (Oficina.excluirItemOSPeca(ordemServico, Integer.parseInt(codigo)))
             Interface.exibirMensagem(titulo, "Item excluído com sucesso");
         else 
-            Interface.exibirMensagemErro(titulo, "Item não encontrado par exclusão");
+            Interface.exibirMensagemErro(titulo, "Item não encontrado para exclusão");
     }
     
     /*
