@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Cliente;
+import classes.Exceptions.ExcluiClienteEx.ExcluirOSAbertaEx;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -114,10 +115,14 @@ public class InterfaceOS {
         
         numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
         if (numero != null)
-            switch(Oficina.excluirOS(Integer.parseInt(numero))){
-                case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "Esta OS não está aberta");
+            try {
+                switch(Oficina.excluirOS(Integer.parseInt(numero))){
+                    case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
+                    case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
+                    case 2 -> throw new ExcluirOSAbertaEx();
+                }
+            } catch (ExcluirOSAbertaEx e) {
+                Interface.exibirMensagemErro(titulo,"Esta OS não está aberta");
             }
     }
     
