@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Servico;
+import classes.Exceptions.ExcluiClienteEx.PecaReferenciadaEx;
 import java.util.ArrayList;
 import oficina.Oficina;
 
@@ -87,10 +88,14 @@ public class InterfaceServicos {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
         if (codigo != null)
-            switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
-                case 0 -> Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "O serviço está presente em ordens de serviço");
+            try {
+                switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
+                    case 0 -> Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
+                    case 1 -> Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
+                    case 2 -> throw new PecaReferenciadaEx();
+                }
+            } catch (PecaReferenciadaEx e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
             }
     }
     

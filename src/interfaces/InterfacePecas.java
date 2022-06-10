@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Peca;
+import classes.Exceptions.ExcluiClienteEx.PecaReferenciadaEx;
 import java.util.ArrayList;
 import oficina.Oficina;
 
@@ -73,10 +74,14 @@ public class InterfacePecas {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         
         if (codigo != null)
-            switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
-                case 0 -> Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "A peça está presente em ordens de serviço");
+            try {
+                switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
+                    case 0 -> Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
+                    case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");
+                    case 2 -> throw new PecaReferenciadaEx(); //Exceção
+                }
+            } catch (PecaReferenciadaEx e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
             }
     }
     

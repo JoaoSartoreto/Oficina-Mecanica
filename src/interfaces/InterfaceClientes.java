@@ -1,8 +1,10 @@
 package interfaces;
 
 import classes.Cliente;
+import classes.Exceptions.ExcluiClienteEx.*;
 import java.util.ArrayList;
 import oficina.Oficina;
+
 
 public class InterfaceClientes {
     
@@ -92,10 +94,14 @@ public class InterfaceClientes {
         cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");
         
         if (cpf != null)
-            switch (Oficina.excluirCliente(cpf)) {
-                case 0 -> Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "O cliente possui ordens de serviço");
+            try {
+                switch (Oficina.excluirCliente(cpf)) {
+                    case 0 -> Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
+                    case 1 -> Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
+                    case 2 -> throw new ClienteReferenciadoEx();
+                }
+            } catch (ClienteReferenciadoEx e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
             }
     }
     
