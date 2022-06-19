@@ -6,6 +6,13 @@ import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
+import excecoes.ClienteException;
+import excecoes.ItemOSException;
+import excecoes.OrdemServicoException;
+import excecoes.PecaEstoqueException;
+import excecoes.PecaException;
+import excecoes.ServicoException;
+import interfaces.Interface;
 import interfaces.InterfaceClientes;
 import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
@@ -61,13 +68,13 @@ public class Oficina {
     Busca um cliente pelo CPF e se não houver nenhum erro o remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirCliente(String cpf) {
+    public static int excluirCliente(String cpf) throws ClienteException{
         Cliente cliente = buscarCliente(cpf);
         
         if (cliente == null) return 1;
         
         for (OrdemServico ordemServico : listaOS)
-            if (ordemServico.getCliente() == cliente) return 2;
+            if (ordemServico.getCliente() == cliente) throw new ClienteException();
         
         listaClientes.remove(cliente);
         
@@ -117,14 +124,14 @@ public class Oficina {
     Busca uma peça pelo código e se não houver nenhum erro a remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirPeca(int codPeca) {
+    public static int excluirPeca(int codPeca) throws PecaException{
         Peca peca = buscarPeca(codPeca);
         
         if (peca == null) return 1;
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if ((Peca)itemOS.getProduto() == peca) return 2;
+                if (itemOS.getProduto().getCodigo() == peca.getCodigo()) throw new PecaException();
         
         listaPecas.remove(peca);
         
@@ -175,14 +182,14 @@ public class Oficina {
     Busca um serviço pelo código e se não houver nenhum erro o remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirServico(int codServico) {
+    public static int excluirServico(int codServico) throws ServicoException{
         Servico servico = buscarServico(codServico);
         
         if (servico == null) return 1;
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if ((Servico)itemOS.getProduto() == servico) return 2;
+                if (itemOS.getProduto().getCodigo() == servico.getCodigo()) throw new ServicoException() ;
         
         listaServicos.remove(servico);
         
@@ -233,12 +240,12 @@ public class Oficina {
     Busca uma OS pelo número e se não houver nenhum erro a cancela.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int cancelarOS(int numero) {
+    public static int cancelarOS(int numero) throws OrdemServicoException {
         OrdemServico ordemServico = buscarOS(numero);
         
         if (ordemServico == null) return 1;
-        if (!ordemServico.cancelarOS()) return 2;
-        
+
+        ordemServico.cancelarOS();
         return 0;
     }
     
@@ -246,12 +253,12 @@ public class Oficina {
     Busca uma OS pelo número e se não houver nenhum erro a finaliza.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int finalizarOS(int numero) {
+    public static int finalizarOS(int numero) throws OrdemServicoException {
         OrdemServico ordemServico = buscarOS(numero);
         
         if (ordemServico == null) return 1;
-        if (!ordemServico.finalizarOS()) return 2;
         
+        ordemServico.finalizarOS();       
         return 0;
     }
     
@@ -259,12 +266,12 @@ public class Oficina {
     Busca uma OS pelo número e se não houver nenhum erro a cancela (para devolver as peças) e a remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirOS(int numero) {
+    public static int excluirOS(int numero) throws OrdemServicoException {
         OrdemServico ordemServico = buscarOS(numero);
         
         if (ordemServico == null) return 1;
-        if (!ordemServico.cancelarOS()) return 2;
         
+        ordemServico.cancelarOS();       
         listaOS.remove(ordemServico);
         return 0;
     }
@@ -316,19 +323,19 @@ public class Oficina {
     deixamos as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim manipulações indevidas.
     */
 
-    public static boolean adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) {
+    public static boolean adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) throws ItemOSException, PecaEstoqueException {
         return ordemServico.adicionarPeca(quantidade, peca);
     }
     
-    public static boolean adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) {
+    public static boolean adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) throws ItemOSException {
         return ordemServico.adicionarServico(quantidade, servico);
     }
     
-    public static boolean excluirItemOSPeca(OrdemServico ordemOS, int codigo) {
+    public static boolean excluirItemOSPeca(OrdemServico ordemOS, int codigo) throws ItemOSException{
         return ordemOS.removerItemOSPeca(codigo);
     }
     
-    public static boolean excluirItemOSServico(OrdemServico ordemOS, int codigo) {
+    public static boolean excluirItemOSServico(OrdemServico ordemOS, int codigo) throws ItemOSException{
         return ordemOS.removerItemOSServico(codigo);
     }
     

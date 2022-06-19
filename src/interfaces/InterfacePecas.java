@@ -1,7 +1,10 @@
 package interfaces;
 
 import classes.Peca;
+import excecoes.PecaException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oficina.Oficina;
 
 public class InterfacePecas {
@@ -72,12 +75,17 @@ public class InterfacePecas {
         String titulo = "Excluir Peça";
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         
-        if (codigo != null)
-            switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
+        if (codigo != null){
+            try
+            {
+                switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
                 case 0 -> Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "A peça está presente em ordens de serviço");
+                case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");          
+                }
+            } catch (PecaException ex) {
+                Interface.exibirMensagemErro(titulo, ex.getMessage());
             }
+        }    
     }
     
     /* 

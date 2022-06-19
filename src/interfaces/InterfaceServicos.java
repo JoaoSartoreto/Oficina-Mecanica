@@ -1,7 +1,10 @@
 package interfaces;
 
 import classes.Servico;
+import excecoes.ServicoException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oficina.Oficina;
 
 public class InterfaceServicos {
@@ -86,12 +89,17 @@ public class InterfaceServicos {
         String titulo = "Excluir Serviço";
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
-        if (codigo != null)
-            switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
+        if (codigo != null){
+            try
+            {
+                switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
                 case 0 -> Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
                 case 1 -> Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
-                case 2 -> Interface.exibirMensagemErro(titulo, "O serviço está presente em ordens de serviço");
+                } 
+            } catch (ServicoException ex) {
+                Interface.exibirMensagemErro(titulo, ex.getMessage());
             }
+        }  
     }
     
     /* 

@@ -1,5 +1,8 @@
 package classes;
 
+import excecoes.ItemOSException;
+import excecoes.OrdemServicoException;
+import excecoes.PecaEstoqueException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -90,14 +93,17 @@ public class OrdemServico {
     Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean adicionarServico(int qtde, Servico servico) {
+    public boolean adicionarServico(int qtde, Servico servico) throws ItemOSException {
         if (situacao == 'A') {
             ItemOS itemOS = new ItemOS(qtde, servico);
             this.itensOS.add(itemOS);
             return true;
         }
+        else
+        {
+            throw new ItemOSException();
+        }
         
-        return false; 
     }
     
     /*
@@ -105,16 +111,23 @@ public class OrdemServico {
     adiciona um ItemOS da peça à lista de itens.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean adicionarPeca(int qtde, Peca peca) {
+    public boolean adicionarPeca(int qtde, Peca peca) throws ItemOSException, PecaEstoqueException {
         if (situacao == 'A') {
             if (peca.subtrairEstoque(qtde)) {
                 ItemOS itemOS = new ItemOS(qtde , peca);
                 this.itensOS.add(itemOS);
                 return true;
             }
+            else
+            {
+                throw new PecaEstoqueException();
+            }
+        }
+        else
+        {
+            throw new ItemOSException();
         }
         
-        return false;
     }
 
     /*
@@ -123,7 +136,7 @@ public class OrdemServico {
     e o item é removido da lista.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean removerItemOSPeca(int codigo) {      
+    public boolean removerItemOSPeca(int codigo) throws ItemOSException {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
                 if (itemOS.getTipo() == 'P' && itemOS.getProduto().getCodigo()== codigo) {
@@ -131,7 +144,10 @@ public class OrdemServico {
                     itensOS.remove(itemOS);
                     return true;
                 }
-
+        else
+        {
+            throw new ItemOSException();
+        }
         return false;
     }
     
@@ -140,14 +156,17 @@ public class OrdemServico {
     que tenha o código correspodente, se encontrar o item ele é removido da lista.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean removerItemOSServico(int codigo) {      
+    public boolean removerItemOSServico(int codigo) throws ItemOSException {      
         if (situacao == 'A')
             for (ItemOS itemOS : itensOS) 
                 if (itemOS.getTipo() == 'S' && itemOS.getProduto().getCodigo()== codigo) {
                     itensOS.remove(itemOS);
                     return true;
                 }
-
+        else
+        {
+            throw new ItemOSException();
+        }
         return false;
     }
     
@@ -156,7 +175,7 @@ public class OrdemServico {
     e coloca a data de término com a data atual.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean cancelarOS() {
+    public boolean cancelarOS() throws OrdemServicoException {
         if (situacao == 'A') {
             // Percorre todas os itemOS devolvendo as peças
             for (ItemOS itemOS : itensOS) itemOS.devolver();
@@ -165,22 +184,27 @@ public class OrdemServico {
             this.dataTermino = LocalDate.now();
             return true;
         }
+        else
+        {
+            throw new OrdemServicoException();
+        }
         
-        return false;
     }
     
     /*
     Se a OS estiver aberta  altera a situação para F (Finalizada) e coloca a data de término com a data atual.
     Devolve um boolean representando o sucesso da operação.
     */
-    public boolean finalizarOS() {   
+    public boolean finalizarOS() throws OrdemServicoException {   
         if (situacao == 'A') {
             this.situacao = 'F';
             this.dataTermino = LocalDate.now();
             return true;
         }
-        
-        return false;
+        else
+        {
+            throw new OrdemServicoException();
+        }
     }
     
     /*
