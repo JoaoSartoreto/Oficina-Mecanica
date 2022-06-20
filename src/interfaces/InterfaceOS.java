@@ -1,7 +1,6 @@
 package interfaces;
 
 import classes.Cliente;
-import classes.Exceptions.ExcluiClienteEx.*;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -9,8 +8,6 @@ import excecoes.ItemOSException;
 import excecoes.OrdemServicoException;
 import excecoes.PecaEstoqueException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oficina.Oficina;
 
 public class InterfaceOS {
