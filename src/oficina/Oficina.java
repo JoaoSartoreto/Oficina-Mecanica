@@ -20,13 +20,14 @@ import interfaces.InterfacePrincipal;
 import interfaces.InterfaceServicos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import operacoes.IO;
 
 public class Oficina {
 
-    private static ArrayList<Cliente> listaClientes = new ArrayList<>();
-    private static ArrayList<OrdemServico> listaOS = new ArrayList<>();
-    private static ArrayList<Peca> listaPecas = new ArrayList<>();
-    private static ArrayList<Servico> listaServicos = new ArrayList<>();
+    private static ArrayList<Cliente> listaClientes = IO.leituraClientes();
+    private static ArrayList<OrdemServico> listaOS = IO.leituraOS();
+    private static ArrayList<Peca> listaPecas = IO.leituraPecas();
+    private static ArrayList<Servico> listaServicos = IO.leituraServicos();
 
     /* MAIN */
     public static void main(String[] args) {
@@ -43,6 +44,10 @@ public class Oficina {
                 
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
+        IO.gravarClientes(listaClientes);
+        IO.gravarOS(listaOS);
+        IO.gravarPecas(listaPecas);
+        IO.gravarServicos(listaServicos);
     }
 
     /* -- OUTROS MÉTODOS -- */

@@ -1,9 +1,10 @@
 package classes;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class ItemOS {
+public class ItemOS implements Serializable{
     private char tipo;
     private double preco;
     private int qtde;

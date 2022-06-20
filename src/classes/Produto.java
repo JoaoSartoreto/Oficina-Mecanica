@@ -4,6 +4,7 @@
  */
 package classes;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -11,7 +12,7 @@ import java.util.Locale;
  *
  * @author joovitor
  */
-public abstract class Produto {
+public abstract class Produto implements Serializable{
     private int codigo;
     private String descricao;
     private double preco;

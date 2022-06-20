@@ -3,13 +3,14 @@ package classes;
 import excecoes.ItemOSException;
 import excecoes.OrdemServicoException;
 import excecoes.PecaEstoqueException;
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class OrdemServico {
+public class OrdemServico implements Serializable{
     private static int qtde;
     
     private int numeroOS;
