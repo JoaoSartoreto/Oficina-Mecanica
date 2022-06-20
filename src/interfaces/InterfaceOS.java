@@ -1,6 +1,7 @@
 package interfaces;
 
 import classes.Cliente;
+import classes.Exceptions.ExcluiClienteEx.*;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
@@ -78,6 +79,7 @@ public class InterfaceOS {
         String numero;
         
         numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+
         if (numero != null){
             try
             {
@@ -103,6 +105,7 @@ public class InterfaceOS {
         String numero;
         
         numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+
         if (numero != null){
             try
             {
@@ -129,6 +132,7 @@ public class InterfaceOS {
         String numero;
         
         numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
+
         if (numero != null){
             
             try
@@ -139,6 +143,7 @@ public class InterfaceOS {
                 }
             } catch (OrdemServicoException ex) {
                 Interface.exibirMensagemErro(titulo, ex.getMessage());
+
             }
         }
     }
@@ -203,6 +208,7 @@ public class InterfaceOS {
         String titulo = "Adicionar Peça à OS";
         
         OrdemServico ordemServico = exibirSelecionarOS(titulo);
+
         if (ordemServico == null) return;
         
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
@@ -232,6 +238,7 @@ public class InterfaceOS {
         } catch (PecaEstoqueException ex) {
             Interface.exibirMensagemErro(titulo, ex.getMessage());
         } 
+
     }
     
     /*
@@ -245,7 +252,9 @@ public class InterfaceOS {
         String titulo = "Adicionar Serviço à OS";
         
         OrdemServico ordemServico = exibirSelecionarOS(titulo);
+
         if (ordemServico == null) return;
+
         
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         if (codigo == null) return;
@@ -283,6 +292,7 @@ public class InterfaceOS {
         String titulo = "Excluir Peça da OS";
         
         OrdemServico ordemServico = exibirSelecionarOS(titulo);
+
         if (ordemServico == null) return;
         
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
@@ -311,6 +321,7 @@ public class InterfaceOS {
         String titulo = "Excluir Serviço da OS";
         
         OrdemServico ordemServico = exibirSelecionarOS(titulo);
+
         if (ordemServico == null) return;
         
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");

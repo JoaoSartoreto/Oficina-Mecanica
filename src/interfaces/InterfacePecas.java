@@ -84,6 +84,7 @@ public class InterfacePecas {
                 }
             } catch (PecaException ex) {
                 Interface.exibirMensagemErro(titulo, ex.getMessage());
+
             }
         }    
     }

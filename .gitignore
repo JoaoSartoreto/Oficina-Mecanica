@@ -23,7 +23,13 @@
 hs_err_pid*
 
 # Arquivos de build e locais do NetBeans
-nbproject/private/
+nbproject/build/
 build/
-nbproject/private/private.xml
 /dist/
+
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/project.properties
+nbproject/project.xml
