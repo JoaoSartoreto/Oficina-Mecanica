@@ -6,13 +6,19 @@ import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import excecoes.ClienteException;
-import excecoes.ItemOSException;
-import excecoes.OrdemServicoException;
-import excecoes.PecaEstoqueException;
-import excecoes.PecaException;
-import excecoes.ServicoException;
-import interfaces.Interface;
+import excecoes.ClienteReferenciadoException;
+import excecoes.AdicionarItemOSNaoAbertaException;
+import excecoes.ClienteNaoEncontradoException;
+import excecoes.OSNaoAbertaException;
+import excecoes.EstoqueInsuficienteException;
+import excecoes.ItemNaoEncontradoException;
+import excecoes.OSNaoEncontradaException;
+import excecoes.PecaNaoEncontradaException;
+import excecoes.PecaReferenciadaException;
+import excecoes.QuantidadeInvalidaException;
+import excecoes.RemoverItemOSNaoAbertaException;
+import excecoes.ServicoNaoEncontradoException;
+import excecoes.ServicoReferenciadoException;
 import interfaces.InterfaceClientes;
 import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
@@ -65,25 +71,24 @@ public class Oficina {
     public static Cliente buscarCliente(String cpf) {
         for (Cliente cliente : listaClientes) 
             if (cliente.getCpf().equals(cpf)) return cliente;
-
+        
         return null;
     }
     
     /*
     Busca um cliente pelo CPF e se não houver nenhum erro o remove da lista.
-    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    Se houver algum erro é lançada uma exceção;
     */
-    public static int excluirCliente(String cpf) throws ClienteException{
+    public static void excluirCliente(String cpf) throws ClienteReferenciadoException, ClienteNaoEncontradoException{
         Cliente cliente = buscarCliente(cpf);
-        
-        if (cliente == null) return 1;
-        
+         
+        if (cliente == null) throw new ClienteNaoEncontradoException();
         for (OrdemServico ordemServico : listaOS)
-            if (ordemServico.getCliente() == cliente) throw new ClienteException();
+            if (ordemServico.getCliente() == cliente) throw new ClienteReferenciadoException();
         
         listaClientes.remove(cliente);
         
-        return 0;
+
     }
 
     /*
@@ -129,18 +134,16 @@ public class Oficina {
     Busca uma peça pelo código e se não houver nenhum erro a remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirPeca(int codPeca) throws PecaException{
+    public static void excluirPeca(int codPeca) throws PecaReferenciadaException, PecaNaoEncontradaException{
         Peca peca = buscarPeca(codPeca);
         
-        if (peca == null) return 1;
+        if (peca == null) throw new PecaNaoEncontradaException();
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if (itemOS.getProduto().getCodigo() == peca.getCodigo()) throw new PecaException();
+                if (itemOS.getProduto().getCodigo() == peca.getCodigo()) throw new PecaReferenciadaException();
         
         listaPecas.remove(peca);
-        
-        return 0;
     }
     
     /*
@@ -185,20 +188,18 @@ public class Oficina {
     
     /*
     Busca um serviço pelo código e se não houver nenhum erro o remove da lista.
-    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    Se houver algum erro é lançada uma exceção;
     */
-    public static int excluirServico(int codServico) throws ServicoException{
+    public static void excluirServico(int codServico) throws ServicoReferenciadoException, ServicoNaoEncontradoException{
         Servico servico = buscarServico(codServico);
         
-        if (servico == null) return 1;
+        if (servico == null) throw new ServicoNaoEncontradoException();
         
         for (OrdemServico ordemServico : listaOS)
             for (ItemOS itemOS : ordemServico.getItensOS())
-                if (itemOS.getProduto().getCodigo() == servico.getCodigo()) throw new ServicoException() ;
+                if (itemOS.getProduto().getCodigo() == servico.getCodigo()) throw new ServicoReferenciadoException() ;
         
         listaServicos.remove(servico);
-        
-        return 0;
     }
     
     /*
@@ -243,42 +244,35 @@ public class Oficina {
     
     /*
     Busca uma OS pelo número e se não houver nenhum erro a cancela.
-    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    Se houver algum erro é lançada uma exceção;
     */
-    public static int cancelarOS(int numero) throws OrdemServicoException {
+    public static void cancelarOS(int numero) throws OSNaoAbertaException, OSNaoEncontradaException {
         OrdemServico ordemServico = buscarOS(numero);
-        
-        if (ordemServico == null) return 1;
-
+        if (ordemServico == null) throw new OSNaoEncontradaException();
         ordemServico.cancelarOS();
-        return 0;
     }
     
     /*
     Busca uma OS pelo número e se não houver nenhum erro a finaliza.
-    Devolve um int representando o sucesso da operação ou especificando o erro. 
+    Se houver algum erro é lançada uma exceção;
     */
-    public static int finalizarOS(int numero) throws OrdemServicoException {
+    public static void finalizarOS(int numero) throws OSNaoAbertaException, OSNaoEncontradaException {
         OrdemServico ordemServico = buscarOS(numero);
-        
-        if (ordemServico == null) return 1;
-        
+        if (ordemServico == null) throw new OSNaoEncontradaException();
         ordemServico.finalizarOS();       
-        return 0;
     }
     
     /*
     Busca uma OS pelo número e se não houver nenhum erro a cancela (para devolver as peças) e a remove da lista.
     Devolve um int representando o sucesso da operação ou especificando o erro. 
     */
-    public static int excluirOS(int numero) throws OrdemServicoException {
+    public static void excluirOS(int numero) throws OSNaoAbertaException, OSNaoEncontradaException {
         OrdemServico ordemServico = buscarOS(numero);
-        
-        if (ordemServico == null) return 1;
+     
+        if (ordemServico == null) throw new OSNaoEncontradaException();
         
         ordemServico.cancelarOS();       
         listaOS.remove(ordemServico);
-        return 0;
     }
     
     /*
@@ -328,20 +322,20 @@ public class Oficina {
     deixamos as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim manipulações indevidas.
     */
 
-    public static boolean adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) throws ItemOSException, PecaEstoqueException {
-        return ordemServico.adicionarPeca(quantidade, peca);
+    public static void adicionarItemOSPeca(OrdemServico ordemServico, Peca peca, int quantidade) throws AdicionarItemOSNaoAbertaException, EstoqueInsuficienteException, QuantidadeInvalidaException {
+        ordemServico.adicionarPeca(quantidade, peca);
     }
     
-    public static boolean adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) throws ItemOSException {
-        return ordemServico.adicionarServico(quantidade, servico);
+    public static void adicionarItemOSServico(OrdemServico ordemServico, Servico servico, int quantidade) throws AdicionarItemOSNaoAbertaException, QuantidadeInvalidaException {
+        ordemServico.adicionarServico(quantidade, servico);
     }
     
-    public static boolean excluirItemOSPeca(OrdemServico ordemOS, int codigo) throws ItemOSException{
-        return ordemOS.removerItemOSPeca(codigo);
+    public static void excluirItemOSPeca(OrdemServico ordemOS, int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException{
+        ordemOS.removerItemOSPeca(codigo);
     }
     
-    public static boolean excluirItemOSServico(OrdemServico ordemOS, int codigo) throws ItemOSException{
-        return ordemOS.removerItemOSServico(codigo);
+    public static void excluirItemOSServico(OrdemServico ordemOS, int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException{
+        ordemOS.removerItemOSServico(codigo);
     }
     
     /* -- CONSULTA DO VALOR VENDIDO DURANTE UM PERIODO -- */

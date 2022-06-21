@@ -4,9 +4,14 @@ import classes.Cliente;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import excecoes.ItemOSException;
-import excecoes.OrdemServicoException;
-import excecoes.PecaEstoqueException;
+import excecoes.AdicionarItemOSNaoAbertaException;
+import excecoes.DataInvalidaException;
+import excecoes.OSNaoAbertaException;
+import excecoes.EstoqueInsuficienteException;
+import excecoes.ItemNaoEncontradoException;
+import excecoes.OSNaoEncontradaException;
+import excecoes.QuantidadeInvalidaException;
+import excecoes.RemoverItemOSNaoAbertaException;
 import java.util.ArrayList;
 import oficina.Oficina;
 
@@ -54,14 +59,22 @@ public class InterfaceOS {
             cpfCliente = Interface.exibirDialogoEntrada(titulo, "CPF do cliente: ");
             if (cpfCliente == null) return null;
             
-            cliente = Oficina.buscarCliente(cpfCliente);
-            if (cliente == null)
-                Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
-            
+            try {
+                cliente = Oficina.buscarCliente(cpfCliente);
+                if (cliente == null)
+                    Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
+            } catch(Exception e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+                cliente = null;
+            }
         } while (cliente == null);
         
-        
-        return new OrdemServico(dataPrevTermino, placaCarro, cliente);
+        try {
+            return new OrdemServico(dataPrevTermino, placaCarro, cliente);
+        } catch (DataInvalidaException e){
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+            return null;
+        }
     }
     
     /* 
@@ -80,12 +93,12 @@ public class InterfaceOS {
         if (numero != null){
             try
             {
-                switch(Oficina.cancelarOS(Integer.parseInt(numero))){
-                    case 0 -> Interface.exibirMensagem(titulo, "OS cancelada com sucesso");
-                    case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
-                }
-            } catch (OrdemServicoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Oficina.cancelarOS(Integer.parseInt(numero));
+                Interface.exibirMensagem(titulo, "OS cancelada com sucesso");
+            } catch (OSNaoAbertaException | OSNaoEncontradaException e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
             }
         }
     }
@@ -104,16 +117,14 @@ public class InterfaceOS {
         numero = Interface.exibirDialogoEntrada(titulo, "Número da OS: ");
 
         if (numero != null){
-            try
-            {
-                switch(Oficina.finalizarOS(Integer.parseInt(numero))){
-                    case 0 -> Interface.exibirMensagem(titulo, "OS finalizada com sucesso");
-                    case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para finalizar");
-                }     
-            } catch (OrdemServicoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            try {
+                Oficina.finalizarOS(Integer.parseInt(numero));
+                Interface.exibirMensagem(titulo, "OS finalizada com sucesso");
+            } catch (OSNaoAbertaException | OSNaoEncontradaException e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
             }
-               
         }
     }
     
@@ -132,15 +143,13 @@ public class InterfaceOS {
 
         if (numero != null){
             
-            try
-            {
-                switch(Oficina.excluirOS(Integer.parseInt(numero))){
-                    case 0 -> Interface.exibirMensagem(titulo, "OS excluída com sucesso");
-                    case 1 -> Interface.exibirMensagemErro(titulo, "OS não encontrada para exclusão");
-                }
-            } catch (OrdemServicoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
-
+            try {
+                Oficina.excluirOS(Integer.parseInt(numero));
+                Interface.exibirMensagem(titulo, "OS excluída com sucesso");
+            } catch (OSNaoAbertaException | OSNaoEncontradaException e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
             }
         }
     }
@@ -211,30 +220,23 @@ public class InterfaceOS {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         if (codigo == null) return;
         
-        Peca peca = Oficina.buscarPeca(Integer.parseInt(codigo));
-        if (peca == null) {
-            Interface.exibirMensagem(titulo, "Peça não encontrada");
-            return;
-        }
-        
-        String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
-        if (qtde == null) return;
-        
-        if (Integer.parseInt(qtde) <= 0) {
-            Interface.exibirMensagemErro(titulo, "Quantidade inválida");
-            return;
-        }
-                    
-        
-        try
-        {
+        try {
+            Peca peca = Oficina.buscarPeca(Integer.parseInt(codigo));
+            if (peca == null) {
+                Interface.exibirMensagem(titulo, "Peça não encontrada");
+                return;
+            }
+
+            String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
+            if (qtde == null) return;
+
             ordemServico.adicionarPeca(Integer.parseInt(qtde), peca);
             Interface.exibirMensagem(titulo, "Peça adiciona à OS com sucesso");
-        } catch (ItemOSException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
-        } catch (PecaEstoqueException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
-        } 
+        } catch (AdicionarItemOSNaoAbertaException | EstoqueInsuficienteException | QuantidadeInvalidaException e) {
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+        } catch (NumberFormatException e) {
+            Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
+        }
 
     }
     
@@ -252,30 +254,26 @@ public class InterfaceOS {
 
         if (ordemServico == null) return;
 
-        
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         if (codigo == null) return;
         
-        Servico servico = Oficina.buscarServico(Integer.parseInt(codigo));
-        if (servico == null) {
-            Interface.exibirMensagem(titulo, "Serviço não encontrado");
-            return;
-        }
-        
-        String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
-        if (qtde == null) return;
-        
-        if (Integer.parseInt(qtde) <= 0)
-            Interface.exibirMensagemErro(titulo, "Quantidade inválida");
-        
-        try
-        {
+        try {
+            Servico servico = Oficina.buscarServico(Integer.parseInt(codigo));
+            if (servico == null) {
+                Interface.exibirMensagem(titulo, "Serviço não encontrado");
+                return;
+            }
+
+            String qtde = Interface.exibirDialogoEntrada(titulo, "Quantidade: ");
+            if (qtde == null) return;
+
             ordemServico.adicionarServico(Integer.parseInt(qtde), servico);
             Interface.exibirMensagem(titulo, "Serviço adicionado à OS com sucesso");
-        } catch (ItemOSException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        } catch (AdicionarItemOSNaoAbertaException | QuantidadeInvalidaException e) {
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+        } catch (NumberFormatException e) {
+            Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
         }
-        
     }
     
     /*
@@ -295,14 +293,13 @@ public class InterfaceOS {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         if (codigo == null) return;
     
-        try
-        {            
-            if (Oficina.excluirItemOSPeca(ordemServico, Integer.parseInt(codigo)))
-                Interface.exibirMensagem(titulo, "Item excluído com sucesso");
-            else 
-                Interface.exibirMensagemErro(titulo, "Item não encontrado para exclusão");
-        } catch (ItemOSException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        try {            
+            Oficina.excluirItemOSPeca(ordemServico, Integer.parseInt(codigo));
+            Interface.exibirMensagem(titulo, "Item excluído com sucesso");
+        } catch (ItemNaoEncontradoException | RemoverItemOSNaoAbertaException e) {
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+        } catch (NumberFormatException e) {
+            Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
         }
         
     }
@@ -324,14 +321,13 @@ public class InterfaceOS {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         if (codigo == null) return;
         
-        try
-        {
-            if (Oficina.excluirItemOSServico(ordemServico, Integer.parseInt(codigo)))
-                Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
-            else 
-                Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
-        }catch(ItemOSException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        try {
+            Oficina.excluirItemOSServico(ordemServico, Integer.parseInt(codigo));
+            Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
+        } catch(ItemNaoEncontradoException | RemoverItemOSNaoAbertaException e){
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+        } catch (NumberFormatException e) {
+            Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
         }
         
     }

@@ -1,20 +1,20 @@
 package classes;
 
+import excecoes.PrecoInvalidoException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 
 public class Servico extends Produto{
-    
     private Duration tempoExecucao;
+    private static int qtdServico;
     
-    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao){
-        super(descricao, preco);
+    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) throws PrecoInvalidoException{
+        super(++qtdServico, descricao, preco);
         setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
     /* -- GETTERS E SETTERS -- */
     
-
     /* tempoExecucao */
     public Duration getTempoExecucao() {
         return tempoExecucao;
@@ -51,9 +51,6 @@ public class Servico extends Produto{
     
     /* -- OUTROS MÉTODOS -- */
     
-    /*
-    Um toString comum, a única diferença é o uso de um formatador para o preço.
-    */
     @Override
     public String toString() {
         

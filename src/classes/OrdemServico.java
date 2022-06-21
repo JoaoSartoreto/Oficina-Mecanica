@@ -1,8 +1,12 @@
 package classes;
 
-import excecoes.ItemOSException;
-import excecoes.OrdemServicoException;
-import excecoes.PecaEstoqueException;
+import excecoes.AdicionarItemOSNaoAbertaException;
+import excecoes.DataInvalidaException;
+import excecoes.OSNaoAbertaException;
+import excecoes.EstoqueInsuficienteException;
+import excecoes.ItemNaoEncontradoException;
+import excecoes.QuantidadeInvalidaException;
+import excecoes.RemoverItemOSNaoAbertaException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -22,12 +26,17 @@ public class OrdemServico implements Serializable{
     private ArrayList<ItemOS> itensOS;
     private Cliente cliente;
 
-    public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) {
+    public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) throws DataInvalidaException {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate parsedDataPrevTermino = LocalDate.parse(dataPrevTermino, formato);
+        LocalDate now = LocalDate.now();
+        if(parsedDataPrevTermino.isBefore(now)) throw new DataInvalidaException();
+        
         OrdemServico.qtde++;
         this.numeroOS = OrdemServico.qtde;
-        this.dataOS = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
-        this.dataPrevTermino = LocalDate.parse(dataPrevTermino, formato);
+        this.dataOS = now;
+        this.dataPrevTermino = parsedDataPrevTermino;
+        
         this.placaCarro = placaCarro;
         this.situacao = 'A';
         this.itensOS = new ArrayList<>();
@@ -91,42 +100,37 @@ public class OrdemServico implements Serializable{
     /* -- OUTROS MÉTODOS -- */
 
     /*
-    Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens.
-    Devolve um boolean representando o sucesso da operação.
+    Se a OS estiver aberta adiciona um ItemOS de serviço à lista de itens,
+    senão lança uma AdicionarItemOSNaoAbertaException.
+    Se a quantidade for inválida também é lançada uma exceção.
     */
-    public boolean adicionarServico(int qtde, Servico servico) throws ItemOSException {
+    public void adicionarServico(int qtde, Servico servico) throws AdicionarItemOSNaoAbertaException, QuantidadeInvalidaException {
+        if (qtde <= 0) throw new QuantidadeInvalidaException();
         if (situacao == 'A') {
             ItemOS itemOS = new ItemOS(qtde, servico);
             this.itensOS.add(itemOS);
-            return true;
         }
         else
         {
-            throw new ItemOSException();
+            throw new AdicionarItemOSNaoAbertaException();
         }
         
     }
     
     /*
     Se a OS estiver aberta e haver quantidade da peça suficiente no estoque 
-    adiciona um ItemOS da peça à lista de itens.
-    Devolve um boolean representando o sucesso da operação.
+    adiciona um ItemOS da peça à lista de itens, senão é lançada uma exceção especifica do problema.
+    Se a quantidade for inválida também é lançada uma exceção.
     */
-    public boolean adicionarPeca(int qtde, Peca peca) throws ItemOSException, PecaEstoqueException {
+    public void adicionarPeca(int qtde, Peca peca) throws AdicionarItemOSNaoAbertaException, QuantidadeInvalidaException, EstoqueInsuficienteException {
         if (situacao == 'A') {
-            if (peca.subtrairEstoque(qtde)) {
-                ItemOS itemOS = new ItemOS(qtde , peca);
-                this.itensOS.add(itemOS);
-                return true;
-            }
-            else
-            {
-                throw new PecaEstoqueException();
-            }
+            peca.subtrairEstoque(qtde);
+            ItemOS itemOS = new ItemOS(qtde , peca);
+            this.itensOS.add(itemOS);
         }
         else
         {
-            throw new ItemOSException();
+            throw new AdicionarItemOSNaoAbertaException();
         }
         
     }
@@ -135,68 +139,73 @@ public class OrdemServico implements Serializable{
     Se a OS estiver aberta percorre a lista de itens procurando um item que seja uma peça e 
     que tenha o código correspodente, se encontrar o item sua quantidade é devolvida ao estoque
     e o item é removido da lista.
-    Devolve um boolean representando o sucesso da operação.
+    Se houver algum problema é lançada uma exceção correspondente.
     */
-    public boolean removerItemOSPeca(int codigo) throws ItemOSException {      
-        if (situacao == 'A')
+    public void removerItemOSPeca(int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException {      
+        boolean removido = false;
+        if (situacao == 'A') {
             for (ItemOS itemOS : itensOS) 
                 if (itemOS.getTipo() == 'P' && itemOS.getProduto().getCodigo()== codigo) {
                     itemOS.devolver();
                     itensOS.remove(itemOS);
-                    return true;
+                    removido = true;
                 }
+            
+            if (!removido) {
+                throw new ItemNaoEncontradoException();
+            }
+        }
         else
         {
-            throw new ItemOSException();
+            throw new RemoverItemOSNaoAbertaException();
         }
-        return false;
     }
     
     /*
     Se a OS estiver aberta percorre a lista de itens procurando um item que seja um serviço e 
     que tenha o código correspodente, se encontrar o item ele é removido da lista.
-    Devolve um boolean representando o sucesso da operação.
+    Se houver algum problema é lançada uma exceção correspondente.
     */
-    public boolean removerItemOSServico(int codigo) throws ItemOSException {      
-        if (situacao == 'A')
+    public void removerItemOSServico(int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException {
+        boolean removido = false;
+        if (situacao == 'A') {
             for (ItemOS itemOS : itensOS) 
                 if (itemOS.getTipo() == 'S' && itemOS.getProduto().getCodigo()== codigo) {
                     itensOS.remove(itemOS);
-                    return true;
+                    removido = true;
                 }
-        else
-        {
-            throw new ItemOSException();
+            
+            if (!removido) throw new ItemNaoEncontradoException();
         }
-        return false;
+        else {
+            throw new RemoverItemOSNaoAbertaException();
+        }
     }
     
     /*
     Se a OS estiver aberta percorre a lista de itens devolvendo as peças, altera a situação para C (Cancelada)
     e coloca a data de término com a data atual.
-    Devolve um boolean representando o sucesso da operação.
+    Se houver algum problema é lançada uma exceção correspondente.
     */
-    public boolean cancelarOS() throws OrdemServicoException {
+    public void cancelarOS() throws OSNaoAbertaException {
         if (situacao == 'A') {
             // Percorre todas os itemOS devolvendo as peças
             for (ItemOS itemOS : itensOS) itemOS.devolver();
 
             this.situacao = 'C';
             this.dataTermino = LocalDate.now();
-            return true;
         }
         else
         {
-            throw new OrdemServicoException();
+            throw new OSNaoAbertaException();
         }
-        
     }
     
     /*
     Se a OS estiver aberta  altera a situação para F (Finalizada) e coloca a data de término com a data atual.
-    Devolve um boolean representando o sucesso da operação.
+    Se houver algum problema é lançada uma exceção correspondente.
     */
-    public boolean finalizarOS() throws OrdemServicoException {   
+    public boolean finalizarOS() throws OSNaoAbertaException {   
         if (situacao == 'A') {
             this.situacao = 'F';
             this.dataTermino = LocalDate.now();
@@ -204,7 +213,7 @@ public class OrdemServico implements Serializable{
         }
         else
         {
-            throw new OrdemServicoException();
+            throw new OSNaoAbertaException();
         }
     }
     
@@ -248,7 +257,7 @@ public class OrdemServico implements Serializable{
         double total = 0;
         
         for (ItemOS itemOS : itensOS)
-            total += (itemOS.getPreco() * itemOS.getQtde());
+            total += (itemOS.getPreco());
     
         return total;
     }

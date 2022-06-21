@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.text.NumberFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import oficina.Oficina;
 
@@ -40,7 +41,11 @@ public class InterfacePrincipal {
         dataFinal = Interface.exibirDialogoEntrada(titulo, "Data final do período: ");
         if (dataFinal == null) return;
         
-        NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
-        Interface.exibirMensagem(titulo, "Total: " + formatador.format(Oficina.getTotalVendidoPeriodo(dataInicio, dataFinal)));
+        try {
+            NumberFormat formatador = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
+            Interface.exibirMensagem(titulo, "Total: " + formatador.format(Oficina.getTotalVendidoPeriodo(dataInicio, dataFinal)));
+        } catch (DateTimeParseException e) {
+            Interface.exibirMensagemErro(titulo, "Data inválida");
+        }
     }
 }

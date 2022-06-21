@@ -1,7 +1,9 @@
 package interfaces;
 
 import classes.Servico;
-import excecoes.ServicoException;
+import excecoes.PrecoInvalidoException;
+import excecoes.ServicoNaoEncontradoException;
+import excecoes.ServicoReferenciadoException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,24 +40,26 @@ public class InterfaceServicos {
 
         stringPreco = Interface.exibirDialogoEntrada(titulo, "Preço: ");
         if (stringPreco == null) return null;
-        preco = Double.parseDouble(stringPreco);
+        try {
+            preco = Double.parseDouble(stringPreco);
+
+            tempoExecucao = Interface.exibirDialogoEntrada(titulo, "Tempo de execução (dd:hh:mm:ss): ");
+            if (tempoExecucao == null) return null;
         
-        tempoExecucao = Interface.exibirDialogoEntrada(titulo, "Tempo de execução (dd:hh:mm:ss): ");
-        if (tempoExecucao == null) return null;
-        
-        try{
+       
             diasExecucao = Integer.parseInt(tempoExecucao.split(":")[0]);
             horasExecucao = Integer.parseInt(tempoExecucao.split(":")[1]);
             minutosExecucao = Integer.parseInt(tempoExecucao.split(":")[2]);
             segundosExecucao = Integer.parseInt(tempoExecucao.split(":")[3]);
-        } catch (Exception e) {
-            // Aqui deve ser mantido como Exception, independente do tipo da exceção o comportamento será o mesmo
+            
+            return new Servico(descricao, preco, diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
+        } catch (NumberFormatException e) {
             Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
-            return null;
+        } catch (PrecoInvalidoException e) {
+            Interface.exibirMensagemErro(titulo, e.getMessage());
         }
         
-        
-        return new Servico(descricao, preco, diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
+        return null;
     }
     
     /* 
@@ -71,11 +75,15 @@ public class InterfaceServicos {
         codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
         if (codigo != null) {
-            servico = Oficina.buscarServico(Integer.parseInt(codigo));
-            if (servico != null)
-                Interface.exibirMensagem(titulo, servico.toString());
-            else
-                Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
+            try {
+                servico = Oficina.buscarServico(Integer.parseInt(codigo));
+                if (servico != null)
+                    Interface.exibirMensagem(titulo, servico.toString());
+                else
+                    Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
+            }
         }
     }
     
@@ -90,14 +98,13 @@ public class InterfaceServicos {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço: ");
         
         if (codigo != null){
-            try
-            {
-                switch (Oficina.excluirServico(Integer.parseInt(codigo))) {
-                case 0 -> Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Serviço não encontrado para exclusão");
-                } 
-            } catch (ServicoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            try {
+                Oficina.excluirServico(Integer.parseInt(codigo));
+                Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
+            } catch (ServicoNaoEncontradoException | ServicoReferenciadoException e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
             }
         }  
     }
@@ -118,40 +125,40 @@ public class InterfaceServicos {
         codigo = Interface.exibirDialogoEntrada(titulo, "Código do serviço a editar: ");
        
         if (codigo != null) {
-             servico = Oficina.buscarServico(Integer.parseInt(codigo));
-             if (servico != null)
-             {
-                 do {
-                     opcao = Interface.exibirMenu(titulo, servico.toString(), opcoes);
-                     switch (opcao) {
-                         case 1 -> {
-                             String descricao = Interface.exibirDialogoEntrada(titulo, "Nova descrição: ");
-                             if (descricao != null) servico.setDescricao(descricao);
-                         }
-
-                         case 2 -> {
-                             String preco = Interface.exibirDialogoEntrada(titulo, "Novo preço: ");
-                             if (preco != null) servico.setPreco(Double.parseDouble(preco));
-                         }
-                         
-                         case 3 -> {
-                            int diasExecucao, horasExecucao, minutosExecucao, segundosExecucao;
-                             
-                            String tempoExecucao = Interface.exibirDialogoEntrada(titulo, "Novo tempo de execução (dd:hh:mm:ss): ");
-                            if (tempoExecucao != null) {
-                                try {
-                                    diasExecucao = Integer.parseInt(tempoExecucao.split(":")[0]);
-                                    horasExecucao = Integer.parseInt(tempoExecucao.split(":")[1]);
-                                    minutosExecucao = Integer.parseInt(tempoExecucao.split(":")[2]);
-                                    segundosExecucao = Integer.parseInt(tempoExecucao.split(":")[3]);
-                                    servico.setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
-                                } catch (Exception e) {
-                                    Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
-                                } 
+            servico = Oficina.buscarServico(Integer.parseInt(codigo));
+            if (servico != null)
+            {
+                do {
+                    opcao = Interface.exibirMenu(titulo, servico.toString(), opcoes);
+                    try {
+                        switch (opcao) {
+                            case 1 -> {
+                                String descricao = Interface.exibirDialogoEntrada(titulo, "Nova descrição: ");
+                                if (descricao != null) servico.setDescricao(descricao);
                             }
-                         }
-                     }
-                 } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
+
+                            case 2 -> {
+                                String preco = Interface.exibirDialogoEntrada(titulo, "Novo preço: ");
+                                if (preco != null) servico.setPreco(Double.parseDouble(preco));
+                            }
+
+                            case 3 -> {
+                               int diasExecucao, horasExecucao, minutosExecucao, segundosExecucao;
+
+                               String tempoExecucao = Interface.exibirDialogoEntrada(titulo, "Novo tempo de execução (dd:hh:mm:ss): ");
+                               if (tempoExecucao != null) {
+                                   diasExecucao = Integer.parseInt(tempoExecucao.split(":")[0]);
+                                   horasExecucao = Integer.parseInt(tempoExecucao.split(":")[1]);
+                                   minutosExecucao = Integer.parseInt(tempoExecucao.split(":")[2]);
+                                   segundosExecucao = Integer.parseInt(tempoExecucao.split(":")[3]);
+                                   servico.setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
+                               }
+                            }
+                        }
+                    }catch (NumberFormatException e) {
+                        Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
+                    }
+                } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
              } else {
                  Interface.exibirMensagemErro(titulo, "Serviço não encontrado");
              }

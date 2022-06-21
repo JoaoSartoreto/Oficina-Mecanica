@@ -1,14 +1,22 @@
 package classes;
 
+import excecoes.EstoqueInsuficienteException;
+import excecoes.PrecoInvalidoException;
+import excecoes.QuantidadeInicialEstoqueInvalidaException;
+import excecoes.QuantidadeInvalidaException;
 
 public class Peca extends Produto{
     private int qtdeEstoque;
-
-    public Peca(int qtdeEstoque, String descricao, double preco) {
-        super(descricao, preco);
+    private static int qtdPeca;
+    
+    public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeInicialEstoqueInvalidaException {
+        super(++qtdPeca, descricao, preco);
+        if (qtdeEstoque < 0) throw new QuantidadeInicialEstoqueInvalidaException();
         this.qtdeEstoque = qtdeEstoque;
     }
-
+    
+    /* -- GETTERS E SETTERS -- */
+    
     public int getQtdeEstoque() {
         return qtdeEstoque;
     }
@@ -21,36 +29,25 @@ public class Peca extends Produto{
     /* -- OUTROS MÉTODOS -- */
     
     /*
-    Adiciona uma quantidade de peças no estoque desde que a quantidade seja maior que 0.
-    Devolve um boolean representando o sucesso da operação.
+    Adiciona uma quantidade de peças no estoque desde que a quantidade seja maior que 0,
+    senão é lançada uma exceção.
     */
-    public boolean adicionarEstoque (int n) {
-        if (n > 0) {
-            this.qtdeEstoque = this.qtdeEstoque + n;
-            return true;
-        }
-        
-        return false;
+    public void adicionarEstoque (int n) throws QuantidadeInvalidaException {
+        if (n <= 0) throw new QuantidadeInvalidaException();
+        this.qtdeEstoque = this.qtdeEstoque + n;
     }
     
     /*
     Subtrai uma quantidade de peças do estoque desde que a quantidade seja maior que 0 e seja uma quantidade
-    disponível no estoque.
-    Devolve um boolean representando o sucesso da operação.
+    disponível no estoque, senão é uma lançada uma exceção específica para o problema.
     */
-    public boolean subtrairEstoque (int n) {
-        if (n <= 0) 
-            return false;
-        else if (n > this.qtdeEstoque)
-            return false;
+    public void subtrairEstoque (int n) throws QuantidadeInvalidaException, EstoqueInsuficienteException {
+        if (n <= 0) throw new QuantidadeInvalidaException();
+        if (n > this.qtdeEstoque) throw new EstoqueInsuficienteException();
         
         this.qtdeEstoque = this.qtdeEstoque - n;
-        return true;
     }
     
-    /*
-    Um toString comum, a única diferença é o uso de um formatador para o preço.
-    */
     @Override
     public String toString() {    
         

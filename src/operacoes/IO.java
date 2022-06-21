@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacoes;
 
 import classes.Cliente;
@@ -10,20 +6,12 @@ import classes.Peca;
 import classes.Servico;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author joovitor
- */
 public class IO {
     
     public static File verificarDiretorio()
@@ -56,8 +44,7 @@ public class IO {
             try
             {
                 file.close();
-            }catch(IOException ex){                
-            }catch(NullPointerException ex){               
+            }catch(IOException | NullPointerException ex){               
             }
         }
     }
@@ -79,8 +66,7 @@ public class IO {
             try
             {
                 file.close();
-            }catch(IOException ex){                
-            }catch(NullPointerException ex){               
+            }catch(IOException | NullPointerException ex){               
             }
         }
     }
@@ -102,8 +88,7 @@ public class IO {
             try
             {
                 file.close();
-            }catch(IOException ex){                
-            }catch(NullPointerException ex){               
+            }catch(IOException | NullPointerException ex){               
             }
         }
     }
@@ -125,8 +110,7 @@ public class IO {
             try
             {
                 file.close();
-            }catch(IOException ex){                
-            }catch(NullPointerException ex){               
+            }catch(IOException | NullPointerException ex){               
             }
         }
     }
@@ -151,8 +135,8 @@ public class IO {
             file = new ObjectInputStream(new FileInputStream(arquivo));
             clientes = (ArrayList<Cliente>) file.readObject();
             System.out.println("Clientes recuperados com sucesso!");
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+            return new ArrayList<Cliente>();
         }
         return clientes;
     }
@@ -175,8 +159,8 @@ public class IO {
             file = new ObjectInputStream(new FileInputStream(arquivo));
             ordemServico = (ArrayList<OrdemServico>) file.readObject();
             System.out.println("Ordens de Serviço recuperadas com sucesso!");
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+            return new ArrayList<OrdemServico>();
         }
         return ordemServico;
     }
@@ -199,8 +183,8 @@ public class IO {
             file = new ObjectInputStream(new FileInputStream(arquivo));
             pecas = (ArrayList<Peca>) file.readObject();
             System.out.println("Peças recuperados com sucesso!");
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+            return new ArrayList<Peca>();
         }
         return pecas;
     }
@@ -223,8 +207,8 @@ public class IO {
             file = new ObjectInputStream(new FileInputStream(arquivo));
             servicos = (ArrayList<Servico>) file.readObject();
             System.out.println("Serviços recuperados com sucesso!");
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+            return new ArrayList<Servico>();
         }
         return servicos;
     }

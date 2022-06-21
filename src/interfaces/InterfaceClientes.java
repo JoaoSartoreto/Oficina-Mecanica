@@ -1,10 +1,10 @@
 package interfaces;
 
 import classes.Cliente;
-import excecoes.ClienteException;
+import excecoes.ClienteNaoEncontradoException;
+import excecoes.ClienteReferenciadoException;
 import java.util.ArrayList;
 import oficina.Oficina;
-
 
 public class InterfaceClientes {
     
@@ -37,10 +37,10 @@ public class InterfaceClientes {
         String cpf;
         String endereco;
         String telefone;
-
+        
         nome = Interface.exibirDialogoEntrada(titulo, "Nome: ");
         if (nome == null) return null;
-
+ 
         // Repete se o CPF inserido já estiver cadastrado.
         do {
             cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");    
@@ -54,7 +54,7 @@ public class InterfaceClientes {
 
         telefone = Interface.exibirDialogoEntrada(titulo, "Telefone: ");
         if (telefone == null) return null;
-        
+
         return new Cliente(nome, cpf, endereco, telefone);
     }
     
@@ -94,16 +94,12 @@ public class InterfaceClientes {
         cpf = Interface.exibirDialogoEntrada(titulo, "CPF: ");
         
         if (cpf != null)
-            try
-            {
-                switch (Oficina.excluirCliente(cpf)) {
-                case 0 -> Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Cliente não encontrado para exclusão");
-                }
-            }catch(ClienteException ex){
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            try {
+                Oficina.excluirCliente(cpf);
+                Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
+            } catch(ClienteNaoEncontradoException | ClienteReferenciadoException e){
+                Interface.exibirMensagemErro(titulo, e.getMessage());
             }
-            
     }
     
     /* 
@@ -130,10 +126,10 @@ public class InterfaceClientes {
                     opcao = Interface.exibirMenu(titulo, cliente.toString(), opcoes);
                     switch (opcao) {
                         case 1 -> {
-                            String endereco = Interface.exibirDialogoEntrada(titulo, "Novo endereço: ");
-                            if (endereco != null) cliente.setEndereco(endereco);
+                                String endereco = Interface.exibirDialogoEntrada(titulo, "Novo endereço: ");
+                                if (endereco != null) cliente.setEndereco(endereco);
                         }
-                        
+
                         case 2 -> {
                             String telefone = Interface.exibirDialogoEntrada(titulo, "Novo telefone: ");
                             if (telefone != null) cliente.setEndereco(telefone);

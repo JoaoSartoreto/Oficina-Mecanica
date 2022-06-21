@@ -1,30 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package classes;
 
+import excecoes.PrecoInvalidoException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- *
- * @author joovitor
- */
-public abstract class Produto implements Serializable{
+public abstract class Produto implements Serializable {
     private int codigo;
     private String descricao;
     private double preco;
-    private static int qtdProduto;
 
-    public Produto(String descricao, double preco) {
-        qtdProduto++;
-        this.codigo = qtdProduto;
+    public Produto(int codigo, String descricao, double preco) throws PrecoInvalidoException {
+        if (preco < 0) throw new PrecoInvalidoException();
+        
+        this.codigo = codigo;
         this.descricao = descricao;
         this.preco = preco;
     }
-
+    
+    /* -- GETTERS E SETTERS -- */
+    
+    /* codigo */
     public int getCodigo() {
         return codigo;
     }
@@ -32,7 +28,8 @@ public abstract class Produto implements Serializable{
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-
+    
+    /* descricao */
     public String getDescricao() {
         return descricao;
     }
@@ -40,7 +37,8 @@ public abstract class Produto implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    
+    /* preco */
     public double getPreco() {
         return preco;
     }
@@ -49,6 +47,11 @@ public abstract class Produto implements Serializable{
         this.preco = preco;
     }
     
+    /* -- OUTROS MÉTODOS -- */
+    
+    /*
+    Um toString comum, a única diferença é o uso de um formatador para o preço.
+    */
     @Override
     public String toString()
     {
@@ -57,7 +60,7 @@ public abstract class Produto implements Serializable{
         
         saida += "Código: " + this.codigo + "\n";
         saida += "Descrição: " + this.descricao + "\n";
-        saida += "Preco: " + formatador.format(this.preco) + "\n";
+        saida += "Preco Unitário: " + formatador.format(this.preco) + "\n";
         
         return saida;
     }

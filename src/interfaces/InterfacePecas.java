@@ -1,7 +1,10 @@
 package interfaces;
 
 import classes.Peca;
-import excecoes.PecaException;
+import excecoes.PecaNaoEncontradaException;
+import excecoes.PecaReferenciadaException;
+import excecoes.PrecoInvalidoException;
+import excecoes.QuantidadeInicialEstoqueInvalidaException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,13 +37,22 @@ public class InterfacePecas {
         
         stringPreco = Interface.exibirDialogoEntrada(titulo, "Preço: ");
         if (stringPreco == null) return null;
-        preco = Double.parseDouble(stringPreco);
         
-        stringQtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Quantidade no estoque: ");
-        if (stringQtdeEstoque == null) return null;
-        qtdeEstoque = Integer.parseInt(stringQtdeEstoque);
-              
-        return new Peca(qtdeEstoque, descricao, preco);
+        try {
+            preco = Double.parseDouble(stringPreco);
+
+            stringQtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Quantidade no estoque: ");
+            if (stringQtdeEstoque == null) return null;
+            qtdeEstoque = Integer.parseInt(stringQtdeEstoque);
+
+            return new Peca(qtdeEstoque, descricao, preco);
+        } catch (NumberFormatException e) {
+            Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");   
+        } catch (PrecoInvalidoException | QuantidadeInicialEstoqueInvalidaException e) {
+            Interface.exibirMensagemErro(titulo, e.getMessage());
+        }
+        
+        return null;
     }
     
     /* 
@@ -56,11 +68,15 @@ public class InterfacePecas {
         codPeca = Interface.exibirDialogoEntrada(titulo, "Código da peça");
         
         if(codPeca != null) {
-            Peca peca = Oficina.buscarPeca(Integer.parseInt(codPeca));
-            if(peca != null)
-                Interface.exibirMensagem(titulo, peca.toString());
-            else
-                Interface.exibirMensagemErro(titulo, "Peça não encontrada");
+            try {
+                Peca peca = Oficina.buscarPeca(Integer.parseInt(codPeca));
+                if(peca != null)
+                    Interface.exibirMensagem(titulo, peca.toString());
+                else
+                    Interface.exibirMensagemErro(titulo, "Peça não encontrada");
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
+            }
         }
     }
     
@@ -76,15 +92,13 @@ public class InterfacePecas {
         String codigo = Interface.exibirDialogoEntrada(titulo, "Código da peça: ");
         
         if (codigo != null){
-            try
-            {
-                switch (Oficina.excluirPeca(Integer.parseInt(codigo))) {
-                case 0 -> Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
-                case 1 -> Interface.exibirMensagemErro(titulo, "Peça não encontrado para exclusão");          
-                }
-            } catch (PecaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
-
+            try {
+                Oficina.excluirPeca(Integer.parseInt(codigo));
+                Interface.exibirMensagem(titulo, "Peça excluída com sucesso");       
+            } catch (PecaNaoEncontradaException | PecaReferenciadaException e) {
+                Interface.exibirMensagemErro(titulo, e.getMessage());
+            } catch (NumberFormatException e) {
+                Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
             }
         }    
     }
@@ -109,21 +123,25 @@ public class InterfacePecas {
             if (peca != null) {
                 do {
                     opcao = Interface.exibirMenu(titulo, peca.toString(), opcoes);
-                    switch (opcao) {
-                        case 1 -> {
-                            String descricao = Interface.exibirDialogoEntrada(titulo, "Nova descrição: ");
-                            if (descricao != null) peca.setDescricao(descricao);
-                        }
+                    try {
+                        switch (opcao) {
+                            case 1 -> {
+                                String descricao = Interface.exibirDialogoEntrada(titulo, "Nova descrição: ");
+                                if (descricao != null) peca.setDescricao(descricao);
+                            }
 
-                        case 2 -> {
-                            String preco = Interface.exibirDialogoEntrada(titulo, "Novo preço: ");
-                            if (preco != null) peca.setPreco(Double.parseDouble(preco));
-                        }
+                            case 2 -> {
+                                String preco = Interface.exibirDialogoEntrada(titulo, "Novo preço: ");
+                                if (preco != null) peca.setPreco(Double.parseDouble(preco));
+                            }
 
-                        case 3 -> {
-                            String qtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Nova quantidade em estoque: ");
-                            if (qtdeEstoque != null) peca.setQtdeEstoque(Integer.parseInt(qtdeEstoque));
+                            case 3 -> {
+                                String qtdeEstoque = Interface.exibirDialogoEntrada(titulo, "Nova quantidade em estoque: ");
+                                if (qtdeEstoque != null) peca.setQtdeEstoque(Integer.parseInt(qtdeEstoque));
+                            }
                         }
+                    } catch (NumberFormatException e) {
+                        Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
                     }
                 } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
             } else {
