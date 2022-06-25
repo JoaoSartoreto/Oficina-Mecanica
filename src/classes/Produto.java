@@ -43,7 +43,8 @@ public abstract class Produto implements Serializable {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(double preco) throws PrecoInvalidoException {
+        if (preco < 0) throw new PrecoInvalidoException();
         this.preco = preco;
     }
     

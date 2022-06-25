@@ -5,8 +5,6 @@ import excecoes.PrecoInvalidoException;
 import excecoes.ServicoNaoEncontradoException;
 import excecoes.ServicoReferenciadoException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oficina.Oficina;
 
 public class InterfaceServicos {
@@ -157,6 +155,8 @@ public class InterfaceServicos {
                         }
                     }catch (NumberFormatException e) {
                         Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
+                    } catch (PrecoInvalidoException e) {
+                        Interface.exibirMensagemErro(titulo, e.getMessage());
                     }
                 } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
              } else {

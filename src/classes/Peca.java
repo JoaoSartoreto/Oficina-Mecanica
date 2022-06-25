@@ -2,16 +2,19 @@ package classes;
 
 import excecoes.EstoqueInsuficienteException;
 import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeInicialEstoqueInvalidaException;
+import excecoes.QuantidadeEstoqueInvalidaException;
 import excecoes.QuantidadeInvalidaException;
 
 public class Peca extends Produto{
     private int qtdeEstoque;
     private static int qtdPeca;
     
-    public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeInicialEstoqueInvalidaException {
+    public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeEstoqueInvalidaException {
         super(++qtdPeca, descricao, preco);
-        if (qtdeEstoque < 0) throw new QuantidadeInicialEstoqueInvalidaException();
+        if (qtdeEstoque < 0) {
+            qtdPeca--;
+            throw new QuantidadeEstoqueInvalidaException();
+        }
         this.qtdeEstoque = qtdeEstoque;
     }
     
@@ -21,7 +24,8 @@ public class Peca extends Produto{
         return qtdeEstoque;
     }
 
-    public void setQtdeEstoque(int qtdeEstoque) {
+    public void setQtdeEstoque(int qtdeEstoque) throws QuantidadeEstoqueInvalidaException {
+        if (qtdeEstoque < 0) throw new QuantidadeEstoqueInvalidaException();
         this.qtdeEstoque = qtdeEstoque;
     }
         

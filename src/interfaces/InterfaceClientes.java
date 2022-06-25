@@ -132,7 +132,7 @@ public class InterfaceClientes {
 
                         case 2 -> {
                             String telefone = Interface.exibirDialogoEntrada(titulo, "Novo telefone: ");
-                            if (telefone != null) cliente.setEndereco(telefone);
+                            if (telefone != null) cliente.setFone(telefone);
                         }
                     }
                 } while (!(opcao == 0 || opcao == 3)); // Enquanto não fechar a janela ou selecionar a opção 3

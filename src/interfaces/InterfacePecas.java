@@ -4,7 +4,7 @@ import classes.Peca;
 import excecoes.PecaNaoEncontradaException;
 import excecoes.PecaReferenciadaException;
 import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeInicialEstoqueInvalidaException;
+import excecoes.QuantidadeEstoqueInvalidaException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +48,7 @@ public class InterfacePecas {
             return new Peca(qtdeEstoque, descricao, preco);
         } catch (NumberFormatException e) {
             Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");   
-        } catch (PrecoInvalidoException | QuantidadeInicialEstoqueInvalidaException e) {
+        } catch (PrecoInvalidoException | QuantidadeEstoqueInvalidaException e) {
             Interface.exibirMensagemErro(titulo, e.getMessage());
         }
         
@@ -142,6 +142,8 @@ public class InterfacePecas {
                         }
                     } catch (NumberFormatException e) {
                         Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
+                    } catch (PrecoInvalidoException | QuantidadeEstoqueInvalidaException e) {
+                        Interface.exibirMensagemErro(titulo, e.getMessage());
                     }
                 } while (!(opcao == 0 || opcao == 4)); // Enquanto não fechar a janela ou selecionar a opção 4
             } else {
