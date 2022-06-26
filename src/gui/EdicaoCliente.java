@@ -13,9 +13,9 @@ import classes.Cliente;
 public class EdicaoCliente extends javax.swing.JFrame {
 
     private Cliente cliente;
-    private JanelaCliente jc;
+    private JanelaClientes jc;
     
-    public EdicaoCliente(Cliente cliente, JanelaCliente jc) {
+    public EdicaoCliente(Cliente cliente, JanelaClientes jc) {
         initComponents();
         this.cliente = cliente;
         tNome.setText(cliente.getNome());

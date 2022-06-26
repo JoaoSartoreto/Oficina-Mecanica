@@ -28,6 +28,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal(ArrayList<Cliente> listaClientes, ArrayList<OrdemServico> listaOS,
             ArrayList<Peca> listaPecas, ArrayList<Servico> listaServicos) {
         initComponents();
+        setMinimumSize(getSize());
         this.listaClientes = listaClientes;
         this.listaOS = listaOS;
         this.listaPecas = listaPecas;
@@ -45,59 +46,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bSair = new javax.swing.JButton();
-        bCli = new javax.swing.JButton();
-        bProd = new javax.swing.JButton();
-        bOS = new javax.swing.JButton();
-        bTotal = new javax.swing.JButton();
+        botaoSair = new javax.swing.JButton();
+        botaoClientes = new javax.swing.JButton();
+        botaoProdutos = new javax.swing.JButton();
+        botaoOS = new javax.swing.JButton();
+        botaoTotalPeriodo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu Principal");
+        setTitle("Menu Principal - Controle de Oficina");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        bSair.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        bSair.setText("Sair do programa");
-        bSair.setActionCommand("Gerênciar Ordens de Serviço");
-        bSair.addActionListener(new java.awt.event.ActionListener() {
+        botaoSair.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        botaoSair.setText("Sair do programa");
+        botaoSair.setActionCommand("Gerênciar Ordens de Serviço");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSairActionPerformed(evt);
+                botaoSairActionPerformed(evt);
             }
         });
 
-        bCli.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        bCli.setText("Gerênciar Clientes");
-        bCli.addActionListener(new java.awt.event.ActionListener() {
+        botaoClientes.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        botaoClientes.setText("Gerenciar clientes");
+        botaoClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCliActionPerformed(evt);
+                botaoClientesActionPerformed(evt);
             }
         });
 
-        bProd.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        bProd.setText("Gerênciar Produtos");
-        bProd.addActionListener(new java.awt.event.ActionListener() {
+        botaoProdutos.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        botaoProdutos.setText("Gerenciar produtos");
+        botaoProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bProdActionPerformed(evt);
+                botaoProdutosActionPerformed(evt);
             }
         });
 
-        bOS.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        bOS.setText("Gerênciar Ordens de Serviço");
-        bOS.addActionListener(new java.awt.event.ActionListener() {
+        botaoOS.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        botaoOS.setText("Gerenciar Ordens de Serviço");
+        botaoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bOSActionPerformed(evt);
+                botaoOSActionPerformed(evt);
             }
         });
 
-        bTotal.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        bTotal.setText("Consultar total vendido em um periodo");
-        bTotal.setActionCommand("Gerênciar Ordens de Serviço");
-        bTotal.addActionListener(new java.awt.event.ActionListener() {
+        botaoTotalPeriodo.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        botaoTotalPeriodo.setText("Consultar total vendido em um período");
+        botaoTotalPeriodo.setActionCommand("Gerênciar Ordens de Serviço");
+        botaoTotalPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bTotalActionPerformed(evt);
+                botaoTotalPeriodoActionPerformed(evt);
             }
         });
 
@@ -106,57 +107,57 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bOS, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                    .addComponent(bTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(botaoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoProdutos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoOS, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addComponent(botaoTotalPeriodo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bCli, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bProd, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bOS, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoOS, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bSair, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoTotalPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoSair, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCliActionPerformed
-        new JanelaCliente(listaClientes);
-    }//GEN-LAST:event_bCliActionPerformed
+    private void botaoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoClientesActionPerformed
+        new JanelaClientes(listaClientes);
+    }//GEN-LAST:event_botaoClientesActionPerformed
 
-    private void bProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProdActionPerformed
+    private void botaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bProdActionPerformed
+    }//GEN-LAST:event_botaoProdutosActionPerformed
 
-    private void bOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOSActionPerformed
+    private void botaoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bOSActionPerformed
+    }//GEN-LAST:event_botaoOSActionPerformed
 
-    private void bTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTotalActionPerformed
+    private void botaoTotalPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTotalPeriodoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bTotalActionPerformed
+    }//GEN-LAST:event_botaoTotalPeriodoActionPerformed
 
-    private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
         IO.gravarClientes(listaClientes);
         IO.gravarOS(listaOS);
         IO.gravarPecas(listaPecas);
         IO.gravarServicos(listaServicos);
         System.exit(0);
-    }//GEN-LAST:event_bSairActionPerformed
+    }//GEN-LAST:event_botaoSairActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         IO.gravarClientes(listaClientes);
@@ -168,10 +169,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bCli;
-    private javax.swing.JButton bOS;
-    private javax.swing.JButton bProd;
-    private javax.swing.JButton bSair;
-    private javax.swing.JButton bTotal;
+    private javax.swing.JButton botaoClientes;
+    private javax.swing.JButton botaoOS;
+    private javax.swing.JButton botaoProdutos;
+    private javax.swing.JButton botaoSair;
+    private javax.swing.JButton botaoTotalPeriodo;
     // End of variables declaration//GEN-END:variables
 }
