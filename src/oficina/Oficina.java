@@ -19,6 +19,7 @@ import excecoes.QuantidadeInvalidaException;
 import excecoes.RemoverItemOSNaoAbertaException;
 import excecoes.ServicoNaoEncontradoException;
 import excecoes.ServicoReferenciadoException;
+import gui.MenuPrincipal;
 import interfaces.InterfaceClientes;
 import interfaces.InterfaceOS;
 import interfaces.InterfacePecas;
@@ -37,23 +38,8 @@ public class Oficina {
 
     /* MAIN */
     public static void main(String[] args) {
-        int opcao;
-        
-        do {
-            opcao = InterfacePrincipal.exibir();
-            switch (opcao) {
-                case 1 -> gerenciarClientes();            
-                case 2 -> gerenciarPecas();
-                case 3 -> gerenciarServicos();
-                case 4 -> gerenciarOS();
-                case 5 -> InterfacePrincipal.consultarTotalVendidoEmPeriodo();
-                
-            }
-        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-        IO.gravarClientes(listaClientes);
-        IO.gravarOS(listaOS);
-        IO.gravarPecas(listaPecas);
-        IO.gravarServicos(listaServicos);
+           
+        criarMenuPrincipal();
     }
 
     /* -- OUTROS MÉTODOS -- */
@@ -362,5 +348,32 @@ public class Oficina {
         
         return total;
     }
+    
+    public static void criarMenuPrincipal()
+    {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuPrincipal(listaClientes, listaOS, listaPecas, listaServicos);
+            }
+        });
+    }
 }

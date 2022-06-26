@@ -2,7 +2,7 @@ package classes;
 
 import java.io.Serializable;
 
-public class Cliente implements Serializable{
+public class Cliente implements Serializable, Comparable<Cliente>{
     private String nome;
     private String cpf;
     private String endereco;
@@ -63,6 +63,11 @@ public class Cliente implements Serializable{
         saida += "Telefone: " + fone + "\n";
 
         return saida;
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return this.nome.compareTo(o.nome);
     }
 
 }

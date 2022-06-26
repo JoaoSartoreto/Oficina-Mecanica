@@ -119,14 +119,14 @@ public class IO {
     
     public static ArrayList<Cliente> leituraClientes()
     {
-        ArrayList<Cliente> clientes = null;
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         
         String arq = "/clientes.txt";
         File arquivo = new File(verificarDiretorio() + arq);
         
         if(!arquivo.exists())
         {
-            return new ArrayList<Cliente>();
+            return clientes;
         }
         
         ObjectInputStream file = null;
