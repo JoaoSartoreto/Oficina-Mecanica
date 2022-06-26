@@ -268,7 +268,7 @@ public class JanelaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
-        String titulo = "Excluir Cliente";
+        String titulo = "Editar Cliente";
         int linha = tableCliente.getSelectedRow();
         String cpf = String.valueOf(tableCliente.getValueAt(linha, 1));
         

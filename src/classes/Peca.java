@@ -7,12 +7,11 @@ import excecoes.QuantidadeInvalidaException;
 
 public class Peca extends Produto{
     private int qtdeEstoque;
-    private static int qtdPeca;
     
     public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeEstoqueInvalidaException {
-        super(++qtdPeca, descricao, preco);
+        super(descricao, preco);
         if (qtdeEstoque < 0) {
-            qtdPeca--;
+            Produto.indice--;
             throw new QuantidadeEstoqueInvalidaException();
         }
         this.qtdeEstoque = qtdeEstoque;
@@ -60,6 +59,14 @@ public class Peca extends Produto{
         saida += "Quantidade em estoque: " + qtdeEstoque + "\n";
 
         return saida;
+    }
+
+    @Override
+        public int compareTo(Object o) {
+        String[] este = ((Produto)this).getDescricao().split(" ");
+        String[] outro = ((Produto)o).getDescricao().split(" ");
+        
+        return este[0].compareTo(outro[0]);
     }
     
 }

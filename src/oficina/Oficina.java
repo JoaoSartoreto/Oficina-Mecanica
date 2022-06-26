@@ -15,6 +15,8 @@ import excecoes.ItemNaoEncontradoException;
 import excecoes.OSNaoEncontradaException;
 import excecoes.PecaNaoEncontradaException;
 import excecoes.PecaReferenciadaException;
+import excecoes.PrecoInvalidoException;
+import excecoes.QuantidadeEstoqueInvalidaException;
 import excecoes.QuantidadeInvalidaException;
 import excecoes.RemoverItemOSNaoAbertaException;
 import excecoes.ServicoNaoEncontradoException;
@@ -40,6 +42,28 @@ public class Oficina {
     public static void main(String[] args) {
            
         criarMenuPrincipal();
+        /*
+        try
+        {
+            listaPecas.add(new Peca(14, "Alfabetização da peca", 10));
+        }catch(PrecoInvalidoException | QuantidadeEstoqueInvalidaException ex)
+        {
+            System.err.println(ex.getMessage());
+        }
+        try
+        {
+            listaServicos.add(new Servico("Bingo", 30, 00, 00, 30, 00));
+        }catch(PrecoInvalidoException ex){
+            System.err.println(ex.getMessage());
+        }
+        for (Peca listaPeca : listaPecas) {
+            System.out.println(listaPeca.toString());
+        }
+        for (Servico listaServico : listaServicos) {
+            System.out.println(listaServico.toString());
+        }*/
+        
+        
     }
 
     /* -- OUTROS MÉTODOS -- */

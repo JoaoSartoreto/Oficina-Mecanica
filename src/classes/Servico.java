@@ -6,10 +6,9 @@ import java.time.Duration;
 
 public class Servico extends Produto{
     private Duration tempoExecucao;
-    private static int qtdServico;
     
     public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) throws PrecoInvalidoException{
-        super(++qtdServico, descricao, preco);
+        super(descricao, preco);
         setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }
     
@@ -60,5 +59,13 @@ public class Servico extends Produto{
 
         return saida;
     }
+     
+    @Override
+        public int compareTo(Object o) {
+        String[] este = ((Produto)this).getDescricao().split(" ");
+        String[] outro = ((Produto)o).getDescricao().split(" ");
         
+        return este[0].compareTo(outro[0]);
+    }
+    
 }

@@ -33,7 +33,7 @@ public class Interface {
     Concatena o título, que será o título do menu que a chama, com o nome do programa para ser o título
     da janela e exibe um MessageDialog de erro.   
     */
-    protected static void exibirMensagemErro(String titulo, String mensagem)
+    public static void exibirMensagemErro(String titulo, String mensagem)
     {
         String tituloFinal = titulo + " - " + NOME_PROGRAMA;
         JOptionPane.showMessageDialog(null, mensagem, tituloFinal, JOptionPane.ERROR_MESSAGE);
@@ -45,7 +45,7 @@ public class Interface {
     O diálogo vai repetir até que seja inserida uma entrada que não seja vazia, sempre avisando com uma mensagem de erro.
     Se a entrada for cancelada devolverá null, senão devolverá uma String da entrada.
     */
-    protected static String exibirDialogoEntrada(String titulo, String mensagem)
+    public static String exibirDialogoEntrada(String titulo, String mensagem)
     {
         String entrada;
         String tituloFinal = titulo + " - " + NOME_PROGRAMA;

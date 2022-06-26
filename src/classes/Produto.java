@@ -5,15 +5,17 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public abstract class Produto implements Serializable {
+public abstract class Produto implements Serializable, Comparable {
     private int codigo;
     private String descricao;
     private double preco;
+    protected static int indice;
 
-    public Produto(int codigo, String descricao, double preco) throws PrecoInvalidoException {
+    public Produto(String descricao, double preco) throws PrecoInvalidoException {
         if (preco < 0) throw new PrecoInvalidoException();
         
-        this.codigo = codigo;
+        indice++;
+        this.codigo = indice;
         this.descricao = descricao;
         this.preco = preco;
     }
@@ -65,4 +67,6 @@ public abstract class Produto implements Serializable {
         
         return saida;
     }
+    
+
 }
