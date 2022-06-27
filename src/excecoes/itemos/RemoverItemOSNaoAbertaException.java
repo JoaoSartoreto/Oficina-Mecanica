@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.itemos;
 
 public class RemoverItemOSNaoAbertaException extends Exception {
     

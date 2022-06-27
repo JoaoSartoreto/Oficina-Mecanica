@@ -1,8 +1,8 @@
 package classes;
 
-import excecoes.EstoqueInsuficienteException;
-import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeEstoqueInvalidaException;
+import excecoes.produto.peca.EstoqueInsuficienteException;
+import excecoes.produto.PrecoInvalidoException;
+import excecoes.produto.peca.QuantidadeEstoqueInvalidaException;
 import excecoes.QuantidadeInvalidaException;
 
 public class Peca extends Produto{

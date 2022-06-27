@@ -1,5 +1,6 @@
 package classes;
 
+import excecoes.CampoVazioException;
 import java.io.Serializable;
 
 public class Cliente implements Serializable, Comparable<Cliente>{
@@ -8,9 +9,9 @@ public class Cliente implements Serializable, Comparable<Cliente>{
     private String endereco;
     private String fone;
     
-    public Cliente (String nome, String cpf, String endereco, String fone) {
-        this.nome = nome;
-        this.cpf = cpf;
+    public Cliente (String nome, String cpf, String endereco, String fone) throws CampoVazioException {
+        setNome(nome);
+        setCpf(cpf);
         this.endereco = endereco;
         this.fone = fone;
     }
@@ -22,7 +23,8 @@ public class Cliente implements Serializable, Comparable<Cliente>{
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws CampoVazioException{
+        if(nome == null || nome.isBlank()) throw new CampoVazioException("Nome");
         this.nome = nome;
     }
 
@@ -31,7 +33,8 @@ public class Cliente implements Serializable, Comparable<Cliente>{
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(String cpf) throws CampoVazioException{
+        if(cpf == null || cpf.isBlank()) throw new CampoVazioException("CPF");
         this.cpf = cpf;
     }
 

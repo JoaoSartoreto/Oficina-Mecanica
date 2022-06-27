@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.produto.servico;
 
 public class ServicoNaoEncontradoException extends Exception {
     

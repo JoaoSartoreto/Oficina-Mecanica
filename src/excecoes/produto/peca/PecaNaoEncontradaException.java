@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.produto.peca;
 
 public class PecaNaoEncontradaException extends Exception{
     

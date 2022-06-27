@@ -1,12 +1,12 @@
 package classes;
 
-import excecoes.AdicionarItemOSNaoAbertaException;
+import excecoes.itemos.AdicionarItemOSNaoAbertaException;
 import excecoes.DataInvalidaException;
-import excecoes.OSNaoAbertaException;
-import excecoes.EstoqueInsuficienteException;
-import excecoes.ItemNaoEncontradoException;
+import excecoes.os.OSNaoAbertaException;
+import excecoes.produto.peca.EstoqueInsuficienteException;
+import excecoes.itemos.ItemNaoEncontradoException;
 import excecoes.QuantidadeInvalidaException;
-import excecoes.RemoverItemOSNaoAbertaException;
+import excecoes.itemos.RemoverItemOSNaoAbertaException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.LocalDate;

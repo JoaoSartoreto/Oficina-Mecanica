@@ -1,21 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import excecoes.AdicionarItemOSNaoAbertaException;
-import excecoes.EstoqueInsuficienteException;
-import excecoes.ItemNaoEncontradoException;
-import excecoes.PecaNaoEncontradaException;
+import excecoes.itemos.AdicionarItemOSNaoAbertaException;
+import excecoes.produto.peca.EstoqueInsuficienteException;
+import excecoes.itemos.ItemNaoEncontradoException;
+import excecoes.produto.peca.PecaNaoEncontradaException;
 import excecoes.QuantidadeInvalidaException;
-import excecoes.RemoverItemOSNaoAbertaException;
-import excecoes.ServicoNaoEncontradoException;
-import interfaces.Interface;
+import excecoes.itemos.RemoverItemOSNaoAbertaException;
+import excecoes.produto.servico.ServicoNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -249,18 +244,18 @@ public class JanelaItemOS extends javax.swing.JFrame {
                 Oficina.excluirItemOSPeca(ordemServico, codigo);
                 atualizarTabela();
             } catch (RemoverItemOSNaoAbertaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (ItemNaoEncontradoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
        }else if(tipo == "Serviço"){
             try {
                 Oficina.excluirItemOSServico(ordemServico, codigo);
                 atualizarTabela();
             } catch (RemoverItemOSNaoAbertaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (ItemNaoEncontradoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
        }
     }//GEN-LAST:event_bApagarActionPerformed
@@ -283,25 +278,21 @@ public class JanelaItemOS extends javax.swing.JFrame {
                 Peca peca = Oficina.buscarPeca(codigoProd);
                 Oficina.adicionarItemOSPeca(ordemServico, peca, Integer.parseInt(tQuantidade.getText()));
             } catch (PecaNaoEncontradaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (AdicionarItemOSNaoAbertaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (EstoqueInsuficienteException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (QuantidadeInvalidaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
         }else{
             try
             {
                 Servico servico = Oficina.buscarServico(codigoProd);
                 Oficina.adicionarItemOSServico(ordemServico, servico, Integer.parseInt(tQuantidade.getText()));
-            }catch(ServicoNaoEncontradoException ex){
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
-            } catch (AdicionarItemOSNaoAbertaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
-            } catch (QuantidadeInvalidaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            }catch(ServicoNaoEncontradoException | AdicionarItemOSNaoAbertaException | QuantidadeInvalidaException ex){
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
         }
         atualizarTabela();
@@ -336,7 +327,7 @@ public class JanelaItemOS extends javax.swing.JFrame {
                     peca = Oficina.buscarPeca(itemOS.getProduto().getCodigo());
                     estoque = peca.getQtdeEstoque()+"";
                 } catch (PecaNaoEncontradaException ex) {
-                    Interface.exibirMensagemErro(titulo, ex.getMessage());
+                    Mensagem.exibirMensagemErro(titulo, ex.getMessage());
                 }     
             }else if(itemOS.getTipo()=='S'){
                 tipo = "Serviço";
@@ -345,7 +336,7 @@ public class JanelaItemOS extends javax.swing.JFrame {
                     servico = Oficina.buscarServico(itemOS.getProduto().getCodigo());
                     duracao = servico.getTempoExecucaoString();
                 } catch (ServicoNaoEncontradoException ex) {
-                    Interface.exibirMensagemErro(titulo, ex.getMessage());
+                    Mensagem.exibirMensagemErro(titulo, ex.getMessage());
                 }    
             }
             preco = itemOS.getPreco()+"";

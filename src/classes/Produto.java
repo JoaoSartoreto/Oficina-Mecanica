@@ -1,6 +1,6 @@
 package classes;
 
-import excecoes.PrecoInvalidoException;
+import excecoes.produto.PrecoInvalidoException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;

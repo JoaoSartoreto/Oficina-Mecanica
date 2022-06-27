@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.cliente;
 
 public class ClienteNaoEncontradoException extends Exception{
     

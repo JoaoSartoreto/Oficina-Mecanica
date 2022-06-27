@@ -1,24 +1,17 @@
-package gui;
+package gui.cliente;
 
 import classes.Cliente;
-import excecoes.ClienteNaoEncontradoException;
-import excecoes.ClienteReferenciadoException;
-import interfaces.Interface;
-import java.awt.List;
+import excecoes.CampoVazioException;
+import excecoes.cliente.ClienteNaoEncontradoException;
+import excecoes.cliente.ClienteReferenciadoException;
+import gui.Mensagem;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import oficina.Oficina;
 
 public class JanelaClientes extends javax.swing.JFrame {
@@ -36,21 +29,10 @@ public class JanelaClientes extends javax.swing.JFrame {
                 botaoApagar.setEnabled(true);
             }
         });
-        
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableClientes.getModel());
-        tableClientes.setRowSorter(sorter);
-        
-        ArrayList <RowSorter.SortKey> sortKeys = new ArrayList<>();
-        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-        sorter.setSortKeys(sortKeys);
-        
-        for(int i = 0; i < tableClientes.getColumnCount(); i++) {
-            sorter.setSortable(i, false);
-        }
-        
+         
         this.listaClientes = listaClientes;
         this.setLocationRelativeTo(null);
-        inserirDadosTabela();
+        atualizarDadosTabela();
         this.setVisible(true);
     }
 
@@ -68,7 +50,6 @@ public class JanelaClientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelLocalizar = new javax.swing.JLabel();
         textLocalizar = new javax.swing.JTextField();
-        textClienteEncontrado = new javax.swing.JTextField();
         botaoPesquisar = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
         botaoApagar = new javax.swing.JButton();
@@ -84,7 +65,7 @@ public class JanelaClientes extends javax.swing.JFrame {
         botaoCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("Clientes - Controle de Oficina");
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,15 +108,12 @@ public class JanelaClientes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelLocalizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoPesquisar))
-                    .addComponent(textClienteEncontrado, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
-                .addGap(117, 117, 117))
+                .addComponent(labelLocalizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textLocalizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoPesquisar)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,8 +123,6 @@ public class JanelaClientes extends javax.swing.JFrame {
                     .addComponent(labelLocalizar)
                     .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textClienteEncontrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,7 +209,7 @@ public class JanelaClientes extends javax.swing.JFrame {
                     .addComponent(labelTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botaoCadastrar)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,15 +219,15 @@ public class JanelaClientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoEditar)
-                            .addComponent(botaoApagar))
-                        .addGap(36, 36, 36))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botaoEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botaoApagar))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -266,30 +242,15 @@ public class JanelaClientes extends javax.swing.JFrame {
                         .addComponent(botaoEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoApagar)))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        
-        String nome = textNome.getText();
-        String cpf = textCpf.getText();
-        String endereco = textEndereco.getText();
-        String telefone = textTelefone.getText();
-        
-        Cliente cliente = new Cliente(nome, cpf, endereco, nome);
-        listaClientes.add(cliente);
-        // inserirDadosTabela();
-        Object [] dado = {nome,cpf,endereco,telefone};
-        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
-        tabela.addRow(dado);
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
         String titulo = "Editar Cliente";
@@ -299,9 +260,10 @@ public class JanelaClientes extends javax.swing.JFrame {
         Cliente cliente;
         try {
             cliente = Oficina.buscarCliente(cpf);
-            new EdicaoCliente(cliente,this);
+            new EdicaoCliente(cliente, this);
         } catch (ClienteNaoEncontradoException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
+            atualizarDadosTabela();
         }
     }//GEN-LAST:event_botaoEditarActionPerformed
 
@@ -311,45 +273,57 @@ public class JanelaClientes extends javax.swing.JFrame {
         String cpf = String.valueOf(tableClientes.getValueAt(linha, 1));
         
         try {
-                Oficina.excluirCliente(cpf);
-                inserirDadosTabela();
-                Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
-            } catch(ClienteNaoEncontradoException | ClienteReferenciadoException ex){
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
-            }
+            Oficina.excluirCliente(cpf);
+            DefaultTableModel tableModel = (DefaultTableModel)tableClientes.getModel();
+            tableModel.removeRow(linha);
+            Mensagem.exibirMensagem(titulo, "Cliente excluído com sucesso");
+            botaoEditar.setEnabled(false);
+            botaoApagar.setEnabled(false);
+        } catch(ClienteNaoEncontradoException | ClienteReferenciadoException ex){
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
+        }
     }//GEN-LAST:event_botaoApagarActionPerformed
 
     private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
         String titulo = "Pesquisa de Cliente";
-        
         String cpf = textLocalizar.getText();
-        Cliente cliente;
-        try {
-            cliente = Oficina.buscarCliente(cpf);
-            textClienteEncontrado.setText(cliente.toString());
-        } catch (ClienteNaoEncontradoException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
-        }
-        
-        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
-        
-        for(int i = 0; i < tabela.getRowCount(); i++){
-            if(tabela.getValueAt(i, 1).equals(cpf)){
+        boolean encontrado = false;
+           
+        for(int i = 0; i < tableClientes.getRowCount() && !encontrado; i++){
+            if(tableClientes.getValueAt(i, 1).equals(cpf)){
                 tableClientes.setRowSelectionInterval(i, i);
                 tableClientes.scrollRectToVisible(new Rectangle(tableClientes.getCellRect(i, 0, true)));
+                encontrado = true;
             }
+        }
+        
+        if (!encontrado) {
+            Mensagem.exibirMensagemErro(titulo, new ClienteNaoEncontradoException().getMessage());
         }
     }//GEN-LAST:event_botaoPesquisarActionPerformed
 
-    
-    public void inserirDadosTabela()
-    {
-        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
-        
-        while(tabela.getRowCount() > 0)
-        {
-            tabela.removeRow(0);
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        String titulo = "Cadastrar Cliente";
+        String nome = textNome.getText();
+        String cpf = textCpf.getText();
+        String endereco = textEndereco.getText();
+        String telefone = textTelefone.getText();
+
+        try {
+            Cliente cliente = new Cliente(nome, cpf, endereco, telefone);
+            listaClientes.add(cliente);
+        } catch(CampoVazioException e) {
+            Mensagem.exibirMensagemErro(titulo, e.getMessage());
         }
+
+        atualizarDadosTabela();
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    
+    public void atualizarDadosTabela()
+    {
+        DefaultTableModel tableModel = (DefaultTableModel)tableClientes.getModel();
+        tableModel.setRowCount(0);
         
         String nome;
         String cpf;
@@ -364,7 +338,7 @@ public class JanelaClientes extends javax.swing.JFrame {
             telefone = cliente.getFone();
             
             Object [] dado = {nome,cpf,endereco,telefone};
-            tabela.addRow(dado);
+            tableModel.addRow(dado);
         }
     }
 
@@ -382,7 +356,6 @@ public class JanelaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
     private javax.swing.JTable tableClientes;
-    private javax.swing.JTextField textClienteEncontrado;
     private javax.swing.JTextField textCpf;
     private javax.swing.JTextField textEndereco;
     private javax.swing.JTextField textLocalizar;

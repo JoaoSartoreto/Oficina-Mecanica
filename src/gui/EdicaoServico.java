@@ -1,18 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.Servico;
-import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeEstoqueInvalidaException;
-import interfaces.Interface;
+import excecoes.produto.PrecoInvalidoException;
 
-/**
- *
- * @author joovitor
- */
 public class EdicaoServico extends javax.swing.JFrame {
 
     private Servico servico;
@@ -187,10 +177,10 @@ public class EdicaoServico extends javax.swing.JFrame {
             servico.setTempoExecucao(dia, hora, minuto, segundo);
             
             jp.atualizarTabela();
-            Interface.exibirMensagem(titulo, "Atualização bem sucedida!");
+            Mensagem.exibirMensagem(titulo, "Atualização bem sucedida!");
             dispose();
         } catch (PrecoInvalidoException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         } 
     }//GEN-LAST:event_bEditarActionPerformed
 

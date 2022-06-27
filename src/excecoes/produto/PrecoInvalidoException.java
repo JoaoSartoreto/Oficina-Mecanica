@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.produto;
 
 public class PrecoInvalidoException extends Exception{
     

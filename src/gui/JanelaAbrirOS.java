@@ -1,23 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.Cliente;
 import classes.OrdemServico;
-import excecoes.ClienteNaoEncontradoException;
+import excecoes.cliente.ClienteNaoEncontradoException;
 import excecoes.DataInvalidaException;
-import interfaces.Interface;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oficina.Oficina;
 
-/**
- *
- * @author joovitor
- */
 public class JanelaAbrirOS extends javax.swing.JFrame {
 
     private ArrayList<OrdemServico> ordensServico;
@@ -130,12 +119,12 @@ public class JanelaAbrirOS extends javax.swing.JFrame {
             Cliente cliente = Oficina.buscarCliente(cpf);
             ordensServico.add(new OrdemServico(dataPrev, placa, cliente));
             this.jos.atualizarTabela();
-            Interface.exibirMensagem(titulo, "OS cadastrada com sucesso");
+            Mensagem.exibirMensagem(titulo, "OS cadastrada com sucesso");
             dispose();
         }catch(ClienteNaoEncontradoException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         } catch (DataInvalidaException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bCadastrarActionPerformed
 

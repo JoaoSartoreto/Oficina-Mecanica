@@ -6,27 +6,20 @@ import classes.ItemOS;
 import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
-import excecoes.ClienteReferenciadoException;
-import excecoes.AdicionarItemOSNaoAbertaException;
-import excecoes.ClienteNaoEncontradoException;
-import excecoes.OSNaoAbertaException;
-import excecoes.EstoqueInsuficienteException;
-import excecoes.ItemNaoEncontradoException;
-import excecoes.OSNaoEncontradaException;
-import excecoes.PecaNaoEncontradaException;
-import excecoes.PecaReferenciadaException;
-import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeEstoqueInvalidaException;
+import excecoes.cliente.ClienteReferenciadoException;
+import excecoes.itemos.AdicionarItemOSNaoAbertaException;
+import excecoes.cliente.ClienteNaoEncontradoException;
+import excecoes.os.OSNaoAbertaException;
+import excecoes.produto.peca.EstoqueInsuficienteException;
+import excecoes.itemos.ItemNaoEncontradoException;
+import excecoes.os.OSNaoEncontradaException;
+import excecoes.produto.peca.PecaNaoEncontradaException;
+import excecoes.produto.peca.PecaReferenciadaException;
 import excecoes.QuantidadeInvalidaException;
-import excecoes.RemoverItemOSNaoAbertaException;
-import excecoes.ServicoNaoEncontradoException;
-import excecoes.ServicoReferenciadoException;
+import excecoes.itemos.RemoverItemOSNaoAbertaException;
+import excecoes.produto.servico.ServicoNaoEncontradoException;
+import excecoes.produto.servico.ServicoReferenciadoException;
 import gui.MenuPrincipal;
-import interfaces.InterfaceClientes;
-import interfaces.InterfaceOS;
-import interfaces.InterfacePecas;
-import interfaces.InterfacePrincipal;
-import interfaces.InterfaceServicos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import operacoes.IO;
@@ -39,28 +32,8 @@ public class Oficina {
     private static ArrayList<Servico> listaServicos = IO.leituraServicos();
 
     /* MAIN */
-    public static void main(String[] args) {
-           
-        criarMenuPrincipal();
-        /*
-        try
-        {
-            listaPecas.add(new Peca(14, "Alfabetização da peca", 10));
-        }catch(PrecoInvalidoException | QuantidadeEstoqueInvalidaException ex)
-        {
-            System.err.println(ex.getMessage());
-        }
-        try
-        {
-            listaServicos.add(new Servico("Bingo", 30, 00, 00, 30, 00));
-        }catch(PrecoInvalidoException ex){
-            System.err.println(ex.getMessage());
-        }
-        for (Peca listaPeca : listaPecas) {
-            System.out.println(listaPeca.toString());
-        }*/
-        
-        
+    public static void main(String[] args) {        
+        criarMenuPrincipal();          
     }
 
     /* -- OUTROS MÉTODOS -- */
@@ -98,28 +71,6 @@ public class Oficina {
 
     }
 
-    /*
-    Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
-    Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
-    *//*
-    private static void gerenciarClientes() {
-        int opcao;
-
-        do {
-            opcao = InterfaceClientes.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    Cliente cliente = InterfaceClientes.exibirCadastroCliente();
-                    if (cliente != null) listaClientes.add(cliente);
-                }
-                case 2 -> InterfaceClientes.exibirConsultarCpf();
-                case 3 -> InterfaceClientes.exibirExcluirCliente();
-                case 4 -> InterfaceClientes.exibirEditarCliente();
-                case 5 -> InterfaceClientes.exibirListarClientes();  
-            }
-        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-    }
-    */
     /* -- MÉTODOS RELACIONADOS ÀS PEÇAS -- */
     
     public static ArrayList<Peca> getListaPecas() {
@@ -153,28 +104,6 @@ public class Oficina {
         listaPecas.remove(peca);
     }
     
-    /*
-    Chama os menus e diálogos relacionadas ao gerenciamento de peças de acordo com as opções selecionadas.
-    Também recebe os resultados desses métodos para manipular os elementos da lista de peças.
-    *//*
-    public static void gerenciarPecas() {
-        int opcao;
-        
-        do {
-            opcao = InterfacePecas.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    Peca peca = InterfacePecas.exibirCadastrarPeca();
-                    if (peca != null) listaPecas.add(peca);
-                }
-                case 2 -> InterfacePecas.exibirConsultarPeca();              
-                case 3 -> InterfacePecas.exibirExcluirPeca();              
-                case 4 -> InterfacePecas.exibirEditarPeca();               
-                case 5 -> InterfacePecas.exibirListarPecas();
-            }
-        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-    }
-    */
     /* -- MÉTODOS RELACIONADOS AOS SERVIÇOS -- */
     
     public static ArrayList<Servico> getListaServicos() {
@@ -208,28 +137,6 @@ public class Oficina {
         
         listaServicos.remove(servico);
     }
-    
-    /*
-    Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
-    Também recebe os resultados desses métodos para manipular os elementos da lista de serviços.
-    *//*
-    private static void gerenciarServicos() {
-        int opcao;
-
-        do {
-            opcao = InterfaceServicos.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    Servico servico = InterfaceServicos.exibirCadastroServico();
-                    if (servico != null) listaServicos.add(servico);
-                }
-                case 2 -> InterfaceServicos.exibirConsultarServico();
-                case 3 -> InterfaceServicos.exibirExcluirServico();
-                case 4 -> InterfaceServicos.exibirEditarServico();
-                case 5 -> InterfaceServicos.exibirListarServicos();
-            }
-        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-    }*/
     
     /* -- MÉTODOS RELACIONADOS À OS -- */
     
@@ -282,48 +189,7 @@ public class Oficina {
         listaOS.remove(ordemServico);
     }
     
-    /*
-    Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
-    Também/*
-    private static void gerenciarOS() {
-        int opcao;
-        
-        do {
-            opcao = InterfaceOS.exibir();
-            switch (opcao) {
-                case 1 -> {
-                    OrdemServico ordemServico = InterfaceOS.exibirAbrirOS();
-                    if (ordemServico != null) listaOS.add(ordemServico);
-                }  
-                case 2 -> gerenciarItemOS();
-                case 3 -> InterfaceOS.exibirCancelarOS();
-                case 4 -> InterfaceOS.exibirFinalizarOS();
-                case 5 -> InterfaceOS.exibirExcluirOS();
-                case 6 -> InterfaceOS.exibirListaOS();
-            }
-        } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
-    }
-    */
-    /* -- MÉTODOS RELACIONADOS AOS ITENS DE OS -- */
     
-    /* Chama os menus relacionadas ao gerenciamento de itens de OS de acordo com as opções selecionadas. */
-    /*
-    private static void gerenciarItemOS() {   
-        int opcao;
-        
-        do {
-            opcao = InterfaceOS.exibirGerenciarItens();
-            
-            switch (opcao) {
-                case 1 -> InterfaceOS.exibirAdicionarPeca();
-                case 2 -> InterfaceOS.exibirAdicionarServico();
-                case 3 -> InterfaceOS.exibirExcluirPeca();
-                case 4 -> InterfaceOS.exibirExcluirServico();
-                case 5 -> InterfaceOS.exibirConsultarTotal();
-            }
-        } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-    }
-    */
     /* 
     Fizemos os métodos de adição e exclusão de ItemOS pois o enunciado pede para que Oficina implemente esta funcionalidade, mas 
     deixamos as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim manipulações indevidas.
@@ -392,6 +258,7 @@ public class Oficina {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MenuPrincipal(listaClientes, listaOS, listaPecas, listaServicos);
             }

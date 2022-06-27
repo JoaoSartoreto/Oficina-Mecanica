@@ -1,20 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.Peca;
-import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeEstoqueInvalidaException;
-import interfaces.Interface;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import excecoes.produto.PrecoInvalidoException;
+import excecoes.produto.peca.QuantidadeEstoqueInvalidaException;
 
-/**
- *
- * @author joovitor
- */
 public class EdicaoPeca extends javax.swing.JFrame {
 
     private Peca peca;
@@ -117,12 +106,12 @@ public class EdicaoPeca extends javax.swing.JFrame {
             peca.setPreco(Double.parseDouble(tPreco.getText()));
             peca.setQtdeEstoque(Integer.parseInt(tEstoque.getText()));
             jp.atualizarTabela();
-            Interface.exibirMensagem(titulo, "Atualização bem sucedida!");
+            Mensagem.exibirMensagem(titulo, "Atualização bem sucedida!");
             dispose();
         } catch (PrecoInvalidoException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         } catch (QuantidadeEstoqueInvalidaException ex) {
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bEditarActionPerformed
 

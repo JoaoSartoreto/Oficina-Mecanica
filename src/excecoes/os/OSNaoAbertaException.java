@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.os;
 
 public class OSNaoAbertaException extends Exception{
     

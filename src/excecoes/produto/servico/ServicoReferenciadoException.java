@@ -1,4 +1,4 @@
-package excecoes;
+package excecoes.produto.servico;
 
 public class ServicoReferenciadoException extends Exception{
     

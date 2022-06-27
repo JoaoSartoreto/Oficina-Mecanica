@@ -1,21 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.OrdemServico;
-import excecoes.OSNaoAbertaException;
-import excecoes.OSNaoEncontradaException;
-import interfaces.Interface;
+import excecoes.os.OSNaoAbertaException;
+import excecoes.os.OSNaoEncontradaException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import oficina.Oficina;
 
-/**
- *
- * @author joovitor
- */
 public class JanelaOS extends javax.swing.JFrame {
 
     private ArrayList<OrdemServico> ordensServico;
@@ -177,7 +168,7 @@ public class JanelaOS extends javax.swing.JFrame {
             OrdemServico os = Oficina.buscarOS(numOS);
             new JanelaGerenciarOS(os,this);
         }catch(OSNaoEncontradaException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bGerenciarActionPerformed
 
@@ -195,7 +186,7 @@ public class JanelaOS extends javax.swing.JFrame {
             Oficina.excluirOS(numOS);
             atualizarTabela();
         }catch(OSNaoAbertaException | OSNaoEncontradaException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bExcluirActionPerformed
 
@@ -300,7 +291,7 @@ public class JanelaOS extends javax.swing.JFrame {
             tabela.addRow(dados);
             
         }catch(OSNaoEncontradaException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }
     

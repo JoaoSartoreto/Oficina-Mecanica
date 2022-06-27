@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.OrdemServico;
-import excecoes.OSNaoAbertaException;
-import excecoes.OSNaoEncontradaException;
-import interfaces.Interface;
+import excecoes.os.OSNaoAbertaException;
+import excecoes.os.OSNaoEncontradaException;
 import oficina.Oficina;
 
 /**
@@ -228,7 +223,7 @@ public class JanelaGerenciarOS extends javax.swing.JFrame {
             Oficina.finalizarOS(this.ordemServico.getNumeroOS());
             this.jos.atualizarTabela();
         }catch(OSNaoAbertaException | OSNaoEncontradaException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bFinalizarActionPerformed
 
@@ -240,7 +235,7 @@ public class JanelaGerenciarOS extends javax.swing.JFrame {
             Oficina.cancelarOS(this.ordemServico.getNumeroOS());
             this.jos.atualizarTabela();
         }catch(OSNaoAbertaException | OSNaoEncontradaException ex){
-            Interface.exibirMensagemErro(titulo, ex.getMessage());
+            Mensagem.exibirMensagemErro(titulo, ex.getMessage());
         }
     }//GEN-LAST:event_bCancelarActionPerformed
 

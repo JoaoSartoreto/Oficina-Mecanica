@@ -42,7 +42,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="bEditar" min="-2" max="-2" attributes="0"/>
-                          <Component id="tEstoque" pref="165" max="32767" attributes="0"/>
+                          <Component id="tEstoque" pref="166" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

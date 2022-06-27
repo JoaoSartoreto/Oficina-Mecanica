@@ -1,26 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.Peca;
 import classes.Produto;
 import classes.Servico;
-import excecoes.ClienteNaoEncontradoException;
-import excecoes.ClienteReferenciadoException;
-import excecoes.PecaNaoEncontradaException;
-import excecoes.PecaReferenciadaException;
-import excecoes.PrecoInvalidoException;
-import excecoes.QuantidadeEstoqueInvalidaException;
-import excecoes.ServicoNaoEncontradoException;
-import excecoes.ServicoReferenciadoException;
-import interfaces.Interface;
+import excecoes.produto.peca.PecaNaoEncontradaException;
+import excecoes.produto.peca.PecaReferenciadaException;
+import excecoes.produto.PrecoInvalidoException;
+import excecoes.produto.peca.QuantidadeEstoqueInvalidaException;
+import excecoes.produto.servico.ServicoNaoEncontradoException;
+import excecoes.produto.servico.ServicoReferenciadoException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import oficina.Oficina;
 
@@ -340,7 +330,7 @@ public class JanelaProduto extends javax.swing.JFrame {
                 peca = Oficina.buscarPeca(codigo);
                 new EdicaoPeca(peca, this);
             } catch (PecaNaoEncontradaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
             
         }
@@ -351,7 +341,7 @@ public class JanelaProduto extends javax.swing.JFrame {
                 servico = Oficina.buscarServico(codigo);
                 new EdicaoServico(servico, this);
             } catch (ServicoNaoEncontradoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } 
         }
     }//GEN-LAST:event_bEditarActionPerformed
@@ -365,24 +355,24 @@ public class JanelaProduto extends javax.swing.JFrame {
                 if(this.tabelaProdutos.getValueAt(linha, 0) == "Peça")
                 {
                     Oficina.excluirPeca(codigo);
-                    Interface.exibirMensagem(titulo, "Peça excluída com sucesso");
+                    Mensagem.exibirMensagem(titulo, "Peça excluída com sucesso");
 
                 }
                 else if(this.tabelaProdutos.getValueAt(linha, 0) == "Serviço")
                 {
                     Oficina.excluirServico(codigo);
-                    Interface.exibirMensagem(titulo, "Serviço excluído com sucesso");
+                    Mensagem.exibirMensagem(titulo, "Serviço excluído com sucesso");
                 }
                 this.atualizarTabela();
                 
             } catch (PecaReferenciadaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (PecaNaoEncontradaException ex) {
-                 Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (ServicoReferenciadoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (ServicoNaoEncontradoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
         
     }//GEN-LAST:event_bApagarActionPerformed
@@ -412,9 +402,9 @@ public class JanelaProduto extends javax.swing.JFrame {
                 produtos.add(peca);
                 
             } catch (PrecoInvalidoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             } catch (QuantidadeEstoqueInvalidaException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
         }
         else
@@ -429,7 +419,7 @@ public class JanelaProduto extends javax.swing.JFrame {
                 servicos.add(servico);
                 produtos.add(servico);
             } catch (PrecoInvalidoException ex) {
-                Interface.exibirMensagemErro(titulo, ex.getMessage());
+                Mensagem.exibirMensagemErro(titulo, ex.getMessage());
             }
         }
         atualizarTabela();

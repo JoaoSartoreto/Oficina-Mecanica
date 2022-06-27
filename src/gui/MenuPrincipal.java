@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
+import gui.cliente.JanelaClientes;
 import classes.Cliente;
 import classes.OrdemServico;
 import classes.Peca;
@@ -11,10 +8,6 @@ import classes.Servico;
 import java.util.ArrayList;
 import operacoes.IO;
 
-/**
- *
- * @author joovitor
- */
 public class MenuPrincipal extends javax.swing.JFrame {
 
     /**

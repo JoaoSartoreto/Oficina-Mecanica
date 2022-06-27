@@ -1,6 +1,6 @@
 package classes;
 
-import excecoes.PrecoInvalidoException;
+import excecoes.produto.PrecoInvalidoException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 
