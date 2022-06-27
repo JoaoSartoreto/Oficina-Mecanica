@@ -214,7 +214,7 @@ public class JanelaOS extends javax.swing.JFrame {
         String dataTermino;
         String placa;
         String situacao = "";
-        String valor;
+        String valor = "";
         String proprietario;
     
         for (OrdemServico OS : ordensServico) {
@@ -231,12 +231,15 @@ public class JanelaOS extends javax.swing.JFrame {
             if(OS.getSituação()=='A')
             {
                 situacao = "Aberta";
+                valor = OS.getValorOS()+"";
             }else if(OS.getSituação()=='C'){
                 situacao = "Cancelada";
+                valor = "0.0";
             }else if(OS.getSituação()=='F'){
                 situacao = "Finalizada";
+                valor = OS.getValorOS()+"";
             }
-            valor = OS.getValorOS()+"";
+            
             proprietario = OS.getCliente().getNome();
             
             Object[] dados = {numOS,dataOS,dataPrev,dataTermino,placa,situacao,
