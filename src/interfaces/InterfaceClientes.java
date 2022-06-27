@@ -30,7 +30,7 @@ public class InterfaceClientes {
     Se em algum momento o diálogo de entrada for cancelado (devolver null) o método devolve null.
     O método também chama um método da Oficina para verificar se um cliente com o mesmo CPF já foi cadastrado,
     se já houver um cliente com o mesmo CPF cadastro é exibida uma mensagem de erro.
-    */
+    *//*
     public static Cliente exibirCadastroCliente() {
         String titulo = "Cadastrar Cliente";
         String nome;
@@ -57,12 +57,12 @@ public class InterfaceClientes {
 
         return new Cliente(nome, cpf, endereco, telefone);
     }
-    
+    */
     /* 
     Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF.
     Se o CPF não for null (operação não ter sido cancelada), é buscado o cliente pelo CPF e se ele existir
     (não for null) ele é exibido, senão é informado que o cliente não foi encontrado.
-    */
+    *//*
     public static void exibirConsultarCpf() {
         String titulo = "Consultar por CPF";
         String cpf;
@@ -79,7 +79,7 @@ public class InterfaceClientes {
                 Interface.exibirMensagemErro(titulo, "Cliente não encontrado");
             }
         }
-    }
+    }*/
         
     /* 
     Utiliza um diálogo de entrada para receber o CPF e busca o cliente pelo CPF para excluí-lo.
@@ -108,7 +108,7 @@ public class InterfaceClientes {
     (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
     e alterar os valores dos atributos do cliente.
     O método altera apenas o endereço e o telefone porque são as únicas informações que se alteram de um cliente.
-    */
+    *//*
     public static void exibirEditarCliente() {
         String titulo = "Editar Cliente";
         String[] opcoes = {"Editar Endereço", "Editar Telefone", "Sair"};
@@ -141,7 +141,7 @@ public class InterfaceClientes {
             }
         }
     }
-    
+    */
     /* Percorre a lista de clientes para formar uma String com a lista e a exibe em uma mensagem. */
     public static void exibirListarClientes() {
         ArrayList<Cliente> listaClientes = Oficina.getListaClientes();

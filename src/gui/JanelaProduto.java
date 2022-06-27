@@ -91,6 +91,9 @@ public class JanelaProduto extends javax.swing.JFrame {
         rServico = new javax.swing.JRadioButton();
         jSegundos = new javax.swing.JLabel();
         tSegundos = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tProcurar = new javax.swing.JTextField();
+        bResetar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -227,7 +230,7 @@ public class JanelaProduto extends javax.swing.JFrame {
                 .addComponent(jSegundos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                 .addComponent(bCadastrar))
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,11 +265,20 @@ public class JanelaProduto extends javax.swing.JFrame {
                     .addComponent(tMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSegundos)
                     .addComponent(tSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(bCadastrar))
         );
+
+        jLabel4.setText("Descrição:");
+
+        bResetar.setText("Resetar");
+        bResetar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bResetarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -274,34 +286,42 @@ public class JanelaProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bEditar)
-                            .addComponent(bApagar)
-                            .addComponent(bProcurar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tProcurar)
+                        .addGap(18, 18, 18)
+                        .addComponent(bProcurar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bResetar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(bApagar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(bEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bApagar)
-                        .addGap(18, 18, 18)
-                        .addComponent(bProcurar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bProcurar)
+                    .addComponent(bResetar))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bEditar)
+                    .addComponent(bApagar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
 
         pack();
@@ -357,7 +377,7 @@ public class JanelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bApagarActionPerformed
 
     private void bProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProcurarActionPerformed
-        new ProdutoEncontrado(produtos);
+        produtosEcontrados();
     }//GEN-LAST:event_bProcurarActionPerformed
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
@@ -438,6 +458,10 @@ public class JanelaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rPecaItemStateChanged
 
+    private void bResetarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetarActionPerformed
+        atualizarTabela();
+    }//GEN-LAST:event_bResetarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -450,9 +474,7 @@ public class JanelaProduto extends javax.swing.JFrame {
         for (Servico servico : servicos) {
             this.produtos.add(servico);
         }
-        for (Produto produto : produtos) {
-            System.out.println(produto.toString());
-        }
+        
     }
     
     public void atualizarTabela()
@@ -497,12 +519,59 @@ public class JanelaProduto extends javax.swing.JFrame {
         }
     }
     
+    public void produtosEcontrados()
+    {
+        String nome = tProcurar.getText();
+        
+        produtos.clear();
+        recuperarProdutos(pecas, servicos);
+        DefaultTableModel tabela = (DefaultTableModel)this.tabelaProdutos.getModel();
+        
+        while(tabela.getRowCount() > 0)
+        {
+            tabela.removeRow(0);
+        }
+        
+        String tipo;
+        String codigo;
+        String preco;
+        String descricao;
+        Collections.sort(produtos);
+        for (Produto produto : this.produtos) {
+            
+            if(produto.getDescricao().toLowerCase().contains(nome.toLowerCase()))
+            {
+                codigo = String.valueOf(produto.getCodigo());
+                preco = String.valueOf(produto.getPreco());
+                descricao = produto.getDescricao();
+                String qtdEstoque = "";
+                String tempoDuracao = "";
+                if(produto instanceof Peca)
+                {
+                    tipo = "Peça";
+                    qtdEstoque = String.valueOf(((Peca) produto).getQtdeEstoque());
+
+                    Object [] dado = {tipo,codigo,descricao,preco,qtdEstoque,tempoDuracao};
+                    tabela.addRow(dado);
+                }
+                else if(produto instanceof Servico)
+                {
+                    tipo = "Serviço";
+                    tempoDuracao = ((Servico)produto).getTempoExecucaoString();
+
+                    Object [] dado = {tipo,codigo,descricao,preco,qtdEstoque,tempoDuracao};
+                    tabela.addRow(dado);
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bApagar;
     private javax.swing.JButton bCadastrar;
     private javax.swing.JButton bEditar;
     private javax.swing.JButton bProcurar;
+    private javax.swing.JButton bResetar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jDia;
     private javax.swing.JLabel jDuracao;
@@ -511,6 +580,7 @@ public class JanelaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jMinuto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -523,6 +593,7 @@ public class JanelaProduto extends javax.swing.JFrame {
     private javax.swing.JTextField tHora;
     private javax.swing.JTextField tMinuto;
     private javax.swing.JTextField tPreco;
+    private javax.swing.JTextField tProcurar;
     private javax.swing.JTextField tSegundos;
     private javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables

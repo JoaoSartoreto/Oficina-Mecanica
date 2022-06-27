@@ -144,7 +144,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoProdutosActionPerformed
 
     private void botaoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOSActionPerformed
-        // TODO add your handling code here:
+        new JanelaOS(listaOS);
     }//GEN-LAST:event_botaoOSActionPerformed
 
     private void botaoTotalPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTotalPeriodoActionPerformed

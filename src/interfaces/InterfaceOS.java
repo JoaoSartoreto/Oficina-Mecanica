@@ -189,7 +189,7 @@ public class InterfaceOS {
     Exibe um diálogo para receber o número da OS e buscar por ela.
     Caso a operação não seja cancelada e a OS exista ela é devolvida.
     Se a OS não for encontrada é exibida uma mensagem de erro.
-    */
+    *//*
     public static OrdemServico exibirSelecionarOS(String titulo)
     {    
         String numero;
@@ -201,7 +201,7 @@ public class InterfaceOS {
         ordemServico = Oficina.buscarOS(Integer.parseInt(numero));
         if (ordemServico == null) Interface.exibirMensagem(titulo, "OS não encontrada");
         return ordemServico;
-    }
+    }*/
     
     /*
     Exibe a seleção de OS e um diálogo para selecionar a peça pelo seu código.
@@ -209,7 +209,7 @@ public class InterfaceOS {
     é exibida uma mensagem informando o erro.
     Se em nenhum momento alguma inserção for cancelada e não ocorrer nenhum erro a peça é adicionada à OS
     e o êxito é informado por uma mensagem.
-    */
+    *//*
     public static void exibirAdicionarPeca() {   
         String titulo = "Adicionar Peça à OS";
         
@@ -239,14 +239,14 @@ public class InterfaceOS {
         }
 
     }
-    
+    */
     /*
     Exibe a seleção de OS e um diálogo para selecionar o serviço pelo seu código.
     Se em algum momento ocorrer algum erro, como tentar adicionar um serviço que não existe,
     é exibida uma mensagem informando o erro.
     Se em nenhum momento alguma inserção for cancelada e não ocorrer nenhum erro o serviço é adicionado à OS
     e o êxito é informado por uma mensagem.
-    */
+    *//*
     public static void exibirAdicionarServico() {   
         String titulo = "Adicionar Serviço à OS";
         
@@ -275,14 +275,14 @@ public class InterfaceOS {
             Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
         }
     }
-    
+    */
     /*
     Exibe a seleção de OS e um diálogo para selecionar a peça pelo seu código.
     Se em algum momento ocorrer algum erro, como tentar excluir uma peça que não esteja na OS,
     é exibida uma mensagem informando o erro.
     Se em nenhum momento alguma inserção for cancelada e não ocorrer nenhum erro a peça é excluída da OS
     e o êxito é informado por uma mensagem.
-    */
+    *//*
     public static void exibirExcluirPeca() {   
         String titulo = "Excluir Peça da OS";
         
@@ -303,14 +303,14 @@ public class InterfaceOS {
         }
         
     }
-    
+    */
     /*
     Exibe a seleção de OS e um diálogo para selecionar o serviço pelo seu código.
     Se em algum momento ocorrer algum erro, como tentar excluir um serviço que não exista,
     é exibida uma mensagem informando o erro.
     Se em nenhum momento alguma inserção for cancelada e não ocorrer nenhum erro o serviço é excluído da OS
     e o êxito é informado por uma mensagem.
-    */
+    *//*
     public static void exibirExcluirServico() {   
         String titulo = "Excluir Serviço da OS";
         
@@ -331,11 +331,11 @@ public class InterfaceOS {
         }
         
     }
-    
+    */
     /*
     Exibe a seleção de OS e se ela existir chama seu método consultarTotal() para exibir
     o seu total em uma mensagem.
-    */
+    *//*
     public static void exibirConsultarTotal() {
         
         String titulo = "Consultar Total";
@@ -344,5 +344,5 @@ public class InterfaceOS {
         if (ordemServico == null) return;
         
         Interface.exibirMensagem(titulo, ordemServico.consultarTotal());
-    }
+    }*/
 }

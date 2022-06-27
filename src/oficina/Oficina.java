@@ -58,9 +58,6 @@ public class Oficina {
         }
         for (Peca listaPeca : listaPecas) {
             System.out.println(listaPeca.toString());
-        }
-        for (Servico listaServico : listaServicos) {
-            System.out.println(listaServico.toString());
         }*/
         
         
@@ -78,11 +75,11 @@ public class Oficina {
     Percorre a lista de clientes verificando o CPF dos clientes.
     Se encontrar um cliente com CPF correspondente ele é devolvido, senão é devolvido null.
     */
-    public static Cliente buscarCliente(String cpf) {
+    public static Cliente buscarCliente(String cpf) throws ClienteNaoEncontradoException{
         for (Cliente cliente : listaClientes) 
             if (cliente.getCpf().equals(cpf)) return cliente;
         
-        return null;
+        throw new ClienteNaoEncontradoException();
     }
     
     /*
@@ -104,7 +101,7 @@ public class Oficina {
     /*
     Chama os menus e diálogos relacionadas ao gerenciamento de clientes de acordo com as opções selecionadas.
     Também recebe os resultados desses métodos para manipular os elementos da lista de clientes.
-    */
+    *//*
     private static void gerenciarClientes() {
         int opcao;
 
@@ -122,7 +119,7 @@ public class Oficina {
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
-    
+    */
     /* -- MÉTODOS RELACIONADOS ÀS PEÇAS -- */
     
     public static ArrayList<Peca> getListaPecas() {
@@ -244,12 +241,12 @@ public class Oficina {
     Percorre a lista de OS verificando os números.
     Se encontrar uma OS com número correspondente ela é devolvida, senão é devolvido null.
     */
-    public static OrdemServico buscarOS(int numero) {
+    public static OrdemServico buscarOS(int numero) throws OSNaoEncontradaException{
         for (OrdemServico ordemOS : listaOS)
             if(ordemOS.getNumeroOS() == numero)
                 return ordemOS;
             
-        return null;
+        throw new OSNaoEncontradaException();
     }
     
     /*
@@ -287,8 +284,7 @@ public class Oficina {
     
     /*
     Chama os menus e diálogos relacionadas ao gerenciamento de OS de acordo com as opções selecionadas.
-    Também recebe os resultados desses métodos para manipular os elementos da lista de OS.
-    */
+    Também/*
     private static void gerenciarOS() {
         int opcao;
         
@@ -307,10 +303,11 @@ public class Oficina {
             }
         } while (!(opcao == 0 || opcao == 7)); // Enquanto não fechar a janela ou selecionar a opção 7
     }
-    
+    */
     /* -- MÉTODOS RELACIONADOS AOS ITENS DE OS -- */
     
     /* Chama os menus relacionadas ao gerenciamento de itens de OS de acordo com as opções selecionadas. */
+    /*
     private static void gerenciarItemOS() {   
         int opcao;
         
@@ -326,7 +323,7 @@ public class Oficina {
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
-    
+    */
     /* 
     Fizemos os métodos de adição e exclusão de ItemOS pois o enunciado pede para que Oficina implemente esta funcionalidade, mas 
     deixamos as verificações do lado da OrdemServico para que ela não dependa da Oficina, evitando assim manipulações indevidas.

@@ -8,6 +8,8 @@ import java.awt.List;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
@@ -294,8 +296,13 @@ public class JanelaClientes extends javax.swing.JFrame {
         int linha = tableClientes.getSelectedRow();
         String cpf = String.valueOf(tableClientes.getValueAt(linha, 1));
         
-        Cliente cliente = Oficina.buscarCliente(cpf);
-        new EdicaoCliente(cliente,this);
+        Cliente cliente;
+        try {
+            cliente = Oficina.buscarCliente(cpf);
+            new EdicaoCliente(cliente,this);
+        } catch (ClienteNaoEncontradoException ex) {
+            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        }
     }//GEN-LAST:event_botaoEditarActionPerformed
 
     private void botaoApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoApagarActionPerformed
@@ -313,11 +320,15 @@ public class JanelaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoApagarActionPerformed
 
     private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+        String titulo = "Pesquisa de Cliente";
+        
         String cpf = textLocalizar.getText();
-        Cliente cliente = Oficina.buscarCliente(cpf);
-        if(cliente != null)
-        {
+        Cliente cliente;
+        try {
+            cliente = Oficina.buscarCliente(cpf);
             textClienteEncontrado.setText(cliente.toString());
+        } catch (ClienteNaoEncontradoException ex) {
+            Interface.exibirMensagemErro(titulo, ex.getMessage());
         }
         
         DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
