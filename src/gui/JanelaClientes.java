@@ -1,33 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import classes.Cliente;
-import classes.OrdemServico;
-import classes.Peca;
-import classes.Servico;
 import excecoes.ClienteNaoEncontradoException;
 import excecoes.ClienteReferenciadoException;
 import interfaces.Interface;
+import java.awt.List;
+import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import oficina.Oficina;
 
-/**
- *
- * @author joovitor
- */
 public class JanelaClientes extends javax.swing.JFrame {
 
     private ArrayList<Cliente> listaClientes; 
 
     public JanelaClientes(ArrayList<Cliente> listaClientes) {
         initComponents();
+        
+        ListSelectionModel selectionModel = tableClientes.getSelectionModel();
+        selectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                botaoEditar.setEnabled(true);
+                botaoApagar.setEnabled(true);
+            }
+        });
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableClientes.getModel());
+        tableClientes.setRowSorter(sorter);
+        
+        ArrayList <RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        
+        for(int i = 0; i < tableClientes.getColumnCount(); i++) {
+            sorter.setSortable(i, false);
+        }
+        
         this.listaClientes = listaClientes;
         this.setLocationRelativeTo(null);
         inserirDadosTabela();
@@ -44,29 +62,29 @@ public class JanelaClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableCliente = new javax.swing.JTable();
+        tableClientes = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        tLocalizarCpf = new javax.swing.JTextField();
-        tClienteEncontrado = new javax.swing.JTextField();
-        bPesquisar = new javax.swing.JButton();
-        bEditar = new javax.swing.JButton();
-        bApagar = new javax.swing.JButton();
+        labelLocalizar = new javax.swing.JLabel();
+        textLocalizar = new javax.swing.JTextField();
+        textClienteEncontrado = new javax.swing.JTextField();
+        botaoPesquisar = new javax.swing.JButton();
+        botaoEditar = new javax.swing.JButton();
+        botaoApagar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        tNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tCpf = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        tEndereco = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        tTelefone = new javax.swing.JTextField();
-        bCadastrar = new javax.swing.JButton();
+        labelNome = new javax.swing.JLabel();
+        textNome = new javax.swing.JTextField();
+        LabelCpf = new javax.swing.JLabel();
+        textCpf = new javax.swing.JTextField();
+        labelEndereco = new javax.swing.JLabel();
+        textEndereco = new javax.swing.JTextField();
+        labelTelefone = new javax.swing.JLabel();
+        textTelefone = new javax.swing.JTextField();
+        botaoCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Clientes");
 
-        tableCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,15 +107,15 @@ public class JanelaClientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tableCliente);
+        tableClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tableClientes);
 
-        jLabel1.setText("Localizar por CPF:");
+        labelLocalizar.setText("Localizar por CPF:");
 
-        bPesquisar.setText("Pesquisar");
-        bPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        botaoPesquisar.setText("Pesquisar");
+        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bPesquisarActionPerformed(evt);
+                botaoPesquisarActionPerformed(evt);
             }
         });
 
@@ -109,12 +127,12 @@ public class JanelaClientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelLocalizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tLocalizarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bPesquisar))
-                    .addComponent(tClienteEncontrado, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
+                        .addComponent(botaoPesquisar))
+                    .addComponent(textClienteEncontrado, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
                 .addGap(117, 117, 117))
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,42 +140,44 @@ public class JanelaClientes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tLocalizarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bPesquisar))
+                    .addComponent(labelLocalizar)
+                    .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tClienteEncontrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textClienteEncontrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bEditar.setText("Editar");
-        bEditar.addActionListener(new java.awt.event.ActionListener() {
+        botaoEditar.setText("Editar");
+        botaoEditar.setEnabled(false);
+        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bEditarActionPerformed(evt);
+                botaoEditarActionPerformed(evt);
             }
         });
 
-        bApagar.setText("Apagar");
-        bApagar.addActionListener(new java.awt.event.ActionListener() {
+        botaoApagar.setText("Apagar");
+        botaoApagar.setEnabled(false);
+        botaoApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bApagarActionPerformed(evt);
+                botaoApagarActionPerformed(evt);
             }
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar"));
 
-        jLabel2.setText("Nome:");
+        labelNome.setText("Nome:");
 
-        jLabel3.setText("CPF:");
+        LabelCpf.setText("CPF:");
 
-        jLabel4.setText("Endereço:");
+        labelEndereco.setText("Endereço:");
 
-        jLabel5.setText("Telefone:");
+        labelTelefone.setText("Telefone:");
 
-        bCadastrar.setText("Cadastrar");
-        bCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCadastrarActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
@@ -172,22 +192,22 @@ public class JanelaClientes extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                    .addComponent(LabelCpf)
+                                    .addComponent(labelNome))
                                 .addGap(23, 23, 23))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
+                                    .addComponent(labelEndereco)
+                                    .addComponent(labelTelefone))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tCpf)
-                            .addComponent(tNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tTelefone)
-                            .addComponent(tEndereco, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(textCpf)
+                            .addComponent(textNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textTelefone)
+                            .addComponent(textEndereco, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bCadastrar)))
+                        .addComponent(botaoCadastrar)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -195,22 +215,22 @@ public class JanelaClientes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNome)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelCpf)
+                    .addComponent(textCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(textEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEndereco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(textTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bCadastrar)
+                .addComponent(botaoCadastrar)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -226,8 +246,8 @@ public class JanelaClientes extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bEditar)
-                            .addComponent(bApagar))
+                            .addComponent(botaoEditar)
+                            .addComponent(botaoApagar))
                         .addGap(36, 36, 36))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -241,9 +261,9 @@ public class JanelaClientes extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(bEditar)
+                        .addComponent(botaoEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bApagar)))
+                        .addComponent(botaoApagar)))
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -254,32 +274,34 @@ public class JanelaClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         
-        String nome = tNome.getText();
-        String cpf = tCpf.getText();
-        String endereco = tEndereco.getText();
-        String telefone = tTelefone.getText();
+        String nome = textNome.getText();
+        String cpf = textCpf.getText();
+        String endereco = textEndereco.getText();
+        String telefone = textTelefone.getText();
         
         Cliente cliente = new Cliente(nome, cpf, endereco, nome);
         listaClientes.add(cliente);
-        inserirDadosTabela();
-        
-    }//GEN-LAST:event_bCadastrarActionPerformed
+        // inserirDadosTabela();
+        Object [] dado = {nome,cpf,endereco,telefone};
+        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
+        tabela.addRow(dado);
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
-    private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
+    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
         String titulo = "Editar Cliente";
-        int linha = tableCliente.getSelectedRow();
-        String cpf = String.valueOf(tableCliente.getValueAt(linha, 1));
+        int linha = tableClientes.getSelectedRow();
+        String cpf = String.valueOf(tableClientes.getValueAt(linha, 1));
         
         Cliente cliente = Oficina.buscarCliente(cpf);
         new EdicaoCliente(cliente,this);
-    }//GEN-LAST:event_bEditarActionPerformed
+    }//GEN-LAST:event_botaoEditarActionPerformed
 
-    private void bApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bApagarActionPerformed
+    private void botaoApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoApagarActionPerformed
         String titulo = "Excluir Cliente";
-        int linha = tableCliente.getSelectedRow();
-        String cpf = String.valueOf(tableCliente.getValueAt(linha, 1));
+        int linha = tableClientes.getSelectedRow();
+        String cpf = String.valueOf(tableClientes.getValueAt(linha, 1));
         
         try {
                 Oficina.excluirCliente(cpf);
@@ -288,21 +310,30 @@ public class JanelaClientes extends javax.swing.JFrame {
             } catch(ClienteNaoEncontradoException | ClienteReferenciadoException e){
                 JOptionPane.showMessageDialog(null, "Cliente não encontrado para exclusão");
             }
-    }//GEN-LAST:event_bApagarActionPerformed
+    }//GEN-LAST:event_botaoApagarActionPerformed
 
-    private void bPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPesquisarActionPerformed
-        String cpf = tLocalizarCpf.getText();
+    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+        String cpf = textLocalizar.getText();
         Cliente cliente = Oficina.buscarCliente(cpf);
         if(cliente != null)
         {
-            tClienteEncontrado.setText(cliente.toString());
+            textClienteEncontrado.setText(cliente.toString());
         }
-    }//GEN-LAST:event_bPesquisarActionPerformed
+        
+        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
+        
+        for(int i = 0; i < tabela.getRowCount(); i++){
+            if(tabela.getValueAt(i, 1).equals(cpf)){
+                tableClientes.setRowSelectionInterval(i, i);
+                tableClientes.scrollRectToVisible(new Rectangle(tableClientes.getCellRect(i, 0, true)));
+            }
+        }
+    }//GEN-LAST:event_botaoPesquisarActionPerformed
 
     
     public void inserirDadosTabela()
     {
-        DefaultTableModel tabela = (DefaultTableModel)this.tableCliente.getModel();
+        DefaultTableModel tabela = (DefaultTableModel)this.tableClientes.getModel();
         
         while(tabela.getRowCount() > 0)
         {
@@ -327,24 +358,24 @@ public class JanelaClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bApagar;
-    private javax.swing.JButton bCadastrar;
-    private javax.swing.JButton bEditar;
-    private javax.swing.JButton bPesquisar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel LabelCpf;
+    private javax.swing.JButton botaoApagar;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoEditar;
+    private javax.swing.JButton botaoPesquisar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField tClienteEncontrado;
-    private javax.swing.JTextField tCpf;
-    private javax.swing.JTextField tEndereco;
-    private javax.swing.JTextField tLocalizarCpf;
-    private javax.swing.JTextField tNome;
-    private javax.swing.JTextField tTelefone;
-    private javax.swing.JTable tableCliente;
+    private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelLocalizar;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTable tableClientes;
+    private javax.swing.JTextField textClienteEncontrado;
+    private javax.swing.JTextField textCpf;
+    private javax.swing.JTextField textEndereco;
+    private javax.swing.JTextField textLocalizar;
+    private javax.swing.JTextField textNome;
+    private javax.swing.JTextField textTelefone;
     // End of variables declaration//GEN-END:variables
 }
