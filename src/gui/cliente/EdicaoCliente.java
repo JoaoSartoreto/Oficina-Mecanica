@@ -121,7 +121,8 @@ public class EdicaoCliente extends javax.swing.JFrame {
             cliente.setEndereco(endereco);
             cliente.setFone(telefone);
 
-            janelaClientes.atualizarDadosTabela();
+            janelaClientes.atualizarTabela();
+            Mensagem.exibirMensagem(titulo, "Atualização bem sucedida!");
             dispose();
         }catch (CampoVazioException e) {
             Mensagem.exibirMensagemErro(titulo, e.getMessage());

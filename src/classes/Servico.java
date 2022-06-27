@@ -1,5 +1,6 @@
 package classes;
 
+import excecoes.CampoVazioException;
 import excecoes.produto.PrecoInvalidoException;
 import java.text.DecimalFormat;
 import java.time.Duration;
@@ -7,7 +8,7 @@ import java.time.Duration;
 public class Servico extends Produto{
     private Duration tempoExecucao;
     
-    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) throws PrecoInvalidoException{
+    public Servico(String descricao, double preco, int diasExecucao, int horasExecucao, int minutosExecucao, int segundosExecucao) throws PrecoInvalidoException, CampoVazioException{
         super(descricao, preco);
         setTempoExecucao(diasExecucao, horasExecucao, minutosExecucao, segundosExecucao);
     }

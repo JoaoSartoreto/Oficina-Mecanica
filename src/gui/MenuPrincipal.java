@@ -1,5 +1,6 @@
 package gui;
 
+import gui.produto.JanelaProdutos;
 import gui.cliente.JanelaClientes;
 import classes.Cliente;
 import classes.OrdemServico;
@@ -133,7 +134,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoClientesActionPerformed
 
     private void botaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProdutosActionPerformed
-        new JanelaProduto(listaPecas, listaServicos);
+        new JanelaProdutos(listaPecas, listaServicos);
     }//GEN-LAST:event_botaoProdutosActionPerformed
 
     private void botaoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOSActionPerformed

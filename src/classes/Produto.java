@@ -1,5 +1,6 @@
 package classes;
 
+import excecoes.CampoVazioException;
 import excecoes.produto.PrecoInvalidoException;
 import java.io.Serializable;
 import java.text.NumberFormat;
@@ -9,14 +10,14 @@ public abstract class Produto implements Serializable, Comparable {
     private int codigo;
     private String descricao;
     private double preco;
-    protected static int indice;
+    protected static int qtdProdutos;
 
-    public Produto(String descricao, double preco) throws PrecoInvalidoException {
+    public Produto(String descricao, double preco) throws PrecoInvalidoException, CampoVazioException {
         if (preco < 0) throw new PrecoInvalidoException();
         
-        indice++;
-        this.codigo = indice;
-        this.descricao = descricao;
+        setDescricao(descricao);
+        qtdProdutos++;
+        this.codigo = qtdProdutos;
         this.preco = preco;
     }
     
@@ -36,7 +37,8 @@ public abstract class Produto implements Serializable, Comparable {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao) throws CampoVazioException {
+        if (descricao == null || descricao.isBlank()) throw new CampoVazioException("Descrição");
         this.descricao = descricao;
     }
     

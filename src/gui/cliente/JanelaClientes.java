@@ -32,7 +32,7 @@ public class JanelaClientes extends javax.swing.JFrame {
          
         this.listaClientes = listaClientes;
         this.setLocationRelativeTo(null);
-        atualizarDadosTabela();
+        atualizarTabela();
         this.setVisible(true);
     }
 
@@ -50,7 +50,7 @@ public class JanelaClientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelLocalizar = new javax.swing.JLabel();
         textLocalizar = new javax.swing.JTextField();
-        botaoPesquisar = new javax.swing.JButton();
+        botaoLocalizar = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
         botaoApagar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -95,10 +95,10 @@ public class JanelaClientes extends javax.swing.JFrame {
 
         labelLocalizar.setText("Localizar por CPF:");
 
-        botaoPesquisar.setText("Pesquisar");
-        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        botaoLocalizar.setText("Localizar");
+        botaoLocalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisarActionPerformed(evt);
+                botaoLocalizarActionPerformed(evt);
             }
         });
 
@@ -112,7 +112,7 @@ public class JanelaClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textLocalizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoPesquisar)
+                .addComponent(botaoLocalizar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,7 +122,7 @@ public class JanelaClientes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelLocalizar)
                     .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoPesquisar))
+                    .addComponent(botaoLocalizar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -263,7 +263,7 @@ public class JanelaClientes extends javax.swing.JFrame {
             new EdicaoCliente(cliente, this);
         } catch (ClienteNaoEncontradoException ex) {
             Mensagem.exibirMensagemErro(titulo, ex.getMessage());
-            atualizarDadosTabela();
+            atualizarTabela();
         }
     }//GEN-LAST:event_botaoEditarActionPerformed
 
@@ -284,8 +284,8 @@ public class JanelaClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoApagarActionPerformed
 
-    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
-        String titulo = "Pesquisa de Cliente";
+    private void botaoLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLocalizarActionPerformed
+        String titulo = "Localizar Cliente";
         String cpf = textLocalizar.getText();
         boolean encontrado = false;
            
@@ -300,7 +300,7 @@ public class JanelaClientes extends javax.swing.JFrame {
         if (!encontrado) {
             Mensagem.exibirMensagemErro(titulo, new ClienteNaoEncontradoException().getMessage());
         }
-    }//GEN-LAST:event_botaoPesquisarActionPerformed
+    }//GEN-LAST:event_botaoLocalizarActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         String titulo = "Cadastrar Cliente";
@@ -316,11 +316,11 @@ public class JanelaClientes extends javax.swing.JFrame {
             Mensagem.exibirMensagemErro(titulo, e.getMessage());
         }
 
-        atualizarDadosTabela();
+        atualizarTabela();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     
-    public void atualizarDadosTabela()
+    public void atualizarTabela()
     {
         DefaultTableModel tableModel = (DefaultTableModel)tableClientes.getModel();
         tableModel.setRowCount(0);
@@ -347,7 +347,7 @@ public class JanelaClientes extends javax.swing.JFrame {
     private javax.swing.JButton botaoApagar;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoEditar;
-    private javax.swing.JButton botaoPesquisar;
+    private javax.swing.JButton botaoLocalizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

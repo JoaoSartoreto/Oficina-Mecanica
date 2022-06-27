@@ -1,5 +1,6 @@
 package classes;
 
+import excecoes.CampoVazioException;
 import excecoes.produto.peca.EstoqueInsuficienteException;
 import excecoes.produto.PrecoInvalidoException;
 import excecoes.produto.peca.QuantidadeEstoqueInvalidaException;
@@ -8,10 +9,10 @@ import excecoes.QuantidadeInvalidaException;
 public class Peca extends Produto{
     private int qtdeEstoque;
     
-    public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeEstoqueInvalidaException {
+    public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeEstoqueInvalidaException, CampoVazioException {
         super(descricao, preco);
         if (qtdeEstoque < 0) {
-            Produto.indice--;
+            Produto.qtdProdutos--;
             throw new QuantidadeEstoqueInvalidaException();
         }
         this.qtdeEstoque = qtdeEstoque;
