@@ -64,7 +64,7 @@ public class InterfaceServicos {
     Utiliza um diálogo de entrada para receber o código do serviço e busca o serviço pelo código.
     Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
     (não for null) ele é exibido, senão é informado que o serviço não foi encontrado.
-    */
+    *//*
     public static void exibirConsultarServico() {
         String titulo = "Consultar por Código";
         String codigo;
@@ -83,7 +83,7 @@ public class InterfaceServicos {
                 Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada");
             }
         }
-    }
+    }*/
     
     /* 
     Utiliza um diálogo de entrada para receber o código do serviço e busca busca o serviço pelo código para excluí-lo.
@@ -112,7 +112,7 @@ public class InterfaceServicos {
     Se o código não for null (operação não ter sido cancelada), é buscado o serviço pelo código e se ele existir
     (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
     e alterar os valores dos atributos do serviço.
-    */
+    *//*
     public static void exibirEditarServico() {
         String titulo = "Editar Serviço";
         String[] opcoes = {"Editar Descrição", "Editar Preço", "Editar Tempo de Execução", "Sair"};
@@ -164,7 +164,7 @@ public class InterfaceServicos {
              }
          }
     }
-
+*/
     /* Percorre a lista de serviços para formar uma String com a lista e a exibe em uma mensagem. */
     public static void exibirListarServicos() {
         ArrayList<Servico> listaServicos = Oficina.getListaServicos();

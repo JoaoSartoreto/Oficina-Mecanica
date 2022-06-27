@@ -59,7 +59,7 @@ public class InterfacePecas {
     Utiliza um diálogo de entrada para receber o código da peça e busca a peça pelo código.
     Se o código não for null (operação não ter sido cancelada), é buscada a peça pelo código e se ela existir
     (não for null) ela é exibida, senão é informado que a peça não foi encontrada.
-    */
+    *//*
     public static void exibirConsultarPeca()
     {
         String titulo = "Consultar por Código";
@@ -78,7 +78,7 @@ public class InterfacePecas {
                 Interface.exibirMensagemErro(titulo, "Ocorreu um erro: " + e + "\nVerifique o formato da entrada"); 
             }
         }
-    }
+    }*/
     
     /* 
     Utiliza um diálogo de entrada para receber o código da peça e busca busca a peça pelo código para excluí-la.
@@ -108,7 +108,7 @@ public class InterfacePecas {
     Se o código não for null (operação não ter sido cancelada), é buscada a peça pelo código e se ela existir
     (não for null) é exibido um menu para editar seus atributos, este menu chama diálogos para receber entrada
     e alterar os valores dos atributos da peça.
-    */
+    *//*
     public static void exibirEditarPeca()
     { 
         String titulo = "Editar Peça";
@@ -150,7 +150,7 @@ public class InterfacePecas {
                 Interface.exibirMensagemErro(titulo, "Peça não encontrada");
             }
         }
-    }
+    }*/
     
     /* Percorre a lista de peças para formar uma String com a lista e a exibe em uma mensagem */
     public static void exibirListarPecas()

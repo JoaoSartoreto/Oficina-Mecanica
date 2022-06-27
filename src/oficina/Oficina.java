@@ -130,11 +130,11 @@ public class Oficina {
     Percorre a lista de peças verificando o código das peças.
     Se encontrar uma peça com código correspondente ela é devolvida, senão é devolvido null.
     */
-    public static Peca buscarPeca(int codPeca) {
+    public static Peca buscarPeca(int codPeca) throws PecaNaoEncontradaException{
         for (Peca peca : listaPecas)
             if(peca.getCodigo() == codPeca) return peca;
 
-        return null;
+        throw new PecaNaoEncontradaException();
     }
     
     /*
@@ -156,7 +156,7 @@ public class Oficina {
     /*
     Chama os menus e diálogos relacionadas ao gerenciamento de peças de acordo com as opções selecionadas.
     Também recebe os resultados desses métodos para manipular os elementos da lista de peças.
-    */
+    *//*
     public static void gerenciarPecas() {
         int opcao;
         
@@ -174,7 +174,7 @@ public class Oficina {
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
     }
-    
+    */
     /* -- MÉTODOS RELACIONADOS AOS SERVIÇOS -- */
     
     public static ArrayList<Servico> getListaServicos() {
@@ -185,12 +185,12 @@ public class Oficina {
     Percorre a lista de serviços verificando os códigos.
     Se encontrar um serviço com código correspondente ele é devolvido, senão é devolvido null.
     */
-    public static Servico buscarServico(int codServico) {
+    public static Servico buscarServico(int codServico) throws ServicoNaoEncontradoException{
         for (Servico servico : listaServicos)
             if(servico.getCodigo() == codServico)
                 return servico;
             
-        return null;
+        throw new ServicoNaoEncontradoException();
     }
     
     /*
@@ -212,7 +212,7 @@ public class Oficina {
     /*
     Chama os menus e diálogos relacionadas ao gerenciamento de serviços de acordo com as opções selecionadas.
     Também recebe os resultados desses métodos para manipular os elementos da lista de serviços.
-    */
+    *//*
     private static void gerenciarServicos() {
         int opcao;
 
@@ -229,7 +229,7 @@ public class Oficina {
                 case 5 -> InterfaceServicos.exibirListarServicos();
             }
         } while (!(opcao == 0 || opcao == 6)); // Enquanto não fechar a janela ou selecionar a opção 6
-    }
+    }*/
     
     /* -- MÉTODOS RELACIONADOS À OS -- */
     

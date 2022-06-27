@@ -314,8 +314,8 @@ public class JanelaClientes extends javax.swing.JFrame {
                 Oficina.excluirCliente(cpf);
                 inserirDadosTabela();
                 Interface.exibirMensagem(titulo, "Cliente excluído com sucesso");
-            } catch(ClienteNaoEncontradoException | ClienteReferenciadoException e){
-                JOptionPane.showMessageDialog(null, "Cliente não encontrado para exclusão");
+            } catch(ClienteNaoEncontradoException | ClienteReferenciadoException ex){
+                Interface.exibirMensagemErro(titulo, ex.getMessage());
             }
     }//GEN-LAST:event_botaoApagarActionPerformed
 

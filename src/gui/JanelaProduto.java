@@ -335,18 +335,29 @@ public class JanelaProduto extends javax.swing.JFrame {
         String tipo = (String)tabelaProdutos.getValueAt(linha, 0);
         if(tipo == "Peça")
         {
-            Peca peca = Oficina.buscarPeca(codigo);
-            new EdicaoPeca(peca, this);
+            Peca peca;
+            try {
+                peca = Oficina.buscarPeca(codigo);
+                new EdicaoPeca(peca, this);
+            } catch (PecaNaoEncontradaException ex) {
+                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            }
+            
         }
         else if (tipo == "Serviço")
         {
-            Servico servico = Oficina.buscarServico(codigo);
-            new EdicaoServico(servico, this);
+            Servico servico;
+            try {
+                servico = Oficina.buscarServico(codigo);
+                new EdicaoServico(servico, this);
+            } catch (ServicoNaoEncontradoException ex) {
+                Interface.exibirMensagemErro(titulo, ex.getMessage());
+            } 
         }
     }//GEN-LAST:event_bEditarActionPerformed
 
     private void bApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bApagarActionPerformed
-        String titulo = "Excluir Cliente";
+        String titulo = "Excluir Produto";
         int linha = this.tabelaProdutos.getSelectedRow();
         int codigo = Integer.parseInt((String) this.tabelaProdutos.getValueAt(linha, 1));
         

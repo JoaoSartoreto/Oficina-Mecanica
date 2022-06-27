@@ -5,6 +5,7 @@
 package gui;
 
 import classes.OrdemServico;
+import excecoes.OSNaoAbertaException;
 import excecoes.OSNaoEncontradaException;
 import interfaces.Interface;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class JanelaOS extends javax.swing.JFrame {
         bResetar = new javax.swing.JButton();
         bGerenciar = new javax.swing.JButton();
         bAbrirOS = new javax.swing.JButton();
+        bExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,14 +55,14 @@ public class JanelaOS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numero", "Data", "Previsão Termino", "Termino", "Placa", "Situação", "Title 7", "Proprietario"
+                "Numero", "Data", "Previsão Termino", "Termino", "Placa", "Situação", "Preço", "Proprietario"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,6 +105,13 @@ public class JanelaOS extends javax.swing.JFrame {
             }
         });
 
+        bExcluir.setText("Excluir");
+        bExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,6 +130,8 @@ public class JanelaOS extends javax.swing.JFrame {
                         .addComponent(bResetar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bExcluir)
+                        .addGap(18, 18, 18)
                         .addComponent(bGerenciar)
                         .addGap(29, 29, 29)
                         .addComponent(bAbrirOS)))
@@ -140,7 +151,8 @@ public class JanelaOS extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bGerenciar)
-                    .addComponent(bAbrirOS))
+                    .addComponent(bAbrirOS)
+                    .addComponent(bExcluir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -156,12 +168,36 @@ public class JanelaOS extends javax.swing.JFrame {
     }//GEN-LAST:event_bResetarActionPerformed
 
     private void bGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGerenciarActionPerformed
-        // TODO add your handling code here:
+        String titulo = "OS não encontrada";
+        
+        int linha = tabelaOS.getSelectedRow();
+        int numOS = Integer.parseInt((String) tabelaOS.getValueAt(linha, 0));
+        try
+        {
+            OrdemServico os = Oficina.buscarOS(numOS);
+            new JanelaGerenciarOS(os,this);
+        }catch(OSNaoEncontradaException ex){
+            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        }
     }//GEN-LAST:event_bGerenciarActionPerformed
 
     private void bAbrirOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAbrirOSActionPerformed
         new JanelaAbrirOS(ordensServico, this);
     }//GEN-LAST:event_bAbrirOSActionPerformed
+
+    private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
+        String titulo = "OS não encontrada";
+        
+        int linha = tabelaOS.getSelectedRow();
+        int numOS = Integer.parseInt((String) tabelaOS.getValueAt(linha, 0));
+        try
+        {
+            Oficina.excluirOS(numOS);
+            atualizarTabela();
+        }catch(OSNaoAbertaException | OSNaoEncontradaException ex){
+            Interface.exibirMensagemErro(titulo, ex.getMessage());
+        }
+    }//GEN-LAST:event_bExcluirActionPerformed
 
     public void atualizarTabela()
     {
@@ -267,6 +303,7 @@ public class JanelaOS extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAbrirOS;
+    private javax.swing.JButton bExcluir;
     private javax.swing.JButton bGerenciar;
     private javax.swing.JButton bProcurar;
     private javax.swing.JButton bResetar;

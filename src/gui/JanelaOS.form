@@ -38,6 +38,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="bExcluir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bGerenciar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="bAbrirOS" min="-2" max="-2" attributes="0"/>
@@ -63,6 +65,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bGerenciar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bAbrirOS" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -87,7 +90,7 @@
                 <Column editable="false" title="Termino" type="java.lang.String"/>
                 <Column editable="false" title="Placa" type="java.lang.String"/>
                 <Column editable="false" title="Situa&#xe7;&#xe3;o" type="java.lang.String"/>
-                <Column editable="true" title="Title 7" type="java.lang.String"/>
+                <Column editable="false" title="Pre&#xe7;o" type="java.lang.String"/>
                 <Column editable="false" title="Proprietario" type="java.lang.String"/>
               </Table>
             </Property>
@@ -132,6 +135,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAbrirOSActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bExcluir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bExcluirActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
