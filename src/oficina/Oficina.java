@@ -16,6 +16,7 @@ import excecoes.os.OSNaoEncontradaException;
 import excecoes.produto.peca.PecaNaoEncontradaException;
 import excecoes.produto.peca.PecaReferenciadaException;
 import excecoes.QuantidadeInvalidaException;
+import excecoes.cliente.CpfCadastradoException;
 import excecoes.itemos.RemoverItemOSNaoAbertaException;
 import excecoes.produto.servico.ServicoNaoEncontradoException;
 import excecoes.produto.servico.ServicoReferenciadoException;
@@ -53,6 +54,19 @@ public class Oficina {
     
     public static ArrayList<Cliente> getListaClientes() {
         return listaClientes;
+    }
+    
+    public static void cadastrarCliente(Cliente cliente) throws CpfCadastradoException {
+        boolean cpfCadastrado = false;
+                
+        for (Cliente clienteLista : listaClientes) 
+            if (clienteLista.getCpf().equals(cliente.getCpf())) cpfCadastrado = true;
+        
+        if(!cpfCadastrado) {
+            listaClientes.add(cliente);
+        }else {
+            throw new CpfCadastradoException();
+        }
     }
     
     /* 

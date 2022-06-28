@@ -4,10 +4,13 @@ import classes.Cliente;
 import excecoes.CampoVazioException;
 import excecoes.cliente.ClienteNaoEncontradoException;
 import excecoes.cliente.ClienteReferenciadoException;
+import excecoes.cliente.CpfCadastradoException;
 import gui.Mensagem;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -309,17 +312,11 @@ public class JanelaClientes extends javax.swing.JFrame {
         String telefone = textTelefone.getText();
         
         try {
-            if(Oficina.buscarCliente(cpf) != null) {
-                Mensagem.exibirMensagemErro(titulo, "Este CPF já está cadastrado");
-            }else {
-                try {
-                    Cliente cliente = new Cliente(nome, cpf, endereco, telefone);
-                    listaClientes.add(cliente);
-                } catch(CampoVazioException e) {
-                    Mensagem.exibirMensagemErro(titulo, e.getMessage());
-                }
-            }
-        } catch (ClienteNaoEncontradoException ex) {}
+            Cliente cliente = new Cliente(nome, cpf, endereco, telefone);
+            Oficina.cadastrarCliente(cliente);
+        } catch(CampoVazioException | CpfCadastradoException e) {
+            Mensagem.exibirMensagemErro(titulo, e.getMessage());
+        }
 
         atualizarTabela();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
