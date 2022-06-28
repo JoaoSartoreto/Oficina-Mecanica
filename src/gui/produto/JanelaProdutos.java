@@ -4,7 +4,6 @@ import classes.Peca;
 import classes.Produto;
 import classes.Servico;
 import excecoes.CampoVazioException;
-import excecoes.cliente.ClienteNaoEncontradoException;
 import excecoes.produto.peca.PecaNaoEncontradaException;
 import excecoes.produto.peca.PecaReferenciadaException;
 import excecoes.produto.PrecoInvalidoException;
@@ -16,8 +15,6 @@ import gui.Mensagem;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -63,7 +60,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
         tableProdutos = new javax.swing.JTable();
         botaoEditar = new javax.swing.JButton();
         botaoApagar = new javax.swing.JButton();
-        botaoProcurar = new javax.swing.JButton();
+        botaoLocalizar = new javax.swing.JButton();
         panelCadastrarProduto = new javax.swing.JPanel();
         labelTipo = new javax.swing.JLabel();
         labelDescricao = new javax.swing.JLabel();
@@ -134,10 +131,10 @@ public class JanelaProdutos extends javax.swing.JFrame {
             }
         });
 
-        botaoProcurar.setText("Localizar");
-        botaoProcurar.addActionListener(new java.awt.event.ActionListener() {
+        botaoLocalizar.setText("Localizar");
+        botaoLocalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoProcurarActionPerformed(evt);
+                botaoLocalizarActionPerformed(evt);
             }
         });
 
@@ -284,7 +281,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textLocalizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoProcurar))
+                        .addComponent(botaoLocalizar))
                     .addComponent(tabelaScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -300,7 +297,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDescricaoLocalizar)
                     .addComponent(textLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoProcurar))
+                    .addComponent(botaoLocalizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -359,7 +356,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
                 else if(this.tableProdutos.getValueAt(linha, 0) == "Serviço")
                 {
                     Oficina.excluirServico(codigo);
-                    Mensagem.exibirMensagem(titulo, "Serviço excluído com sucesso");
+                    Mensagem.exibirMensagem(titulo, "Serviço excluído com sucesso!");
                 }
                 this.atualizarTabela();
                 botaoEditar.setEnabled(false);
@@ -370,7 +367,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botaoApagarActionPerformed
 
-    private void botaoProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProcurarActionPerformed
+    private void botaoLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLocalizarActionPerformed
         String titulo = "Localizar Produto";
         String descricao = textLocalizar.getText();
         boolean encontrado = false;
@@ -386,7 +383,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
         if (!encontrado) {
             Mensagem.exibirMensagemErro(titulo, new ProdutoNaoEncontradoException().getMessage());
         }
-    }//GEN-LAST:event_botaoProcurarActionPerformed
+    }//GEN-LAST:event_botaoLocalizarActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         String titulo = "Cadastro de Produto";
@@ -477,9 +474,9 @@ public class JanelaProdutos extends javax.swing.JFrame {
     {
         produtos.clear();
         recuperarProdutos(pecas, servicos);
-        DefaultTableModel tabela = (DefaultTableModel)this.tableProdutos.getModel();
         
-        tabela.setRowCount(0);
+        DefaultTableModel tableModel = (DefaultTableModel)this.tableProdutos.getModel();
+        tableModel.setRowCount(0);
         
         String tipo;
         String codigo;
@@ -499,7 +496,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
                 qtdEstoque = String.valueOf(((Peca) produto).getQtdeEstoque());
                 
                 Object [] dado = {tipo,codigo,descricao,preco,qtdEstoque,tempoDuracao};
-                tabela.addRow(dado);
+                tableModel.addRow(dado);
             }
             else if(produto instanceof Servico)
             {
@@ -507,7 +504,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
                 tempoDuracao = ((Servico)produto).getTempoExecucaoString();
                 
                 Object [] dado = {tipo,codigo,descricao,preco,qtdEstoque,tempoDuracao};
-                tabela.addRow(dado);
+                tableModel.addRow(dado);
             }
         }
     }
@@ -516,7 +513,7 @@ public class JanelaProdutos extends javax.swing.JFrame {
     private javax.swing.JButton botaoApagar;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoEditar;
-    private javax.swing.JButton botaoProcurar;
+    private javax.swing.JButton botaoLocalizar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelDescricaoLocalizar;

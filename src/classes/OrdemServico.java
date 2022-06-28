@@ -1,5 +1,6 @@
 package classes;
 
+import excecoes.CampoVazioException;
 import excecoes.itemos.AdicionarItemOSNaoAbertaException;
 import excecoes.DataInvalidaException;
 import excecoes.os.OSNaoAbertaException;
@@ -12,11 +13,11 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.Locale;
+import oficina.Oficina;
 
 public class OrdemServico implements Serializable{
-    private static int qtde;
-    
     private int numeroOS;
     private LocalDate dataOS;
     private LocalDate dataPrevTermino;
@@ -26,18 +27,19 @@ public class OrdemServico implements Serializable{
     private ArrayList<ItemOS> itensOS;
     private Cliente cliente;
 
-    public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) throws DataInvalidaException {
+    public OrdemServico(String dataPrevTermino, String placaCarro, Cliente cliente) throws DataInvalidaException, CampoVazioException {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate parsedDataPrevTermino = LocalDate.parse(dataPrevTermino, formato);
         LocalDate now = LocalDate.now();
         if(parsedDataPrevTermino.isBefore(now)) throw new DataInvalidaException();
         
-        OrdemServico.qtde++;
-        this.numeroOS = OrdemServico.qtde;
+        setPlacaCarro(placaCarro);
+        
+        Oficina.contadorOS++;
+        this.numeroOS = Oficina.contadorOS;
         this.dataOS = now;
         this.dataPrevTermino = parsedDataPrevTermino;
         
-        this.placaCarro = placaCarro;
         this.situacao = 'A';
         this.itensOS = new ArrayList<>();
         this.cliente = cliente;
@@ -74,12 +76,13 @@ public class OrdemServico implements Serializable{
         return placaCarro;
     }
 
-    public void setPlacaCarro(String placaCarro) {
+    public void setPlacaCarro(String placaCarro) throws CampoVazioException {
+        if (placaCarro == null || placaCarro.isBlank()) throw new CampoVazioException("Placa do Veículo");
         this.placaCarro = placaCarro;
     }
 
     /* situacao */
-    public char getSituação() {
+    public char getSituacao() {
         return situacao;
     }
 
@@ -144,16 +147,17 @@ public class OrdemServico implements Serializable{
     public void removerItemOSPeca(int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException {      
         boolean removido = false;
         if (situacao == 'A') {
-            for (ItemOS itemOS : itensOS) 
-                if (itemOS.getTipo() == 'P' && itemOS.getProduto().getCodigo()== codigo) {
+            Iterator<ItemOS> iterator = itensOS.iterator();
+            while(iterator.hasNext()) {
+                ItemOS itemOS = iterator.next();
+                if (itemOS.getTipo() == 'P' && itemOS.getProduto().getCodigo() == codigo) {
                     itemOS.devolver();
-                    itensOS.remove(itemOS);
+                    iterator.remove();
                     removido = true;
                 }
-            
-            if (!removido) {
-                throw new ItemNaoEncontradoException();
             }
+            
+            if (!removido) throw new ItemNaoEncontradoException();
         }
         else
         {
@@ -167,14 +171,9 @@ public class OrdemServico implements Serializable{
     Se houver algum problema é lançada uma exceção correspondente.
     */
     public void removerItemOSServico(int codigo) throws RemoverItemOSNaoAbertaException, ItemNaoEncontradoException {
-        boolean removido = false;
+        boolean removido;
         if (situacao == 'A') {
-            for (ItemOS itemOS : itensOS) 
-                if (itemOS.getTipo() == 'S' && itemOS.getProduto().getCodigo()== codigo) {
-                    itensOS.remove(itemOS);
-                    removido = true;
-                }
-            
+            removido = itensOS.removeIf((ItemOS itemOS) -> itemOS.getTipo() == 'S' && itemOS.getProduto().getCodigo() == codigo);
             if (!removido) throw new ItemNaoEncontradoException();
         }
         else {

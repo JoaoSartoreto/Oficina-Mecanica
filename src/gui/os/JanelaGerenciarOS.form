@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Gerenciar OS - Controle de Oficina"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="panelBotoes" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelNumero" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelData" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelPrevisaoTermino" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelPlacaVeiculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDataTermino" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSituacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelValor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelProprietario" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="textProprietario" pref="230" max="32767" attributes="0"/>
+                          <Component id="textPrevisaoTermino" alignment="1" max="32767" attributes="0"/>
+                          <Component id="textDataTermino" alignment="1" max="32767" attributes="0"/>
+                          <Component id="textPlacaVeiculo" alignment="1" max="32767" attributes="0"/>
+                          <Component id="textData" max="32767" attributes="0"/>
+                          <Component id="textNumero" max="32767" attributes="0"/>
+                          <Component id="textSituacao" max="32767" attributes="0"/>
+                          <Component id="textValor" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelData" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textData" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelPrevisaoTermino" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textPrevisaoTermino" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textDataTermino" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelDataTermino" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textPlacaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelPlacaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelValor" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelProprietario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textProprietario" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelBotoes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="labelNumero">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="N&#xfa;mero:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelData">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelPrevisaoTermino">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Previs&#xe3;o de T&#xe9;rmino:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelDataTermino">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data de T&#xe9;rmino:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelPlacaVeiculo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Placa do Ve&#xed;culo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSituacao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelValor">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valor:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textValor">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textNumero">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textData">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textPrevisaoTermino">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textDataTermino">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textPlacaVeiculo">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textSituacao">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelProprietario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Proprietario:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textProprietario">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="panelBotoes">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="botaoFinalizar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Finalizar OS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoFinalizarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoCancelar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" Cancelar OS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botaoItens">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Itens"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoItensActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

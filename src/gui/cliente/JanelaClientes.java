@@ -274,9 +274,8 @@ public class JanelaClientes extends javax.swing.JFrame {
         
         try {
             Oficina.excluirCliente(cpf);
-            DefaultTableModel tableModel = (DefaultTableModel)tableClientes.getModel();
-            tableModel.removeRow(linha);
-            Mensagem.exibirMensagem(titulo, "Cliente excluído com sucesso");
+            atualizarTabela();
+            Mensagem.exibirMensagem(titulo, "Cliente excluído com sucesso!");
             botaoEditar.setEnabled(false);
             botaoApagar.setEnabled(false);
         } catch(ClienteNaoEncontradoException | ClienteReferenciadoException ex){
@@ -308,13 +307,19 @@ public class JanelaClientes extends javax.swing.JFrame {
         String cpf = textCpf.getText();
         String endereco = textEndereco.getText();
         String telefone = textTelefone.getText();
-
+        
         try {
-            Cliente cliente = new Cliente(nome, cpf, endereco, telefone);
-            listaClientes.add(cliente);
-        } catch(CampoVazioException e) {
-            Mensagem.exibirMensagemErro(titulo, e.getMessage());
-        }
+            if(Oficina.buscarCliente(cpf) != null) {
+                Mensagem.exibirMensagemErro(titulo, "Este CPF já está cadastrado");
+            }else {
+                try {
+                    Cliente cliente = new Cliente(nome, cpf, endereco, telefone);
+                    listaClientes.add(cliente);
+                } catch(CampoVazioException e) {
+                    Mensagem.exibirMensagemErro(titulo, e.getMessage());
+                }
+            }
+        } catch (ClienteNaoEncontradoException ex) {}
 
         atualizarTabela();
     }//GEN-LAST:event_botaoCadastrarActionPerformed

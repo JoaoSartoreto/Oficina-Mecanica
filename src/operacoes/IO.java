@@ -27,6 +27,48 @@ public class IO {
     
     //GRAVAÇÃO DOS DADOS
     
+    public static void gravarContadorOS(int contadorOS) {
+        String arquivo = "/contadorOS.txt";
+        File diretorio = verificarDiretorio();
+        
+        ObjectOutputStream file = null;
+        
+        try
+        {
+            file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
+            file.writeObject(contadorOS);
+            System.out.println("Contador de OS gravado com sucesso!");
+        } catch (IOException ex) {
+        }finally{
+            try
+            {
+                file.close();
+            }catch(IOException | NullPointerException ex){               
+            }
+        }
+    }
+    
+    public static void gravarContadorProdutos(int contadorProdutos) {
+        String arquivo = "/contadorProdutos.txt";
+        File diretorio = verificarDiretorio();
+        
+        ObjectOutputStream file = null;
+        
+        try
+        {
+            file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
+            file.writeObject(contadorProdutos);
+            System.out.println("Contador de produtos gravado com sucesso!");
+        } catch (IOException ex) {
+        }finally{
+            try
+            {
+                file.close();
+            }catch(IOException | NullPointerException ex){               
+            }
+        }
+    }
+    
     public static void gravarClientes(ArrayList<Cliente> clientes)
     {
         String arquivo = "/clientes.txt";
@@ -38,7 +80,7 @@ public class IO {
         {
             file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
             file.writeObject(clientes);
-            System.out.println("Clientes gravados com sucesso");
+            System.out.println("Clientes gravados com sucesso!");
         } catch (IOException ex) {
         }finally{
             try
@@ -60,7 +102,7 @@ public class IO {
         {
             file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
             file.writeObject(ordemServico);
-            System.out.println("Ordens de Serviços gravadas com sucesso");
+            System.out.println("Ordens de Serviços gravadas com sucesso!");
         } catch (IOException ex) {
         }finally{
             try
@@ -82,7 +124,7 @@ public class IO {
         {
             file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
             file.writeObject(pecas);
-            System.out.println("Peças gravadas com sucesso");
+            System.out.println("Peças gravadas com sucesso!");
         } catch (IOException ex) {
         }finally{
             try
@@ -104,7 +146,7 @@ public class IO {
         {
             file = new ObjectOutputStream(new FileOutputStream(diretorio+arquivo));
             file.writeObject(servicos);
-            System.out.println("Serviços gravados com sucesso");
+            System.out.println("Serviços gravados com sucesso!");
         } catch (IOException ex) {
         }finally{
             try
@@ -116,6 +158,54 @@ public class IO {
     }
     
     //LEITURA DE DADOS
+    
+    public static int leituraContadorOS()
+    {
+        int contadorOS;
+        
+        String arq = "/contadorOS.txt";
+        File arquivo = new File(verificarDiretorio() + arq);
+        
+        if(!arquivo.exists())
+        {
+            return 0;
+        }
+        
+        ObjectInputStream file = null;
+        try
+        {
+            file = new ObjectInputStream(new FileInputStream(arquivo));
+            contadorOS = (Integer) file.readObject();
+            System.out.println("Contador de OS recuperado com sucesso!");
+        } catch (IOException | ClassNotFoundException ex) {
+            return 0;
+        }
+        return contadorOS;
+    }
+    
+    public static int leituraContadorProdutos()
+    {
+        int contadorProdutos;
+        
+        String arq = "/contadorProdutos.txt";
+        File arquivo = new File(verificarDiretorio() + arq);
+        
+        if(!arquivo.exists())
+        {
+            return 0;
+        }
+        
+        ObjectInputStream file = null;
+        try
+        {
+            file = new ObjectInputStream(new FileInputStream(arquivo));
+            contadorProdutos = (Integer) file.readObject();
+            System.out.println("Contador de produtos recuperado com sucesso!");
+        } catch (IOException | ClassNotFoundException ex) {
+            return 0;
+        }
+        return contadorProdutos;
+    }
     
     public static ArrayList<Cliente> leituraClientes()
     {

@@ -5,6 +5,7 @@ import excecoes.produto.peca.EstoqueInsuficienteException;
 import excecoes.produto.PrecoInvalidoException;
 import excecoes.produto.peca.QuantidadeEstoqueInvalidaException;
 import excecoes.QuantidadeInvalidaException;
+import oficina.Oficina;
 
 public class Peca extends Produto{
     private int qtdeEstoque;
@@ -12,7 +13,7 @@ public class Peca extends Produto{
     public Peca(int qtdeEstoque, String descricao, double preco) throws PrecoInvalidoException, QuantidadeEstoqueInvalidaException, CampoVazioException {
         super(descricao, preco);
         if (qtdeEstoque < 0) {
-            Produto.qtdProdutos--;
+            Oficina.contadorProdutos--;
             throw new QuantidadeEstoqueInvalidaException();
         }
         this.qtdeEstoque = qtdeEstoque;

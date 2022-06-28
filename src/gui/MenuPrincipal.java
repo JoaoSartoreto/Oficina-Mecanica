@@ -1,5 +1,6 @@
 package gui;
 
+import gui.os.JanelaOS;
 import gui.produto.JanelaProdutos;
 import gui.cliente.JanelaClientes;
 import classes.Cliente;
@@ -7,6 +8,7 @@ import classes.OrdemServico;
 import classes.Peca;
 import classes.Servico;
 import java.util.ArrayList;
+import oficina.Oficina;
 import operacoes.IO;
 
 public class MenuPrincipal extends javax.swing.JFrame {
@@ -80,7 +82,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         botaoOS.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        botaoOS.setText("Gerenciar Ordens de Serviço");
+        botaoOS.setText("Gerenciar ordens de serviço");
+        botaoOS.setActionCommand("Gerenciar ordens de serviço");
         botaoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoOSActionPerformed(evt);
@@ -146,18 +149,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoTotalPeriodoActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
-        IO.gravarClientes(listaClientes);
-        IO.gravarOS(listaOS);
-        IO.gravarPecas(listaPecas);
-        IO.gravarServicos(listaServicos);
+        Oficina.gravarDados();
         System.exit(0);
     }//GEN-LAST:event_botaoSairActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        IO.gravarClientes(listaClientes);
-        IO.gravarOS(listaOS);
-        IO.gravarPecas(listaPecas);
-        IO.gravarServicos(listaServicos);
+        Oficina.gravarDados();
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 

@@ -37,7 +37,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="textLocalizar" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoProcurar" min="-2" max="-2" attributes="0"/>
+                      <Component id="botaoLocalizar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="tabelaScrollPane" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
@@ -58,7 +58,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelDescricaoLocalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textLocalizar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoProcurar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoLocalizar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="tabelaScrollPane" pref="304" max="32767" attributes="0"/>
@@ -161,12 +161,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoApagarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botaoProcurar">
+    <Component class="javax.swing.JButton" name="botaoLocalizar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Localizar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoProcurarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoLocalizarActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="panelCadastrarProduto">

@@ -22,14 +22,18 @@ import excecoes.produto.servico.ServicoReferenciadoException;
 import gui.MenuPrincipal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import operacoes.IO;
 
 public class Oficina {
-
+    
     private static ArrayList<Cliente> listaClientes = IO.leituraClientes();
     private static ArrayList<OrdemServico> listaOS = IO.leituraOS();
     private static ArrayList<Peca> listaPecas = IO.leituraPecas();
     private static ArrayList<Servico> listaServicos = IO.leituraServicos();
+    public static int contadorOS = IO.leituraContadorOS(); 
+    public static int contadorProdutos = IO.leituraContadorProdutos();
 
     /* MAIN */
     public static void main(String[] args) {        
@@ -37,7 +41,14 @@ public class Oficina {
     }
 
     /* -- OUTROS MÉTODOS -- */
-    
+    public static void gravarDados() {
+        IO.gravarClientes(listaClientes);
+        IO.gravarOS(listaOS);
+        IO.gravarPecas(listaPecas);
+        IO.gravarServicos(listaServicos);
+        IO.gravarContadorOS(contadorOS);
+        IO.gravarContadorProdutos(contadorProdutos);
+    }
     /* -- MÉTODOS RELACIONADOS AOS CLIENTES -- */
     
     public static ArrayList<Cliente> getListaClientes() {
@@ -67,8 +78,6 @@ public class Oficina {
             if (ordemServico.getCliente() == cliente) throw new ClienteReferenciadoException();
         
         listaClientes.remove(cliente);
-        
-
     }
 
     /* -- MÉTODOS RELACIONADOS ÀS PEÇAS -- */
@@ -225,7 +234,7 @@ public class Oficina {
         double total = 0;
         
         for (OrdemServico ordemServico : listaOS)
-            if(ordemServico.getSituação() == 'F'){
+            if(ordemServico.getSituacao() == 'F'){
                 LocalDate dataTermino = ordemServico.getDataTermino();
                 boolean depoisInicio = dataTermino.isAfter(dataInicio) || dataTermino.equals(dataInicio);
                 boolean antesFinal = dataTermino.isBefore(dataFinal) || dataTermino.equals(dataFinal);
@@ -245,15 +254,11 @@ public class Oficina {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

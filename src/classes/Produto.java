@@ -5,19 +5,19 @@ import excecoes.produto.PrecoInvalidoException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
+import oficina.Oficina;
 
 public abstract class Produto implements Serializable, Comparable {
     private int codigo;
     private String descricao;
     private double preco;
-    protected static int qtdProdutos;
 
     public Produto(String descricao, double preco) throws PrecoInvalidoException, CampoVazioException {
         if (preco < 0) throw new PrecoInvalidoException();
         
         setDescricao(descricao);
-        qtdProdutos++;
-        this.codigo = qtdProdutos;
+        Oficina.contadorProdutos++;
+        this.codigo = Oficina.contadorProdutos;
         this.preco = preco;
     }
     
